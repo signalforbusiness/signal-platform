@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Signal — Customer Intelligence Platform</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400;1,600&family=Onest:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0A1628;--mag:#A02B93;--mag-l:#C94AAD;--cream:#F0EBE1;--cream-d:#E4DDD2;--border:#D4CCC0;--muted:#6a6258;--ink:#0A1628;--white:#FFFFFF;--surface:#1a2235;--surface2:#212d45;--nb:#2a3a55;--td:#8a9ab5}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--cream);color:var(--ink);font-family:'Onest',sans-serif;font-weight:300;line-height:1.7;overflow-x:hidden}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(10,22,40,.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--nb)}
+.nav-inner{max-width:1200px;margin:0 auto;padding:1.25rem 4rem;display:flex;align-items:center;justify-content:space-between}
+.nav-logo{text-decoration:none}
+.nav-wm{font-family:'Onest',sans-serif;font-weight:900;font-size:1.15rem;color:var(--white);letter-spacing:-.04em}
+.nav-wm span{color:var(--mag)}
+.nav-links{display:flex;align-items:center;gap:2rem}
+.nav-link{font-size:.82rem;color:rgba(255,255,255,.5);text-decoration:none;letter-spacing:.04em;transition:color .2s}
+.nav-link:hover{color:var(--white)}
+.nav-cta{font-size:.78rem;font-weight:600;background:var(--mag);color:var(--white);padding:.55rem 1.25rem;border-radius:3px;text-decoration:none;transition:background .2s}
+.nav-cta:hover{background:var(--mag-l)}
+
+/* HERO */
+.hero{min-height:100vh;background:var(--navy);display:flex;flex-direction:column;justify-content:center;padding:8rem 4rem 5rem}
+.hero-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center}
+.hero-eyebrow{font-size:.65rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--mag);margin-bottom:1.5rem;display:flex;align-items:center;gap:.75rem}
+.hero-eyebrow::before{content:'';width:32px;height:1px;background:var(--mag)}
+.hero-title{font-family:'Lora',serif;font-size:clamp(2.6rem,4.5vw,4.2rem);font-weight:400;line-height:1.08;letter-spacing:-.01em;color:var(--white);margin-bottom:1.75rem}
+.hero-title em{font-style:italic;color:var(--mag-l)}
+.hero-sub{font-size:1rem;color:rgba(255,255,255,.5);max-width:48ch;line-height:1.8;margin-bottom:2.5rem}
+.hero-actions{display:flex;gap:1rem;align-items:center}
+.btn-primary{font-family:'Onest',sans-serif;font-size:.85rem;font-weight:600;background:var(--mag);color:var(--white);padding:.85rem 2rem;border-radius:3px;text-decoration:none;letter-spacing:.04em;transition:background .2s}
+.btn-primary:hover{background:var(--mag-l)}
+.btn-secondary{font-family:'Onest',sans-serif;font-size:.85rem;color:rgba(255,255,255,.6);padding:.85rem 2rem;border-radius:3px;border:1px solid rgba(255,255,255,.15);text-decoration:none;transition:all .2s}
+.btn-secondary:hover{border-color:rgba(255,255,255,.4);color:var(--white)}
+.hero-right{display:flex;flex-direction:column;gap:1px;background:var(--nb);border-radius:10px;overflow:hidden}
+.hero-stat{background:var(--surface);padding:1.5rem 2rem}
+.hero-stat-num{font-family:'Lora',serif;font-size:2.2rem;font-weight:400;color:var(--mag-l);line-height:1;margin-bottom:.35rem}
+.hero-stat-label{font-size:.78rem;color:var(--td);line-height:1.5}
+
+/* SECTIONS */
+section{padding:6rem 4rem}
+.section-inner{max-width:1200px;margin:0 auto}
+.ey{font-size:.62rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--mag);margin-bottom:1rem}
+.section-title{font-family:'Lora',serif;font-size:clamp(1.9rem,3.2vw,2.8rem);font-weight:400;line-height:1.1;letter-spacing:-.01em;color:var(--ink);margin-bottom:1.25rem}
+.section-title em{font-style:italic;color:var(--mag)}
+.section-sub{font-size:.95rem;color:var(--muted);max-width:54ch;line-height:1.8;margin-bottom:3rem}
+
+/* QUESTIONS */
+.questions-section{background:var(--navy)}
+.q-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.06);border-radius:8px;overflow:hidden;margin-top:3rem}
+.q-item{padding:2.5rem 2rem;background:var(--navy)}
+.q-num{font-size:.6rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--mag);margin-bottom:1rem}
+.q-title{font-family:'Lora',serif;font-size:1.15rem;font-weight:400;color:var(--white);line-height:1.3;margin-bottom:.85rem}
+.q-body{font-size:.82rem;color:rgba(255,255,255,.45);line-height:1.7}
+
+/* MODULES */
+.modules-section{background:var(--cream)}
+.modules-intro{margin-bottom:3rem}
+.modules-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:8px;overflow:hidden}
+.module-item{background:var(--cream);padding:2rem 1.75rem;transition:background .2s;position:relative}
+.module-item:hover{background:#fff}
+.module-tag{font-size:.58rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--mag);margin-bottom:.85rem}
+.module-name{font-family:'Lora',serif;font-size:1.05rem;font-weight:400;color:var(--ink);margin-bottom:.65rem;line-height:1.25}
+.module-desc{font-size:.8rem;color:var(--muted);line-height:1.7;margin-bottom:1rem}
+.module-value{font-size:.78rem;color:var(--ink);font-weight:500;padding-top:1rem;border-top:1px solid var(--border);line-height:1.6}
+
+/* HOW IT WORKS sidebar */
+.platform-layout{display:grid;grid-template-columns:1fr 320px;gap:3.5rem;align-items:start;margin-bottom:3rem}
+.how-box{background:var(--navy);border-radius:8px;padding:1.75rem;position:sticky;top:6rem}
+.how-label{font-size:.6rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--mag);margin-bottom:1rem}
+.how-step{display:flex;gap:.75rem;padding:.75rem 0;border-bottom:1px solid var(--nb);align-items:flex-start}
+.how-step:last-child{border-bottom:none}
+.how-num{font-size:.7rem;font-weight:700;color:var(--mag);flex-shrink:0;padding-top:.05rem}
+.how-text{font-size:.8rem;color:rgba(255,255,255,.55);line-height:1.55}
+
+/* WHY SIGNAL */
+.why-section{background:var(--navy)}
+.why-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem;margin-top:2.5rem}
+.why-card{background:var(--surface);border:1px solid var(--nb);border-radius:8px;padding:2rem 1.75rem}
+.why-card.featured{background:var(--mag);border-color:var(--mag)}
+.why-num{font-size:.62rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--mag);margin-bottom:.85rem}
+.why-card.featured .why-num{color:rgba(255,255,255,.5)}
+.why-title{font-family:'Lora',serif;font-size:1.05rem;font-weight:400;color:var(--white);margin-bottom:.65rem;line-height:1.3}
+.why-body{font-size:.82rem;color:var(--td);line-height:1.7}
+.why-card.featured .why-body{color:rgba(255,255,255,.65)}
+
+/* PRICING */
+.pricing-section{background:var(--cream)}
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-top:2.5rem;margin-bottom:1.5rem}
+.pricing-card{background:var(--cream);padding:2.5rem 2rem;display:flex;flex-direction:column;gap:1rem}
+.pricing-card.featured{background:var(--navy)}
+.pricing-name{font-family:'Lora',serif;font-size:1.1rem;font-weight:400;color:var(--ink)}
+.pricing-card.featured .pricing-name{color:var(--white)}
+.pricing-amount{font-family:'Lora',serif;font-size:2.4rem;font-weight:400;color:var(--mag);letter-spacing:-.02em;line-height:1}
+.pricing-per{font-family:'Onest',sans-serif;font-size:.72rem;font-weight:300;color:var(--muted)}
+.pricing-card.featured .pricing-per{color:var(--td)}
+.pricing-desc{font-size:.8rem;color:var(--muted);line-height:1.7}
+.pricing-card.featured .pricing-desc{color:var(--td)}
+.pricing-features{list-style:none;display:flex;flex-direction:column;gap:.55rem;flex:1}
+.pricing-features li{font-size:.78rem;color:var(--muted);display:flex;gap:.6rem;align-items:flex-start;line-height:1.5}
+.pricing-card.featured .pricing-features li{color:var(--td)}
+.pricing-features li::before{content:'✓';color:var(--mag);flex-shrink:0;font-size:.72rem;margin-top:.05rem}
+.pricing-cta{display:block;text-align:center;padding:.75rem;border-radius:3px;font-family:'Onest',sans-serif;font-size:.8rem;font-weight:600;text-decoration:none;letter-spacing:.04em;transition:all .2s;margin-top:auto}
+.pricing-cta-light{background:var(--cream-d);color:var(--ink);border:1px solid var(--border)}
+.pricing-cta-light:hover{background:var(--navy);color:var(--white);border-color:var(--navy)}
+.pricing-cta-featured{background:var(--mag);color:var(--white)}
+.pricing-cta-featured:hover{background:var(--mag-l)}
+
+/* ADVISORY */
+.advisory{background:var(--navy);border-radius:8px;padding:2.5rem 3rem;display:grid;grid-template-columns:1fr auto;gap:3rem;align-items:center;margin-top:1.5rem}
+.advisory-label{font-size:.62rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--mag);margin-bottom:.5rem}
+.advisory-title{font-family:'Lora',serif;font-size:1.3rem;font-weight:400;color:var(--white);margin-bottom:.65rem;line-height:1.25}
+.advisory-title em{font-style:italic;color:var(--mag-l)}
+.advisory-body{font-size:.87rem;color:var(--td);line-height:1.75;max-width:56ch}
+
+/* BOOK */
+.book-section{background:var(--navy);text-align:center;padding:7rem 4rem}
+.book-inner{max-width:600px;margin:0 auto}
+.book-ey{font-size:.62rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--mag);margin-bottom:1.25rem}
+.book-title{font-family:'Lora',serif;font-size:clamp(2rem,4vw,3rem);font-weight:400;line-height:1.1;color:var(--white);margin-bottom:1.25rem}
+.book-title em{font-style:italic;color:var(--mag-l)}
+.book-sub{font-size:.95rem;color:rgba(255,255,255,.4);line-height:1.75;margin-bottom:2.5rem;max-width:44ch;margin-left:auto;margin-right:auto}
+.book-actions{display:flex;gap:1rem;justify-content:center}
+.btn-book{font-family:'Onest',sans-serif;font-size:.85rem;font-weight:600;background:var(--mag);color:var(--white);padding:.9rem 2.25rem;border-radius:3px;text-decoration:none;transition:background .2s}
+.btn-book:hover{background:var(--mag-l)}
+.btn-ghost{font-family:'Onest',sans-serif;font-size:.85rem;color:rgba(255,255,255,.55);padding:.9rem 2.25rem;border-radius:3px;border:1px solid rgba(255,255,255,.15);text-decoration:none;transition:all .2s}
+.btn-ghost:hover{border-color:rgba(255,255,255,.4);color:var(--white)}
+
+footer{background:var(--navy);padding:3rem 4rem;border-top:1px solid var(--nb)}
+.footer-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between}
+.footer-logo{font-family:'Onest',sans-serif;font-weight:900;font-size:1.05rem;color:var(--white);letter-spacing:-.04em}
+.footer-logo span{color:var(--mag)}
+.footer-links{display:flex;gap:1.5rem}
+.footer-link{font-size:.72rem;color:rgba(255,255,255,.3);text-decoration:none;letter-spacing:.04em;transition:color .2s}
+.footer-link:hover{color:rgba(255,255,255,.7)}
+.footer-copy{font-size:.72rem;color:rgba(255,255,255,.2)}
+
+@media(max-width:960px){.nav-inner{padding:1.25rem 2rem}.hero-inner{grid-template-columns:1fr}.hero{padding:7rem 2rem 4rem}.hero-right{display:none}section{padding:4rem 2rem}.platform-layout{grid-template-columns:1fr}.how-box{position:static}.q-grid,.modules-grid,.why-grid,.pricing-grid{grid-template-columns:1fr}.advisory{grid-template-columns:1fr}.book-section{padding:5rem 2rem}.footer-inner{flex-direction:column;gap:1.5rem;text-align:center}footer{padding:3rem 2rem}}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo"><div class="nav-wm">Signal<span>.</span></div></a>
+    <div class="nav-links">
+      <a href="#platform" class="nav-link">Platform</a>
+      <a href="perspective.html" class="nav-link">Perspective</a>
+      <a href="philosophy.html" class="nav-link">Philosophy</a>
+      <a href="#book" class="nav-cta">Book a call</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-eyebrow">Customer Intelligence Platform</div>
+      <h1 class="hero-title">Turn customer intelligence into <em>competitive advantage.</em></h1>
+      <p class="hero-sub">Most companies are making their most important commercial decisions based on assumptions. Signal replaces assumption with fact — so you know who your best customers are, what keeps them, and what puts them at risk.</p>
+      <div class="hero-actions">
+        <a href="#book" class="btn-primary">Book a call</a>
+        <a href="#platform" class="btn-secondary">See the platform</a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-stat">
+        <div class="hero-stat-num">$10M–$100M</div>
+        <div class="hero-stat-label">Revenue range Signal is built for. Past product-market fit, before enterprise complexity.</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">6</div>
+        <div class="hero-stat-label">Connected modules sharing one intelligence layer. Each one feeds the next.</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">3</div>
+        <div class="hero-stat-label">Questions every company must be able to answer about their customers.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- THREE QUESTIONS -->
+<section class="questions-section" id="questions">
+  <div class="section-inner">
+    <h2 class="section-title" style="color:var(--white);max-width:24ch">Three questions every company should be able to answer about their customers.</h2>
+    <p class="section-sub" style="color:rgba(255,255,255,.45)">Most can't. Signal is built to answer them — systematically, from your actual customer data, every quarter.</p>
+    <div class="q-grid">
+      <div class="q-item">
+        <div class="q-num">Question 01</div>
+        <div class="q-title">Who are your best customers, and why did they choose you?</div>
+        <div class="q-body">Not your biggest customers — your best ones. The ones who stay, expand, and refer others. Signal identifies who they are and what predicted them so you can find more of them.</div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Question 02</div>
+        <div class="q-title">Which priorities actually serve those customers?</div>
+        <div class="q-body">Most roadmaps are built on internal assumptions. Signal surfaces what your best customers actually care about and where you are investing in things that don't move the needle for them.</div>
+      </div>
+      <div class="q-item">
+        <div class="q-num">Question 03</div>
+        <div class="q-title">What keeps them from leaving?</div>
+        <div class="q-body">By the time a customer tells you they are leaving, the decision was made months earlier. Signal identifies the signals that predict churn before they are obvious so you can act while it still matters.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PLATFORM -->
+<section class="modules-section" id="platform">
+  <div class="section-inner">
+    <div class="platform-layout">
+      <div>
+        <div class="ey">The platform</div>
+        <h2 class="section-title">Six modules. One shared intelligence layer.</h2>
+        <p class="section-sub" style="margin-bottom:0">Each module runs on its own or alongside the others. Customer insight feeds customer profiling. Customer profiling feeds strategy validation. Every output becomes the next input, so the intelligence compounds rather than sitting in separate tools.</p>
+      </div>
+      <div class="how-box">
+        <div class="how-label">How it works</div>
+        <div class="how-step"><span class="how-num">01</span><span class="how-text">Upload your customer research and account data</span></div>
+        <div class="how-step"><span class="how-num">02</span><span class="how-text">Signal processes it and surfaces structured intelligence</span></div>
+        <div class="how-step"><span class="how-num">03</span><span class="how-text">Each module reads from and writes to the same data layer</span></div>
+        <div class="how-step"><span class="how-num">04</span><span class="how-text">Refresh quarterly or whenever you have new research</span></div>
+      </div>
+    </div>
+    <div class="modules-grid">
+      <div class="module-item">
+        <div class="module-tag">Module 01 — Entry module</div>
+        <div class="module-name">Customer Insight Synthesizer</div>
+        <div class="module-desc">Upload interviews, surveys, reviews, and support data. Signal extracts the themes your customers keep coming back to, scores them by frequency and emotional intensity, and maps each one to the three questions.</div>
+        <div class="module-value">Rapidly synthesize customer insight to uncover revenue opportunities, product gaps, and service misses — so your team spends less time guessing and more time acting on what customers are actually telling you.</div>
+      </div>
+      <div class="module-item">
+        <div class="module-tag">Module 02 — Builds on 01</div>
+        <div class="module-name">Best Customer Profile</div>
+        <div class="module-desc">Combines your customer insight themes with your account data to find the customers who generate disproportionate value. Signal identifies the attributes and signals that predicted them before they became your best customers.</div>
+        <div class="module-value">Shift sales and marketing toward accounts most likely to become long-term, high-value relationships. Most companies discover a segment they were underinvesting in entirely. The best acquisition strategy starts with knowing who your best customers already are.</div>
+      </div>
+      <div class="module-item">
+        <div class="module-tag">Module 03 — Builds on 02</div>
+        <div class="module-name">Ideal Customer Profile (ICP) Stress-Tester</div>
+        <div class="module-desc">Compares who your company says it is targeting against who your data shows actually generates the most value. Surfaces the gaps between your stated strategy and commercial reality, ranked by revenue impact.</div>
+        <div class="module-value">Most companies are targeting the wrong customers and don't know it. Every wasted sales cycle, every poor-fit acquisition, every high-cost renewal fight traces back to an ICP that hasn't been tested against real data.</div>
+      </div>
+      <div class="module-item">
+        <div class="module-tag">Module 04 — Builds on 01 + 02</div>
+        <div class="module-name">Synthetic Customer Personas</div>
+        <div class="module-desc">Builds a queryable model of your best customer type from real insight themes and account patterns. Ask it how your best customer would respond to a pricing change, a new product feature, or a shift in messaging before you commit to anything.</div>
+        <div class="module-value">Test pricing, messaging, and product decisions against a real customer model rather than internal assumptions. Research that used to take months and significant budget now takes hours.</div>
+      </div>
+      <div class="module-item">
+        <div class="module-tag">Module 05 — Builds on 01</div>
+        <div class="module-name">Churn Signal Detector</div>
+        <div class="module-desc">Monitors your account base against the retention patterns identified in your customer research. Flags at-risk accounts early, tells you whether the risk is worth acting on based on customer fit, and recommends the right intervention for the type of churn showing up.</div>
+        <div class="module-value">Know which accounts need attention months before renewal. Know which churns are worth preventing and which are not. And know that when the account manager handling this relationship leaves, the intelligence stays.</div>
+      </div>
+      <div class="module-item">
+        <div class="module-tag">Module 06 — Aggregation layer</div>
+        <div class="module-name">Intelligence Brief</div>
+        <div class="module-desc">Pulls everything Signal knows about an account or segment into a single on-demand brief. Generated fresh each time, it surfaces the risk signals, the relevant customer insight, the relationship health, and the single most important thing to address right now.</div>
+        <div class="module-value">Walk into every client conversation better prepared than the person across the table. Your team stops relying on gut feel and starts making account decisions from intelligence that survives turnover, compounds over time, and reflects what is actually happening.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY SIGNAL -->
+<section class="why-section" id="why">
+  <div class="section-inner">
+    <div class="ey" style="color:var(--mag)">Why Signal</div>
+    <h2 class="section-title" style="color:var(--white)">Built differently.<br><em>By design.</em></h2>
+    <p class="section-sub" style="color:rgba(255,255,255,.45)">Every customer intelligence tool leads with features. Signal leads with a framework and delivers technology that executes it. Four gaps no competitor is filling.</p>
+    <div class="why-grid">
+      <div class="why-card">
+        <div class="why-num">Gap 01</div>
+        <div class="why-title">A framework, not just a feature set</div>
+        <div class="why-body">The three questions framework is built into the platform architecture. The sequence from customer insight to customer profiling to strategy validation to persona testing to churn detection is the right order for a reason. Each module's output informs the next. No other platform is designed this way.</div>
+      </div>
+      <div class="why-card featured">
+        <div class="why-num">Gap 02</div>
+        <div class="why-title">Built for organizations doing $10M to $100M in revenue</div>
+        <div class="why-body">Enterprise platforms take months to implement and require dedicated teams to operate. Signal is built for organizations that have outgrown spreadsheets but don't have the infrastructure for enterprise tools. Serious enough to drive real decisions. Simple enough to start this week.</div>
+      </div>
+      <div class="why-card">
+        <div class="why-num">Gap 03</div>
+        <div class="why-title">Connected intelligence, not disconnected data</div>
+        <div class="why-body">Most tools give you data in isolation. Signal connects customer insight, customer profiling, strategy validation, persona testing, and churn detection into a single view of the same customer base. The intelligence compounds over time rather than sitting unused across separate platforms.</div>
+      </div>
+      <div class="why-card">
+        <div class="why-num">Gap 04</div>
+        <div class="why-title">Customer knowledge that survives turnover</div>
+        <div class="why-body">When a salesperson or account manager leaves, the relationship history and the judgment calls that took years to develop usually leave with them. A few notes might survive in your CRM, but the understanding behind those notes rarely does. Signal turns that knowledge into a structured, lasting asset that belongs to the organization, not any one person holding it today.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing-section" id="pricing">
+  <div class="section-inner">
+    <div class="ey">Pricing</div>
+    <h2 class="section-title">Start where the problem<br>is most urgent.</h2>
+    <p class="section-sub">Every module delivers value on its own. The Customer Insight Synthesizer is included in every plan because everything else builds on it.</p>
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <div class="pricing-name">Starter</div>
+        <div><div class="pricing-amount">$599<span class="pricing-per">/mo</span></div></div>
+        <div class="pricing-desc">One module of your choice plus the Customer Insight Synthesizer — the foundation every other module builds on.</div>
+        <ul class="pricing-features">
+          <li>Customer Insight Synthesizer included</li>
+          <li>One additional module</li>
+          <li>Secure data storage</li>
+          <li>Async support</li>
+          <li>Quarterly refresh</li>
+        </ul>
+        <a href="#book" class="pricing-cta pricing-cta-light">Get started</a>
+      </div>
+      <div class="pricing-card featured">
+        <div class="pricing-name">Full Suite</div>
+        <div><div class="pricing-amount">$2,499<span class="pricing-per">/mo</span></div></div>
+        <div class="pricing-desc">All six modules. The complete customer intelligence infrastructure and the only way to get the full compounding effect of modules informing each other.</div>
+        <ul class="pricing-features">
+          <li>All six modules included</li>
+          <li>Full cross-module intelligence</li>
+          <li>Priority support</li>
+          <li>Benchmarking across similar organizations</li>
+          <li>Around 20% less than buying individually</li>
+        </ul>
+        <a href="#book" class="pricing-cta pricing-cta-featured">Book a call</a>
+      </div>
+      <div class="pricing-card">
+        <div class="pricing-name">Build your own</div>
+        <div><div class="pricing-amount">$399<span class="pricing-per">ea/mo</span></div></div>
+        <div class="pricing-desc">Add modules as you identify the next question your data is ready to answer. Each one builds on the intelligence already in the platform.</div>
+        <ul class="pricing-features">
+          <li>Customer Insight Synthesizer — base</li>
+          <li>Best Customer Profile</li>
+          <li>ICP Stress-Tester</li>
+          <li>Synthetic Customer Personas</li>
+          <li>Churn Signal Detector</li>
+          <li>Intelligence Brief</li>
+        </ul>
+        <a href="#book" class="pricing-cta pricing-cta-light">Talk to us</a>
+      </div>
+    </div>
+    <div class="advisory" id="advisory">
+      <div>
+        <div class="advisory-label">Advisory</div>
+        <div class="advisory-title">The intelligence tells you what.<br><em>We help you do something about it.</em></div>
+        <div class="advisory-body">Small and mid-size organizations don't need more strategy decks. They need someone to help them act. Our advisory team works alongside yours to take what Signal surfaces and turn it into real operational change — prioritizing the right initiatives, aligning your team around what the data is telling you, and staying accountable to outcomes. $5,000–$10,000/mo alongside platform.</div>
+      </div>
+      <a href="#book" class="btn-primary">Talk to the team</a>
+    </div>
+  </div>
+</section>
+
+<!-- BOOK -->
+<section class="book-section" id="book">
+  <div class="book-inner">
+    <div class="book-ey">Get started</div>
+    <h2 class="book-title">The intelligence is there.<br><em>Signal connects the dots.</em></h2>
+    <p class="book-sub">Book a 30-minute call. We will look at your data, your decisions, and show you exactly where Signal fits.</p>
+    <div class="book-actions">
+      <a href="#" class="btn-book">Book a call</a>
+      <a href="#platform" class="btn-ghost">See the platform first</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">Signal<span>.</span></div>
+    <div class="footer-links">
+      <a href="#platform" class="footer-link">Platform</a>
+      <a href="#pricing" class="footer-link">Pricing</a>
+      <a href="perspective.html" class="footer-link">Perspective</a>
+      <a href="philosophy.html" class="footer-link">Philosophy</a>
+      <a href="#book" class="footer-link">Book a call</a>
+    </div>
+    <div class="footer-copy">&copy; 2026 Signal. Customer Intelligence Platform.</div>
+  </div>
+</footer>
+
+</body>
+</html>

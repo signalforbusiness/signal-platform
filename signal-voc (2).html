@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Signal — VoC Synthesizer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1814;
+    --bg: #f7f4ef;
+    --card: #faf8f4;
+    --alt: #eee9e0;
+    --border: #ddd8cc;
+    --muted: #7a7060;
+    --amber: #b87a28;
+    --amber-bg: rgba(184,122,40,0.08);
+    --green: #2d5a3d;
+    --green-bg: rgba(45,90,61,0.08);
+    --red: #8a2d2d;
+    --red-bg: rgba(138,45,45,0.08);
+    --sidebar: #17150f;
+    --text-on-dark: #faf8f4;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  .app { display: flex; min-height: 100vh; }
+
+  /* SIDEBAR */
+  .sidebar {
+    width: 220px;
+    flex-shrink: 0;
+    background: var(--sidebar);
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0; left: 0; bottom: 0;
+    z-index: 10;
+  }
+
+  .sidebar-top {
+    padding: 1.75rem 1.5rem 1.25rem;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+  }
+
+  .logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    font-weight: 400;
+    color: var(--text-on-dark);
+  }
+
+  .logo span { color: var(--amber); }
+
+  .module-label {
+    font-size: 0.62rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.3);
+    margin-top: 0.35rem;
+  }
+
+  .sidebar-nav { flex: 1; padding: 1rem 0.75rem; }
+
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    padding: 0.6rem 0.75rem;
+    border-radius: 3px;
+    font-size: 0.78rem;
+    margin-bottom: 0.15rem;
+    cursor: pointer;
+  }
+
+  .nav-item.active { background: rgba(184,122,40,0.18); color: #e8a84a; }
+  .nav-item.locked { color: rgba(255,255,255,0.25); cursor: not-allowed; }
+  .nav-dot { width: 5px; height: 5px; border-radius: 50%; background: currentColor; flex-shrink: 0; }
+
+  .sidebar-bottom {
+    padding: 1.25rem 1.5rem;
+    border-top: 1px solid rgba(255,255,255,0.07);
+    font-size: 0.72rem;
+    color: rgba(255,255,255,0.25);
+  }
+
+  /* MAIN */
+  .main { margin-left: 220px; flex: 1; display: flex; flex-direction: column; min-height: 100vh; }
+
+  /* TOPBAR */
+  .topbar {
+    background: var(--card);
+    border-bottom: 1px solid var(--border);
+    padding: 1.1rem 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 5;
+  }
+
+  .topbar-title { font-family: 'Playfair Display', serif; font-size: 1.05rem; font-weight: 400; letter-spacing: -0.01em; }
+  .topbar-sub { font-size: 0.72rem; color: var(--muted); margin-top: 0.1rem; }
+
+  .badge {
+    font-size: 0.65rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.75rem;
+    border-radius: 20px;
+  }
+
+  .badge-amber { background: var(--amber-bg); color: var(--amber); }
+  .badge-green { background: var(--green-bg); color: var(--green); }
+
+  /* CONTENT */
+  .content { flex: 1; padding: 2rem 2.5rem; max-width: 900px; }
+
+  /* UPLOAD ZONE */
+  .upload-zone {
+    border: 1.5px dashed var(--border);
+    border-radius: 6px;
+    padding: 3rem 2rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: var(--card);
+    margin-bottom: 1.5rem;
+  }
+
+  .upload-zone:hover, .upload-zone.dragging { border-color: var(--amber); background: rgba(184,122,40,0.03); }
+  .upload-icon { font-size: 2rem; margin-bottom: 1rem; opacity: 0.5; }
+  .upload-title { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 400; margin-bottom: 0.5rem; }
+  .upload-sub { font-size: 0.82rem; color: var(--muted); line-height: 1.6; margin-bottom: 1rem; }
+
+  .file-types { display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap; }
+
+  .file-tag {
+    font-size: 0.62rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    background: var(--alt);
+    color: var(--muted);
+    padding: 0.25rem 0.6rem;
+    border-radius: 2px;
+  }
+
+  /* FILE LIST */
+  .file-list { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1.5rem; }
+
+  .file-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    font-size: 0.82rem;
+  }
+
+  .file-icon { font-size: 1rem; flex-shrink: 0; }
+  .file-name { flex: 1; color: var(--ink); font-weight: 400; }
+  .file-size { color: var(--muted); font-size: 0.72rem; }
+  .file-remove { background: none; border: none; color: var(--muted); cursor: pointer; font-size: 1rem; padding: 0 0.25rem; transition: color 0.15s; }
+  .file-remove:hover { color: var(--red); }
+
+  /* TEXT INPUT */
+  .text-input-wrap { margin-bottom: 1.5rem; }
+
+  .input-label {
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.6rem;
+    display: block;
+  }
+
+  .text-area {
+    width: 100%;
+    min-height: 160px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 1rem 1.25rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 300;
+    color: var(--ink);
+    line-height: 1.7;
+    resize: vertical;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .text-area:focus { border-color: var(--amber); }
+  .text-area::placeholder { color: #b0aa9a; }
+
+  /* BUTTONS */
+  .synthesize-btn {
+    width: 100%;
+    background: var(--ink);
+    color: var(--text-on-dark);
+    border: none;
+    border-radius: 3px;
+    padding: 1rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+    margin-bottom: 1.25rem;
+  }
+
+  .synthesize-btn:hover:not(:disabled) { background: var(--amber); transform: translateY(-1px); }
+  .synthesize-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+
+  .reset-btn {
+    background: none;
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 0.75rem 1.5rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.82rem;
+    color: var(--muted);
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-bottom: 3rem;
+  }
+
+  .reset-btn:hover { border-color: var(--ink); color: var(--ink); }
+
+  /* LOADING */
+  .loading-state { text-align: center; padding: 5rem 2rem; }
+
+  .loading-pulse { display: inline-flex; gap: 6px; margin-bottom: 1.5rem; }
+
+  .pulse-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--amber);
+    animation: pulse 1.4s ease infinite;
+  }
+
+  .pulse-dot:nth-child(2) { animation-delay: 0.2s; }
+  .pulse-dot:nth-child(3) { animation-delay: 0.4s; }
+
+  @keyframes pulse {
+    0%,80%,100% { transform: scale(0.6); opacity: 0.4; }
+    40% { transform: scale(1); opacity: 1; }
+  }
+
+  .loading-title { font-family: 'Playfair Display', serif; font-size: 1.15rem; font-weight: 400; margin-bottom: 0.5rem; }
+  .loading-sub { font-size: 0.82rem; color: var(--muted); }
+
+  /* ERROR */
+  .error-state {
+    background: var(--red-bg);
+    border: 1px solid rgba(138,45,45,0.15);
+    border-radius: 4px;
+    padding: 1.25rem;
+    margin-bottom: 1.25rem;
+    font-size: 0.85rem;
+    color: var(--red);
+    line-height: 1.6;
+  }
+
+  /* RESULTS */
+  .results { animation: fadeIn 0.4s ease; }
+
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* META BAR */
+  .meta-bar {
+    background: var(--alt);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 0.85rem 1.25rem;
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+    font-size: 0.75rem;
+    color: var(--muted);
+  }
+
+  .meta-item strong { color: var(--ink); font-weight: 500; }
+
+  /* SECTION LABEL */
+  .section-label {
+    font-size: 0.65rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+  /* THREE Q SCORES */
+  .three-q-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 2rem;
+  }
+
+  .q-score-card { background: var(--card); padding: 1.5rem; }
+  .q-score-label { font-size: 0.62rem; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.5rem; }
+  .q-score-title { font-family: 'Playfair Display', serif; font-size: 0.9rem; font-weight: 400; color: var(--ink); margin-bottom: 0.75rem; line-height: 1.3; }
+  .q-score-val { font-family: 'Playfair Display', serif; font-size: 2.2rem; font-weight: 400; letter-spacing: -0.04em; margin-bottom: 0.25rem; }
+  .q-score-val.high { color: var(--green); }
+  .q-score-val.mid { color: var(--amber); }
+  .q-score-val.low { color: var(--red); }
+  .q-confidence { font-size: 0.65rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.85rem; }
+  .q-confidence.high { color: var(--green); }
+  .q-confidence.mid { color: var(--amber); }
+  .q-confidence.low { color: var(--red); }
+  .q-summary { font-size: 0.78rem; color: var(--muted); line-height: 1.65; }
+
+  /* THEMES */
+  .theme-list { display: flex; flex-direction: column; gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; margin-bottom: 2rem; }
+  .theme-card { background: var(--card); padding: 1.25rem 1.5rem; transition: background 0.15s; }
+  .theme-card:hover { background: #f3efe8; }
+
+  .theme-header { display: grid; grid-template-columns: 1fr auto; gap: 1rem; align-items: start; margin-bottom: 0.75rem; }
+  .theme-name { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 400; letter-spacing: -0.01em; margin-bottom: 0.2rem; color: var(--ink); }
+
+  .theme-maps { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-top: 0.3rem; }
+
+  .q-tag { font-size: 0.58rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.2rem 0.5rem; border-radius: 2px; }
+  .q-tag.q1 { background: var(--amber-bg); color: var(--amber); }
+  .q-tag.q2 { background: var(--green-bg); color: var(--green); }
+  .q-tag.q3 { background: var(--red-bg); color: var(--red); }
+
+  .theme-metrics { display: flex; flex-direction: column; align-items: flex-end; gap: 0.3rem; flex-shrink: 0; }
+  .theme-freq { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 400; letter-spacing: -0.03em; color: var(--ink); }
+  .theme-freq-count { font-size: 0.65rem; color: var(--muted); letter-spacing: 0.02em; }
+  .intensity-dots { display: flex; gap: 3px; }
+  .i-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--border); }
+  .i-dot.filled { background: var(--amber); }
+
+  .theme-bar-bg { height: 3px; background: var(--border); border-radius: 10px; overflow: hidden; margin-bottom: 0.75rem; }
+  .theme-bar-fill { height: 100%; background: var(--amber); border-radius: 10px; }
+
+  .classification-badge { font-size: 0.6rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.2rem 0.55rem; border-radius: 2px; display: inline-block; margin-bottom: 0.6rem; }
+  .classification-badge.confirming { background: var(--green-bg); color: var(--green); }
+  .classification-badge.surprising { background: var(--amber-bg); color: var(--amber); }
+  .classification-note { font-size: 0.76rem; color: var(--muted); line-height: 1.6; margin-bottom: 0.65rem; }
+
+  .verbatim-list { display: flex; flex-direction: column; gap: 0.4rem; margin-bottom: 0.65rem; }
+  .verbatim { font-size: 0.8rem; color: var(--muted); font-style: italic; border-left: 2px solid var(--border); padding-left: 0.75rem; line-height: 1.5; }
+  .verbatim-source { font-size: 0.65rem; color: var(--amber); font-style: normal; letter-spacing: 0.06em; text-transform: uppercase; margin-left: 0.5rem; }
+
+  .source-tags { display: flex; gap: 0.35rem; flex-wrap: wrap; margin-bottom: 0.65rem; }
+  .source-tag { font-size: 0.62rem; color: var(--muted); background: var(--bg); border: 1px solid var(--border); padding: 0.15rem 0.5rem; border-radius: 2px; letter-spacing: 0.02em; }
+
+  .theme-insight { font-size: 0.8rem; color: var(--ink); line-height: 1.65; margin-bottom: 0.5rem; }
+  .action-signal { font-size: 0.75rem; color: var(--green); background: var(--green-bg); padding: 0.4rem 0.75rem; border-radius: 2px; display: inline-block; line-height: 1.5; }
+
+  /* DECISION SIGNALS */
+  .decision-list { display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 2rem; }
+
+  .decision-item {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+    padding: 1rem 1.25rem;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--amber);
+    border-radius: 0 3px 3px 0;
+    font-size: 0.85rem;
+    line-height: 1.65;
+    color: var(--ink);
+  }
+
+  .decision-num { font-family: 'Playfair Display', serif; font-size: 0.85rem; font-style: italic; color: var(--amber); flex-shrink: 0; padding-top: 0.05rem; }
+
+  /* WATCH LIST */
+  .watch-list { display: flex; flex-direction: column; gap: 0.6rem; margin-bottom: 2.5rem; }
+
+  .watch-item {
+    display: flex;
+    gap: 0.75rem;
+    align-items: flex-start;
+    padding: 0.85rem 1.1rem;
+    background: var(--red-bg);
+    border: 1px solid rgba(138,45,45,0.12);
+    border-radius: 3px;
+    font-size: 0.82rem;
+    color: var(--ink);
+    line-height: 1.6;
+  }
+
+  .watch-icon { flex-shrink: 0; color: var(--red); padding-top: 0.05rem; }
+
+  /* AGENTIC NOTE */
+  .agentic-note {
+    font-size: 0.72rem;
+    color: var(--muted);
+    border-top: 1px solid var(--border);
+    padding-top: 1rem;
+    margin-top: 1rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+    font-style: italic;
+  }
+
+  /* MOBILE */
+  @media (max-width: 768px) {
+    .sidebar { display: none; }
+    .main { margin-left: 0; }
+    .three-q-grid { grid-template-columns: 1fr; }
+    .content { padding: 1.5rem; }
+    .topbar { padding: 1rem 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="app">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-top">
+      <div class="logo">Signal<span>.</span></div>
+      <div class="module-label">VoC Synthesizer</div>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-item active">
+        <div class="nav-dot"></div>
+        VoC Synthesizer
+      </div>
+      <div class="nav-item locked"><div class="nav-dot"></div>Best Customer Profile</div>
+      <div class="nav-item locked"><div class="nav-dot"></div>ICP Stress-Tester</div>
+      <div class="nav-item locked"><div class="nav-dot"></div>Synthetic Personas</div>
+      <div class="nav-item locked"><div class="nav-dot"></div>Churn Detector</div>
+      <div class="nav-item locked"><div class="nav-dot"></div>Intelligence Brief</div>
+    </nav>
+    <div class="sidebar-bottom">Beta · Module 1 of 6</div>
+  </aside>
+
+  <!-- MAIN -->
+  <div class="main">
+    <div class="topbar">
+      <div>
+        <div class="topbar-title">Customer Insight Synthesizer</div>
+        <div class="topbar-sub">Module 01 of 06 · Three Questions Framework</div>
+      </div>
+      <div id="topbar-badge"></div>
+    </div>
+
+    <div class="content">
+
+      <!-- INPUT STATE -->
+      <div id="input-state">
+
+        <!-- MODULE PURPOSE -->
+        <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:1.25rem 1.5rem;margin-bottom:1.5rem">
+          <div style="font-size:.6rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--amber);margin-bottom:.6rem">What this module does</div>
+          <div style="font-size:.85rem;color:var(--text);font-weight:500;margin-bottom:.5rem">Turns raw customer research into ranked intelligence mapped to the Three Questions.</div>
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:.35rem;margin-top:.5rem">
+            <li style="font-size:.78rem;color:var(--muted);display:flex;gap:.5rem"><span style="color:var(--amber)">→</span> Upload interviews, surveys, reviews, NPS comments, or support transcripts</li>
+            <li style="font-size:.78rem;color:var(--muted);display:flex;gap:.5rem"><span style="color:var(--amber)">→</span> Signal extracts themes, scores them by frequency and intensity, and maps each to Q1, Q2, or Q3</li>
+            <li style="font-size:.78rem;color:var(--muted);display:flex;gap:.5rem"><span style="color:var(--amber)">→</span> Every theme ends with a specific decision the business can act on — not just an observation</li>
+            <li style="font-size:.78rem;color:var(--muted);display:flex;gap:.5rem"><span style="color:var(--amber)">→</span> Output feeds directly into the Best Customer Profile (Module 02) for deeper correlation</li>
+          </ul>
+          <div style="font-size:.75rem;color:var(--muted);margin-top:.85rem;padding-top:.75rem;border-top:1px solid var(--border)">Use this module quarterly, or whenever you've gathered new customer research. The more sources you provide, the higher the confidence score.</div>
+        </div>
+        <div
+          class="upload-zone"
+          id="drop-zone"
+          onclick="document.getElementById('file-input').click()"
+        >
+          <div class="upload-icon">⬆</div>
+          <div class="upload-title">Drop customer research here</div>
+          <div class="upload-sub">Interview transcripts, survey exports, NPS comments, reviews, support tickets</div>
+          <div class="file-types">
+            <span class="file-tag">.txt</span>
+            <span class="file-tag">.md</span>
+            <span class="file-tag">.csv</span>
+          </div>
+        </div>
+        <input type="file" id="file-input" multiple accept=".txt,.md,.csv,text/plain" style="display:none">
+
+        <div id="file-list"></div>
+
+        <div class="text-input-wrap">
+          <label class="input-label" for="paste-area">Or paste research directly</label>
+          <textarea
+            class="text-area"
+            id="paste-area"
+            placeholder="Paste interview transcripts, survey responses, NPS comments, review data — any raw customer voice…"
+          ></textarea>
+        </div>
+
+        <div id="error-state" style="display:none" class="error-state"></div>
+
+        <button class="synthesize-btn" id="synthesize-btn" disabled onclick="runSynthesis()">
+          Add research to begin
+        </button>
+
+        <p class="agentic-note">Signal surfaces the patterns. The decisions that follow are yours — that's Agentic by Design.</p>
+      </div>
+
+      <!-- LOADING STATE -->
+      <div id="loading-state" style="display:none" class="loading-state">
+        <div class="loading-pulse">
+          <div class="pulse-dot"></div>
+          <div class="pulse-dot"></div>
+          <div class="pulse-dot"></div>
+        </div>
+        <div class="loading-title">Synthesizing your research</div>
+        <div class="loading-sub" id="loading-sub">Applying Three Questions Framework…</div>
+      </div>
+
+      <!-- RESULTS STATE -->
+      <div id="results-state" style="display:none" class="results"></div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+// ─── PROMPT ARCHITECTURE (IP LAYER) ────────────────────────────────────────
+const SYSTEM_PROMPT = `You are Signal's VoC Synthesis Engine — a customer intelligence analyst trained on the Three Questions Framework.
+
+Your job is to read raw customer research (interview transcripts, survey responses, NPS comments, reviews, support tickets) and produce structured intelligence that answers three questions every company must be able to answer:
+
+Q1 — WHO ARE YOUR BEST CUSTOMERS AND WHY DID THEY CHOOSE YOU?
+Look for: what drew customers to this company, what they say about fit, what they value most about the relationship, what made them choose this over alternatives, language around "why us."
+
+Q2 — WHICH PRIORITIES ACTUALLY SERVE THOSE CUSTOMERS?
+Look for: what customers say matters most in the ongoing relationship, what they wish the company did more of, what they reference when talking about value, what they benchmark against expectations.
+
+Q3 — WHAT KEEPS THEM FROM LEAVING?
+Look for: retention signals, relationship health indicators, complaints and friction points, language around risk of leaving, what would cause them to reconsider, early warning patterns.
+
+─── EXTRACTION RULES ───────────────────────────────────────────────────────
+
+1. THEMES: Extract distinct themes — specific, named patterns, not generic observations. "Onboarding takes too long" is a theme. "Customer experience" is not.
+
+2. SOURCE IDENTIFICATION: As you read, identify each distinct source (e.g. "Transcript 1", "Review 3", "Contact Form Message 2"). Use the labels present in the source material, or assign sequential labels by type if none exist (e.g. "Transcript 1", "Transcript 2"). Every theme must reference which specific sources it appeared in.
+
+3. FREQUENCY: Frequency is a count, not just a percentage. For each theme, identify exactly which sources it appeared in by label, then compute frequency as (sources referencing this theme) / (total sources). Report both the count ("19 of 24 sources") and the percentage. Be honest — if only one source mentions it, say so.
+
+4. INTENSITY: Rate emotional charge 1-5. 5 = strong positive or negative emotion. 1 = mentioned in passing.
+
+5. QUESTION MAPPING: Map each theme to Q1, Q2, or Q3. Some themes map to multiple questions — note that.
+
+6. VERBATIM SIGNALS: For each theme, pull 2-3 short representative phrases (each under 15 words) from DIFFERENT sources that exemplify the theme, each tagged with its source label. This is the voice of the customer, not your words. Showing multiple sources for one theme is what makes the pattern credible rather than anecdotal.
+
+7. SIGNAL SCORE: For each of the three questions, give an overall score 1-10 on how well the research answers it. 10 = rich, confident intelligence. 1 = almost no signal.
+
+8. CONFIRMING VS. SURPRISING: For each theme, assess whether this is likely something the client's team already suspected ("confirming") or something they likely did not have visibility into, did not know the scale of, or would not have prioritized this way ("surprising"). Most organizations underestimate how much value there is in confirming a suspicion with hard evidence and giving it a precise scale — so "confirming" themes are not lower value, but should be framed differently than "surprising" ones. Be honest in this classification; do not force themes into "surprising" to seem more impressive.
+
+9. DECISION-TIED INSIGHTS: Every theme's insight and action signal must be framed as a decision the business can make, not just an observation about customers. Avoid phrasing like "customers value X" in isolation. Instead frame as "this means the business should consider doing Y, because Z evidence supports it." The output should read as a set of decisions with evidence attached, not a set of facts about customers.
+
+─── OUTPUT FORMAT ──────────────────────────────────────────────────────────
+
+Respond ONLY in valid JSON. No preamble, no markdown, no explanation outside the JSON.
+
+{
+  "meta": {
+    "sourceCount": <number of distinct sources or documents identified>,
+    "sourceLabels": ["<list of every source label identified, e.g. 'Transcript 1', 'Review 3'>"],
+    "totalThemes": <number>,
+    "synthesisDate": "<today's date>",
+    "dataQualityNote": "<one sentence on data completeness or gaps>",
+    "previousRunComparison": null
+  },
+  "threeQScores": {
+    "q1": { "score": <1-10>, "confidence": "<low|medium|high>", "summary": "<2-3 sentence intelligence summary for Q1>" },
+    "q2": { "score": <1-10>, "confidence": "<low|medium|high>", "summary": "<2-3 sentence intelligence summary for Q2>" },
+    "q3": { "score": <1-10>, "confidence": "<low|medium|high>", "summary": "<2-3 sentence intelligence summary for Q3>" }
+  },
+  "themes": [
+    {
+      "id": "<slug>",
+      "name": "<specific theme name>",
+      "frequency": <0-100>,
+      "frequencyCount": "<e.g. '19 of 24 sources'>",
+      "sourceLabels": ["<list of source labels where this theme appeared>"],
+      "intensity": <1-5>,
+      "questionMapping": ["q1","q2","q3"],
+      "classification": "<confirming|surprising>",
+      "classificationNote": "<1 sentence on why this is confirming or surprising, and what specifically about the scale/pattern is new even if the general direction was suspected>",
+      "verbatimSignals": [
+        { "quote": "<representative phrase under 15 words>", "source": "<source label>" }
+      ],
+      "insight": "<1-2 sentence so-what, framed as a decision the business should consider — not just an observation about customers>",
+      "actionSignal": "<one concrete thing the business should do, with the evidence that supports it>"
+    }
+  ],
+  "decisionSignals": [
+    "<3-5 specific, actionable decisions this intelligence supports — each framed as a decision with evidence, e.g. 'Do X because Y evidence shows Z, which would result in W'>"
+  ],
+  "watchList": [
+    "<2-3 gaps or things the data does not yet answer>"
+  ]
+}
+
+Sort themes by (frequency x intensity) descending. Include all themes found, minimum 3. The "previousRunComparison" field should always be null for now — it is reserved for future use when comparing against a prior analysis of the same client.`;
+
+// ─── STATE ──────────────────────────────────────────────────────────────────
+let uploadedFiles = [];
+
+// ─── FILE HANDLING ──────────────────────────────────────────────────────────
+const dropZone = document.getElementById('drop-zone');
+const fileInput = document.getElementById('file-input');
+const pasteArea = document.getElementById('paste-area');
+
+dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('dragging'); });
+dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragging'));
+dropZone.addEventListener('drop', e => {
+  e.preventDefault();
+  dropZone.classList.remove('dragging');
+  addFiles(e.dataTransfer.files);
+});
+
+fileInput.addEventListener('change', e => addFiles(e.target.files));
+pasteArea.addEventListener('input', updateBtn);
+
+function addFiles(newFiles) {
+  Array.from(newFiles).forEach(f => {
+    if (!uploadedFiles.find(x => x.name === f.name)) uploadedFiles.push(f);
+  });
+  renderFileList();
+  updateBtn();
+}
+
+function removeFile(name) {
+  uploadedFiles = uploadedFiles.filter(f => f.name !== name);
+  renderFileList();
+  updateBtn();
+}
+
+function renderFileList() {
+  const list = document.getElementById('file-list');
+  if (uploadedFiles.length === 0) { list.innerHTML = ''; return; }
+  list.innerHTML = '<div class="file-list">' + uploadedFiles.map(f => `
+    <div class="file-item">
+      <span class="file-icon">📄</span>
+      <span class="file-name">${f.name}</span>
+      <span class="file-size">${formatBytes(f.size)}</span>
+      <button class="file-remove" onclick="removeFile('${f.name}')">✕</button>
+    </div>
+  `).join('') + '</div>';
+}
+
+function updateBtn() {
+  const btn = document.getElementById('synthesize-btn');
+  const hasInput = uploadedFiles.length > 0 || pasteArea.value.trim().length > 50;
+  btn.disabled = !hasInput;
+  btn.textContent = hasInput ? 'Run synthesis →' : 'Add research to begin';
+}
+
+function formatBytes(b) {
+  if (b < 1024) return b + ' B';
+  if (b < 1048576) return (b/1024).toFixed(1) + ' KB';
+  return (b/1048576).toFixed(1) + ' MB';
+}
+
+// ─── SYNTHESIS ──────────────────────────────────────────────────────────────
+async function runSynthesis() {
+  showState('loading');
+  setTopbarBadge('synthesizing');
+  hideError();
+
+  try {
+    let content = '';
+
+    if (pasteArea.value.trim()) {
+      content += `--- PASTED CONTENT ---\n${pasteArea.value}\n\n`;
+    }
+
+    setLoadingMsg('Reading source files…');
+    for (const file of uploadedFiles) {
+      const text = await readFile(file);
+      content += `--- SOURCE: ${file.name} ---\n${text}\n\n`;
+    }
+
+    if (!content.trim()) throw new Error('No readable content found.');
+
+    setLoadingMsg('Extracting themes and patterns…');
+
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-6',
+        max_tokens: 8000,
+        system: SYSTEM_PROMPT,
+        messages: [{
+          role: 'user',
+          content: `Please synthesize the following customer research and return the structured JSON output:\n\n${content.slice(0, 90000)}`
+        }]
+      })
+    });
+
+    if (!response.ok) {
+      const err = await response.json().catch(() => ({}));
+      throw new Error(err.error?.message || `API error ${response.status}`);
+    }
+
+    setLoadingMsg('Mapping to Three Questions Framework…');
+
+    const data = await response.json();
+    const raw = data.content?.find(b => b.type === 'text')?.text || '';
+    const cleaned = raw.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
+
+    let results;
+    try {
+      results = JSON.parse(cleaned);
+    } catch (parseErr) {
+      if (data.stop_reason === 'max_tokens') {
+        throw new Error('The analysis was too long and got cut off. Try uploading fewer or shorter documents, or split your research into smaller batches.');
+      }
+      throw new Error('The analysis came back in an unexpected format. Please try again — if this keeps happening, try with a smaller dataset.');
+    }
+
+    renderResults(results);
+    showState('results');
+    setTopbarBadge('complete');
+    // Auto-save for downstream modules (BCP, ICP Stress-Tester)
+    try { sessionStorage.setItem('signal_voc_output', JSON.stringify(results)); } catch(e) {}
+
+  } catch (err) {
+    showError(err.message || 'Something went wrong.');
+    showState('input');
+    setTopbarBadge('');
+  }
+}
+
+function readFile(file) {
+  return new Promise((resolve, reject) => {
+    const r = new FileReader();
+    r.onload = e => resolve(e.target.result);
+    r.onerror = () => reject(new Error('Could not read ' + file.name));
+    r.readAsText(file);
+  });
+}
+
+// ─── RENDER RESULTS ─────────────────────────────────────────────────────────
+function scoreColor(s) {
+  if (s >= 7) return 'high';
+  if (s >= 4) return 'mid';
+  return 'low';
+}
+
+function qLabel(q) {
+  if (q === 'q1') return 'Q1 — Best customer';
+  if (q === 'q2') return 'Q2 — Priority';
+  return 'Q3 — Retention';
+}
+
+function renderResults(r) {
+  const el = document.getElementById('results-state');
+
+  const meta = r.meta || {};
+  const scores = r.threeQScores || {};
+  const themes = r.themes || [];
+  const decisions = r.decisionSignals || [];
+  const watchList = r.watchList || [];
+
+  const qs = [
+    { key: 'q1', title: 'Who are your best customers?' },
+    { key: 'q2', title: 'Which priorities serve them?' },
+    { key: 'q3', title: 'What keeps them from leaving?' }
+  ];
+
+  const confirmingCount = themes.filter(t => t.classification === 'confirming').length;
+  const surprisingCount = themes.filter(t => t.classification === 'surprising').length;
+
+  el.innerHTML = `
+    <!-- META -->
+    <div class="meta-bar">
+      <div class="meta-item"><strong>${meta.sourceCount || '—'}</strong> sources analyzed</div>
+      <div class="meta-item"><strong>${meta.totalThemes || themes.length || '—'}</strong> themes extracted</div>
+      <div class="meta-item"><strong>${confirmingCount}</strong> confirm what you suspected · <strong>${surprisingCount}</strong> likely new</div>
+      <div class="meta-item"><strong>${meta.synthesisDate || 'Today'}</strong></div>
+      ${meta.dataQualityNote ? `<div class="meta-item" style="flex:1">${meta.dataQualityNote}</div>` : ''}
+    </div>
+
+    <!-- THREE Q SCORES -->
+    <div class="section-label">Three Questions Signal Scores</div>
+    <div class="three-q-grid">
+      ${qs.map(({ key, title }) => {
+        const d = scores[key] || {};
+        const c = scoreColor(d.score || 0);
+        return `
+          <div class="q-score-card">
+            <div class="q-score-label">${key.toUpperCase()} — Framework Score</div>
+            <div class="q-score-title">${title}</div>
+            <div class="q-score-val ${c}">${d.score || '—'}<span style="font-size:1rem;opacity:0.4">/10</span></div>
+            <div class="q-confidence ${c}">${d.confidence || '—'} confidence</div>
+            <div class="q-summary">${d.summary || 'No data.'}</div>
+          </div>
+        `;
+      }).join('')}
+    </div>
+
+    <!-- THEMES -->
+    <div class="section-label">Themes — ranked by frequency × intensity</div>
+    <div class="theme-list">
+      ${themes.map(t => `
+        <div class="theme-card">
+          <div class="theme-header">
+            <div>
+              <div class="theme-name">${t.name}</div>
+              <div class="theme-maps">
+                ${(t.questionMapping || []).map(q => `<span class="q-tag ${q}">${qLabel(q)}</span>`).join('')}
+              </div>
+            </div>
+            <div class="theme-metrics">
+              <div class="theme-freq">${t.frequency}%</div>
+              ${t.frequencyCount ? `<div class="theme-freq-count">${t.frequencyCount}</div>` : ''}
+              <div class="intensity-dots">
+                ${[1,2,3,4,5].map(n => `<div class="i-dot ${n <= t.intensity ? 'filled' : ''}"></div>`).join('')}
+              </div>
+            </div>
+          </div>
+          <div class="theme-bar-bg"><div class="theme-bar-fill" style="width:${t.frequency}%"></div></div>
+
+          ${t.classification ? `<span class="classification-badge ${t.classification}">${t.classification === 'confirming' ? '✓ Confirms what you suspected' : '★ Likely new to you'}</span>` : ''}
+          ${t.classificationNote ? `<div class="classification-note">${t.classificationNote}</div>` : ''}
+
+          ${(t.sourceLabels && t.sourceLabels.length) ? `
+            <div class="source-tags">
+              ${t.sourceLabels.map(s => `<span class="source-tag">${s}</span>`).join('')}
+            </div>
+          ` : ''}
+
+          ${(t.verbatimSignals && t.verbatimSignals.length) ? `
+            <div class="verbatim-list">
+              ${t.verbatimSignals.map(v => `<div class="verbatim">"${v.quote}"${v.source ? `<span class="verbatim-source">${v.source}</span>` : ''}</div>`).join('')}
+            </div>
+          ` : (t.verbatimSignal ? `<div class="verbatim">"${t.verbatimSignal}"</div>` : '')}
+
+          <div class="theme-insight">${t.insight}</div>
+          ${t.actionSignal ? `<div class="action-signal">→ ${t.actionSignal}</div>` : ''}
+        </div>
+      `).join('')}
+    </div>
+
+    <!-- DECISION SIGNALS -->
+    ${decisions.length > 0 ? `
+      <div class="section-label">Decision signals — what this data makes possible</div>
+      <div class="decision-list">
+        ${decisions.map((d, i) => `
+          <div class="decision-item">
+            <span class="decision-num">0${i+1}</span>
+            <span>${d}</span>
+          </div>
+        `).join('')}
+      </div>
+    ` : ''}
+
+    <!-- WATCH LIST -->
+    ${watchList.length > 0 ? `
+      <div class="section-label">Watch list — gaps this analysis doesn't answer</div>
+      <div class="watch-list">
+        ${watchList.map(w => `
+          <div class="watch-item">
+            <span class="watch-icon">△</span>
+            <span>${w}</span>
+          </div>
+        `).join('')}
+      </div>
+    ` : ''}
+
+    <p class="agentic-note">Signal identifies the patterns and surfaces the decisions. How you act on them — that's where your judgment comes in. Agentic by Design means the machine does the synthesis; the strategist drives the outcome.</p>
+
+    <button class="reset-btn" onclick="resetAll()">← Run a new analysis</button>
+  `;
+}
+
+// ─── UI HELPERS ─────────────────────────────────────────────────────────────
+function showState(state) {
+  document.getElementById('input-state').style.display = state === 'input' ? 'block' : 'none';
+  document.getElementById('loading-state').style.display = state === 'loading' ? 'block' : 'none';
+  document.getElementById('results-state').style.display = state === 'results' ? 'block' : 'none';
+}
+
+function setLoadingMsg(msg) {
+  document.getElementById('loading-sub').textContent = msg;
+}
+
+function setTopbarBadge(state) {
+  const el = document.getElementById('topbar-badge');
+  if (state === 'synthesizing') {
+    el.innerHTML = '<span class="badge badge-amber">Synthesizing…</span>';
+  } else if (state === 'complete') {
+    el.innerHTML = '<span class="badge badge-green">Analysis complete</span>';
+  } else {
+    el.innerHTML = '';
+  }
+}
+
+function showError(msg) {
+  const el = document.getElementById('error-state');
+  el.textContent = '⚠ ' + msg;
+  el.style.display = 'block';
+}
+
+function hideError() {
+  document.getElementById('error-state').style.display = 'none';
+}
+
+function resetAll() {
+  uploadedFiles = [];
+  pasteArea.value = '';
+  renderFileList();
+  updateBtn();
+  showState('input');
+  setTopbarBadge('');
+  hideError();
+  document.getElementById('results-state').innerHTML = '';
+}
+</script>
+
+</body>
+</html>

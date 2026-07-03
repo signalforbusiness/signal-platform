@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Signal. — Best Customer Profile</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400;1,600&family=Onest:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy:#0A1628; --navy-l:#142447; --navy-m:#0f1f3a; --blue:#1a3060;
+  --magenta:#A02B93; --magenta-l:#C43DB5;
+  --cream:#F0EBE1; --cream-d:#E5DDD0;
+  --white:#FFFFFF; --offW:#E8E4DC;
+  --muted:#8A9BB5; --mutedDk:#5A6880;
+  --dash:#0d1117; --dash-2:#141d2a; --dash-3:#1a2535;
+  --dash-border:#1e2a3a; --dash-text:#c9d4e0; --dash-muted:#5a7a8a;
+  --amber:#d4943a; --teal:#2abfbf;
+  --green:#2d9e6b; --green-bg:#0d2a1e;
+  --red:#e05252; --red-bg:#2a0d0d;
+  --t1:#A02B93; --t2:#1a6fa8; --t3:#5a7a8a;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--dash);color:var(--dash-text);font-family:'Onest',sans-serif;font-weight:300;line-height:1.6;min-height:100vh}
+
+/* NAV */
+nav{background:var(--navy);border-bottom:1px solid var(--dash-border);padding:.9rem 2rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+.nav-logo{display:flex;align-items:center;gap:.5rem;text-decoration:none}
+.nav-wordmark{font-family:'Onest',sans-serif;font-weight:900;font-size:1.1rem;color:var(--white);letter-spacing:-.04em}
+.nav-wordmark span{color:var(--magenta)}
+.nav-module{font-size:.72rem;font-weight:500;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;border-left:1px solid var(--dash-border);margin-left:.75rem;padding-left:.75rem}
+.nav-links{display:flex;gap:1.5rem;align-items:center}
+.nav-link{font-size:.75rem;color:var(--muted);text-decoration:none;letter-spacing:.04em;transition:color .2s}
+.nav-link:hover{color:var(--white)}
+.nav-badge{font-size:.65rem;font-weight:600;background:var(--magenta);color:var(--white);padding:.2rem .6rem;border-radius:2px;letter-spacing:.06em}
+
+/* LAYOUT */
+.wrap{max-width:1120px;margin:0 auto;padding:2.5rem 2rem 5rem}
+.page-header{margin-bottom:2.5rem}
+.page-eyebrow{font-size:.62rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--magenta);margin-bottom:.5rem}
+.page-title{font-family:'Lora',serif;font-size:1.8rem;font-weight:400;color:var(--white);margin-bottom:.4rem;line-height:1.2}
+.page-sub{font-size:.88rem;color:var(--muted);line-height:1.7;max-width:60ch}
+
+/* INPUT */
+#stage-input{display:block}
+#stage-loading,#stage-results{display:none}
+.input-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:1.5rem}
+@media(max-width:800px){.input-grid{grid-template-columns:1fr}}
+.input-card{background:var(--dash-2);border:1px solid var(--dash-border);border-radius:8px;padding:1.5rem}
+.input-label{font-size:.7rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:.6rem;display:flex;align-items:center;justify-content:space-between}
+.auto-badge{font-size:.6rem;font-weight:700;background:var(--green-bg);color:var(--green);padding:.15rem .5rem;border-radius:2px;letter-spacing:.08em}
+.missing-badge{font-size:.6rem;font-weight:700;background:var(--dash-3);color:var(--muted);padding:.15rem .5rem;border-radius:2px;letter-spacing:.08em}
+textarea{width:100%;background:var(--dash);border:1px solid var(--dash-border);border-radius:5px;padding:.85rem 1rem;font-family:'Onest',sans-serif;font-size:.8rem;color:var(--dash-text);line-height:1.55;resize:vertical;min-height:140px;transition:border-color .2s}
+textarea:focus{outline:none;border-color:var(--magenta)}
+textarea::placeholder{color:var(--dash-muted);font-style:italic}
+.input-hint{font-size:.72rem;color:var(--dash-muted);margin-top:.5rem;line-height:1.55}
+.format-hint{background:var(--dash);border:1px solid var(--dash-border);border-radius:4px;padding:.75rem 1rem;font-family:monospace;font-size:.68rem;color:var(--dash-muted);margin-top:.6rem;line-height:1.7}
+.run-btn{width:100%;background:var(--magenta);color:var(--white);border:none;border-radius:4px;padding:1rem;font-family:'Onest',sans-serif;font-size:.9rem;font-weight:600;cursor:pointer;letter-spacing:.04em;transition:background .2s}
+.run-btn:hover{background:var(--magenta-l)}
+.error-msg{background:var(--red-bg);border:1px solid var(--red);border-radius:6px;padding:1rem 1.25rem;font-size:.82rem;color:var(--red);line-height:1.6;margin-top:1rem}
+
+/* LOADING */
+#stage-loading{text-align:center;padding:5rem 2rem}
+.loading-spinner{width:40px;height:40px;border:3px solid var(--dash-border);border-top-color:var(--magenta);border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 1.5rem}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loading-msg{font-size:.9rem;color:var(--muted)}
+
+/* META BAR */
+.meta-bar{display:flex;gap:2rem;flex-wrap:wrap;background:var(--dash-2);border:1px solid var(--dash-border);border-radius:8px;padding:1rem 1.5rem;margin-bottom:2rem}
+.meta-item{font-size:.78rem;color:var(--muted)}
+.meta-item strong{color:var(--white);font-weight:600}
+
+/* SECTION HEADER with sub-header */
+.section-hd{margin:2rem 0 1.25rem}
+.section-label{font-size:.6rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--magenta);display:flex;align-items:center;gap:.75rem;margin-bottom:.35rem}
+.section-label::after{content:'';flex:1;height:1px;background:var(--dash-border)}
+.section-sub{font-size:.8rem;color:var(--muted);line-height:1.6;max-width:72ch}
+
+/* HERO CARD */
+.hero-card{background:linear-gradient(135deg,var(--navy) 0%,var(--navy-l) 100%);border:1px solid var(--dash-border);border-radius:10px;padding:2rem;margin-bottom:2rem;display:grid;grid-template-columns:1fr auto;gap:2rem;align-items:start}
+@media(max-width:700px){.hero-card{grid-template-columns:1fr}}
+.hero-headline{font-family:'Lora',serif;font-size:1.5rem;font-weight:400;color:var(--white);margin-bottom:.5rem;line-height:1.25}
+.hero-oneliner{font-size:.9rem;color:var(--muted);line-height:1.7;margin-bottom:1rem;max-width:52ch}
+.conf-badge{display:inline-flex;align-items:center;gap:.4rem;font-size:.7rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:.3rem .85rem;border-radius:3px}
+.conf-badge.high{background:rgba(45,158,107,.15);color:var(--green)}
+.conf-badge.medium{background:rgba(212,148,58,.15);color:var(--amber)}
+.conf-badge.low{background:rgba(224,82,82,.15);color:var(--red)}
+.hero-stats{display:flex;flex-direction:column;gap:.6rem;min-width:180px}
+.hero-stat{background:var(--dash-2);border:1px solid var(--dash-border);border-radius:6px;padding:.75rem 1rem}
+.hero-stat-val{font-family:'Lora',serif;font-size:1.4rem;color:var(--magenta);line-height:1}
+.hero-stat-lbl{font-size:.7rem;color:var(--muted);margin-top:.2rem}
+
+/* TILE GRID */
+.tile-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:2rem}
+@media(max-width:900px){.tile-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.tile-grid{grid-template-columns:1fr}}
+.tile{background:var(--dash-2);border:1px solid var(--dash-border);border-radius:8px;padding:1.25rem;cursor:pointer;transition:all .2s;text-align:left}
+.tile:hover{border-color:var(--magenta);background:var(--dash-3)}
+.tile.active{border-color:var(--magenta);background:var(--dash-3)}
+.tile-icon{font-size:1.2rem;margin-bottom:.5rem}
+.tile-title{font-size:.88rem;font-weight:600;color:var(--white);margin-bottom:.25rem}
+.tile-desc{font-size:.72rem;color:var(--muted);line-height:1.5}
+
+/* PANEL */
+.panel{background:var(--dash-2);border:1px solid var(--dash-border);border-radius:8px;padding:1.75rem;margin-bottom:2rem;display:none}
+.panel.active{display:block}
+
+/* SPECTRUM */
+.spectrum-bands{display:flex;flex-direction:column;gap:1.5rem}
+.band{border-radius:8px;overflow:hidden;border:1px solid var(--dash-border)}
+.band-header{padding:1rem 1.5rem;display:grid;grid-template-columns:auto 1fr auto;gap:1rem;align-items:center;cursor:pointer}
+.band-header:hover{filter:brightness(1.05)}
+.band-t1 .band-header{background:rgba(160,43,147,.15);border-bottom:1px solid rgba(160,43,147,.2)}
+.band-t2 .band-header{background:rgba(26,111,168,.15);border-bottom:1px solid rgba(26,111,168,.2)}
+.band-t3 .band-header{background:rgba(90,122,138,.12);border-bottom:1px solid rgba(90,122,138,.15)}
+.band-tier-badge{font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.25rem .65rem;border-radius:3px}
+.band-t1 .band-tier-badge{background:rgba(160,43,147,.25);color:var(--t1)}
+.band-t2 .band-tier-badge{background:rgba(26,111,168,.25);color:var(--t2)}
+.band-t3 .band-tier-badge{background:rgba(90,122,138,.2);color:var(--t3)}
+.band-title{font-family:'Lora',serif;font-size:1rem;color:var(--white)}
+.band-score{font-size:.8rem;color:var(--muted);font-weight:500}
+.band-body{padding:1.5rem;display:none}
+.band-body.open{display:block}
+.band-desc{font-size:.88rem;color:var(--muted);line-height:1.75;margin-bottom:1.25rem}
+.band-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;margin-bottom:1.25rem}
+@media(max-width:600px){.band-grid{grid-template-columns:1fr}}
+.band-section-title{font-size:.65rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:.6rem}
+.band-tags{display:flex;flex-wrap:wrap;gap:.4rem}
+.band-tag{font-size:.72rem;background:var(--dash);border:1px solid var(--dash-border);padding:.2rem .6rem;border-radius:3px;color:var(--dash-text)}
+.band-accounts{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.5rem}
+.account-pill{font-size:.72rem;font-weight:500;padding:.25rem .7rem;border-radius:20px;border:1px solid}
+.band-t1 .account-pill{background:rgba(160,43,147,.1);border-color:rgba(160,43,147,.3);color:var(--t1)}
+.band-t2 .account-pill{background:rgba(26,111,168,.1);border-color:rgba(26,111,168,.3);color:var(--t2)}
+.band-t3 .account-pill{background:rgba(90,122,138,.1);border-color:rgba(90,122,138,.3);color:var(--t3)}
+.keeps-up{background:var(--dash);border:1px solid var(--dash-border);border-radius:5px;padding:.85rem 1rem;font-size:.82rem;color:var(--dash-text);line-height:1.65;margin-top:.5rem}
+
+/* ATTRIBUTE TABLE */
+.attr-table{width:100%;border-collapse:collapse}
+.attr-table th{font-size:.6rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);padding:.6rem 1rem;border-bottom:1px solid var(--dash-border);text-align:left}
+.attr-table td{padding:.85rem 1rem;border-bottom:1px solid var(--dash-border);font-size:.82rem;color:var(--dash-text);vertical-align:top}
+.attr-table tr:last-child td{border-bottom:none}
+.weight-bar-wrap{display:flex;align-items:center;gap:.75rem}
+.weight-bar-bg{flex:1;height:5px;background:var(--dash-border);border-radius:10px;overflow:hidden}
+.weight-bar-fill{height:100%;border-radius:10px;background:var(--magenta)}
+.weight-pct{font-size:.72rem;color:var(--magenta);font-weight:600;min-width:2.5rem;text-align:right}
+.attr-tag{display:inline-block;font-size:.6rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:.15rem .5rem;border-radius:2px}
+.attr-tag.firmographic{background:rgba(42,191,191,.12);color:var(--teal)}
+.attr-tag.behavioral{background:rgba(160,43,147,.12);color:var(--magenta-l)}
+.attr-tag.situational{background:rgba(212,148,58,.12);color:var(--amber)}
+
+/* SCORECARD */
+.score-criteria{display:flex;flex-direction:column;gap:.6rem}
+.score-row{display:grid;grid-template-columns:1fr auto;gap:1rem;align-items:start;padding:.65rem .85rem;border-radius:5px;background:var(--dash);border:1px solid var(--dash-border)}
+.score-row-label{font-size:.82rem;color:var(--dash-text);margin-bottom:.2rem}
+.score-row-guidance{font-size:.72rem;color:var(--muted);line-height:1.5}
+.score-row-pts{font-size:.82rem;font-weight:700;color:var(--magenta);white-space:nowrap}
+.scoring-note{font-size:.8rem;color:var(--muted);line-height:1.65;margin-top:1rem;padding-top:1rem;border-top:1px solid var(--dash-border)}
+
+/* WATCH LIST */
+.watch-item{background:var(--dash-2);border:1px solid var(--dash-border);border-left:3px solid var(--amber);border-radius:0 6px 6px 0;padding:.85rem 1rem;font-size:.82rem;color:var(--muted);line-height:1.6;margin-bottom:.6rem}
+
+/* VoC THEMES */
+.theme-cards{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+@media(max-width:600px){.theme-cards{grid-template-columns:1fr}}
+.theme-card{background:var(--dash);border:1px solid var(--dash-border);border-radius:6px;padding:1rem}
+.theme-name{font-size:.85rem;font-weight:500;color:var(--white);margin-bottom:.3rem;line-height:1.35}
+.theme-freq{font-size:.7rem;color:var(--amber);margin-bottom:.4rem}
+.theme-rel{font-size:.78rem;color:var(--muted);line-height:1.6}
+
+/* NARRATIVE */
+.narrative-body{font-size:.88rem;color:var(--muted);line-height:1.8}
+.narrative-body p{margin-bottom:.85rem}
+.narrative-body p:last-child{margin-bottom:0}
+
+/* DURABILITY */
+.durability-card{background:var(--dash-2);border:1px solid var(--dash-border);border-left:3px solid var(--magenta);border-radius:0 8px 8px 0;padding:1.25rem 1.5rem}
+.durability-label{font-size:.62rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--magenta);margin-bottom:.5rem}
+.durability-body{font-size:.84rem;color:var(--muted);line-height:1.75}
+
+/* ACTIONS */
+.actions-bar{display:flex;gap:.75rem;justify-content:flex-end;margin-top:2rem}
+.btn-secondary{font-family:'Onest',sans-serif;font-size:.78rem;font-weight:500;background:transparent;border:1px solid var(--dash-border);color:var(--muted);padding:.6rem 1.25rem;border-radius:3px;cursor:pointer;transition:all .2s}
+.btn-secondary:hover{border-color:var(--muted);color:var(--white)}
+.btn-primary{font-family:'Onest',sans-serif;font-size:.78rem;font-weight:600;background:var(--magenta);border:none;color:var(--white);padding:.6rem 1.25rem;border-radius:3px;cursor:pointer;transition:background .2s;letter-spacing:.04em}
+.btn-primary:hover{background:var(--magenta-l)}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-logo">
+    <div class="nav-wordmark">Signal<span>.</span></div>
+    <div class="nav-module">Best Customer Profile</div>
+  </a>
+  <div class="nav-links">
+    <a href="signal-voc.html" class="nav-link">Customer Insight Synthesizer</a>
+    <span class="nav-badge">Module 02</span>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <!-- INPUT -->
+  <div id="stage-input">
+    <div class="page-header">
+      <div class="page-eyebrow">Module 02 of 06</div>
+      <h1 class="page-title">Best Customer Profile</h1>
+      <p class="page-sub">Signal correlates your customer intelligence with your account data to build a ranked spectrum of customer fit — from your highest-value relationships down to accounts worth monitoring. Each tier includes the specific profile, messaging that resonates, and the accounts that belong there.</p>
+
+        <!-- MODULE PURPOSE -->
+        <div style="background:var(--dash-2);border:1px solid var(--dash-border);border-radius:8px;padding:1.25rem 1.5rem;margin-top:1.5rem">
+          <div style="font-size:.6rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--magenta);margin-bottom:.6rem">What this module does and why it matters</div>
+          <div style="font-size:.85rem;color:var(--dash-text);font-weight:500;margin-bottom:.5rem">Identifies who your best customers actually are — and builds a ranked spectrum you can use to target, qualify, and retain more of them.</div>
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:.4rem;margin-top:.5rem">
+            <li style="font-size:.78rem;color:var(--muted);display:flex;gap:.5rem"><span style="color:var(--magenta)">→</span> <strong style="color:var(--dash-text);font-weight:500">For Sales:</strong> Know exactly which prospects to prioritize and which to qualify out early — with a 100-point scorecard you can use in any first conversation</li>
+            <li style="font-size:.78rem;color:var(--muted);display:flex;gap:.5rem"><span style="color:var(--magenta)">→</span> <strong style="color:var(--dash-text);font-weight:500">For Marketing:</strong> Understand what messaging resonates with each customer tier and where to focus acquisition investment</li>
+            <li style="font-size:.78rem;color:var(--muted);display:flex;gap:.5rem"><span style="color:var(--magenta)">→</span> <strong style="color:var(--dash-text);font-weight:500">For Leadership:</strong> Make resourcing decisions based on which customers generate disproportionate long-term value — and which ones consume more than they're worth</li>
+            <li style="font-size:.78rem;color:var(--muted);display:flex;gap:.5rem"><span style="color:var(--magenta)">→</span> <strong style="color:var(--dash-text);font-weight:500">For the platform:</strong> BCP output feeds the ICP Stress-Tester (Module 03), the Churn Signal Detector (Module 05), and the Intelligence Brief (Module 06) — making every downstream module more precise</li>
+          </ul>
+          <div style="font-size:.75rem;color:var(--muted);margin-top:.85rem;padding-top:.75rem;border-top:1px solid var(--dash-border)">The instinct for who your best customers are usually lives in the head of one or two senior people. This module makes that judgment explicit, data-backed, and durable — so it belongs to the organization, not whoever happens to be holding it today.</div>
+        </div>
+    </div>
+
+    <div class="input-grid">
+      <div class="input-card">
+        <div class="input-label">
+          Customer Insight Synthesizer output
+          <span id="voc-badge" class="missing-badge">Not detected</span>
+        </div>
+        <textarea id="voc-input" rows="8" placeholder="Paste the JSON output from your Customer Insight Synthesizer here. If you just ran a VoC analysis in this browser session, it may load automatically."></textarea>
+        <div class="input-hint">Run the Customer Insight Synthesizer first and paste the full JSON output here. This lets Signal cross-reference what your best customers value against who they actually are.</div>
+      </div>
+
+      <div class="input-card">
+        <div class="input-label">Account data</div>
+        <textarea id="account-input" rows="8" placeholder="Paste your account data here. See the format guide below."></textarea>
+        <div class="input-hint">Include 10-30 accounts with enough variation to identify patterns. The more complete each row, the stronger the output.</div>
+        <div class="format-hint">
+Company Name | Industry | Revenue Band | Employees | Tenure (yrs) | Renewal Rate | Expanded? | NPS/Health | Notes<br>
+Acme Corp | Manufacturing | $10-25M | 120 | 4 | 100% | Yes | High | Fast onboarder, refers others<br>
+Beta LLC | Logistics | $5-10M | 55 | 1.5 | 80% | No | Medium | Price-sensitive at renewal
+        </div>
+      </div>
+    </div>
+
+    <div id="error-msg" class="error-msg" style="display:none"></div>
+    <button class="run-btn" onclick="runBCP()">Build Best Customer Profile &rarr;</button>
+  </div>
+
+  <!-- LOADING -->
+  <div id="stage-loading">
+    <div class="loading-spinner"></div>
+    <div class="loading-msg" id="loading-msg">Reading account data...</div>
+  </div>
+
+  <!-- RESULTS -->
+  <div id="stage-results">
+
+    <div class="meta-bar" id="meta-bar"></div>
+
+    <!-- HERO -->
+    <div class="section-hd">
+      <div class="section-label">Your best customer</div>
+      <div class="section-sub">The single clearest description of who generates the most long-term value for your business. Use this in sales decks, hiring briefs, and board updates.</div>
+    </div>
+    <div class="hero-card" id="hero-card"></div>
+
+    <!-- TILES -->
+    <div class="section-hd">
+      <div class="section-label">Explore the profile</div>
+      <div class="section-sub">Select a section to dig into the details. Each one is a different lens on the same intelligence.</div>
+    </div>
+    <div class="tile-grid">
+      <div class="tile active" onclick="showPanel('spectrum')">
+        <div class="tile-icon">📊</div>
+        <div class="tile-title">Customer Spectrum</div>
+        <div class="tile-desc">Tiered ranking of what your best, mid-tier, and developing customers look like — with your actual accounts placed in each tier.</div>
+      </div>
+      <div class="tile" onclick="showPanel('attributes')">
+        <div class="tile-icon">⚖️</div>
+        <div class="tile-title">What Predicts a Best Customer</div>
+        <div class="tile-desc">The weighted attributes that signal whether a prospect or account is likely to become a high-value relationship.</div>
+      </div>
+      <div class="tile" onclick="showPanel('scorecard')">
+        <div class="tile-icon">✅</div>
+        <div class="tile-title">Prospect Scorecard</div>
+        <div class="tile-desc">A 100-point rubric your sales team can use to qualify any inbound or outbound prospect against the best customer profile.</div>
+      </div>
+      <div class="tile" onclick="showPanel('themes')">
+        <div class="tile-icon">🔗</div>
+        <div class="tile-title">Customer Intelligence Links</div>
+        <div class="tile-desc">Which themes from your VoC analysis were most prominent among best-fit accounts — and what that means for messaging.</div>
+      </div>
+      <div class="tile" onclick="showPanel('narrative')">
+        <div class="tile-icon">📖</div>
+        <div class="tile-title">Best Customer Narrative</div>
+        <div class="tile-desc">The full plain-language story of who your best customer is, why they chose you, and what keeps them.</div>
+      </div>
+      <div class="tile" onclick="showPanel('watchlist')">
+        <div class="tile-icon">△</div>
+        <div class="tile-title">Watch List</div>
+        <div class="tile-desc">Data gaps and assumptions that limit confidence in this profile — and what to collect before the next run.</div>
+      </div>
+    </div>
+
+    <!-- PANEL: SPECTRUM -->
+    <div class="panel active" id="panel-spectrum">
+      <div class="section-hd" style="margin-top:0">
+        <div class="section-label">Customer spectrum</div>
+        <div class="section-sub">Three tiers ranked by fit score. Click any tier to see the full profile, what resonates with that customer, what keeps them up at night, and which of your accounts belong there.</div>
+      </div>
+      <div class="spectrum-bands" id="spectrum-bands"></div>
+    </div>
+
+    <!-- PANEL: ATTRIBUTES -->
+    <div class="panel" id="panel-attributes">
+      <div class="section-hd" style="margin-top:0">
+        <div class="section-label">What predicts a best customer</div>
+        <div class="section-sub">Each attribute is ranked by how strongly it correlates with best-customer behavior in your account base. Higher weight means it's a stronger predictor — use the top attributes as your primary qualification criteria.</div>
+      </div>
+      <table class="attr-table">
+        <thead><tr><th>Attribute</th><th>Type</th><th>Weight</th><th>Why it matters</th></tr></thead>
+        <tbody id="attr-tbody"></tbody>
+      </table>
+    </div>
+
+    <!-- PANEL: SCORECARD -->
+    <div class="panel" id="panel-scorecard">
+      <div class="section-hd" style="margin-top:0">
+        <div class="section-label">Prospect scorecard</div>
+        <div class="section-sub">Score any prospect out of 100 points during or after your first conversation. A high score means strong fit — pursue aggressively. A low score is a signal to qualify harder before investing further.</div>
+      </div>
+      <div id="scorecard-content"></div>
+    </div>
+
+    <!-- PANEL: VOC THEMES -->
+    <div class="panel" id="panel-themes">
+      <div class="section-hd" style="margin-top:0">
+        <div class="section-label">Customer intelligence links</div>
+        <div class="section-sub">These themes from your VoC analysis showed up most strongly among your best-fit accounts. They are what your best customers care about most — which means they should anchor your sales messaging, onboarding priorities, and renewal conversations.</div>
+      </div>
+      <div class="theme-cards" id="theme-cards"></div>
+    </div>
+
+    <!-- PANEL: NARRATIVE -->
+    <div class="panel" id="panel-narrative">
+      <div class="section-hd" style="margin-top:0">
+        <div class="section-label">Best customer narrative</div>
+        <div class="section-sub">The weighted attributes turned into a story. Use this in team training, sales playbooks, and board updates to describe who your best customer actually is — in language anyone can act on.</div>
+      </div>
+      <div class="narrative-body" id="narrative-body"></div>
+    </div>
+
+    <!-- PANEL: WATCH LIST -->
+    <div class="panel" id="panel-watchlist">
+      <div class="section-hd" style="margin-top:0">
+        <div class="section-label">Watch list</div>
+        <div class="section-sub">These are the gaps in the data that limit how much you should trust this profile. Collect this information before the next BCP run to increase confidence.</div>
+      </div>
+      <div id="watchlist-content"></div>
+    </div>
+
+    <!-- DURABILITY -->
+    <div class="durability-card" id="durability-card" style="margin-top:2rem"></div>
+
+    <div class="actions-bar">
+      <button class="btn-secondary" onclick="resetTool()">Run a new analysis</button>
+      <button class="btn-primary" onclick="copyJSON()">Copy output for ICP Stress-Tester</button>
+    </div>
+
+  </div>
+</div>
+
+<script>
+// AUTO-DETECT VOC
+window.addEventListener('DOMContentLoaded', () => {
+  const stored = sessionStorage.getItem('signal_voc_output');
+  if (stored) {
+    try {
+      JSON.parse(stored);
+      document.getElementById('voc-input').value = stored;
+      document.getElementById('voc-badge').textContent = 'Auto-loaded from VoC';
+      document.getElementById('voc-badge').className = 'auto-badge';
+    } catch(e) {}
+  }
+});
+
+const BCP_PROMPT = `You are Signal's Best Customer Profile Engine — a commercial intelligence analyst trained to identify what makes a B2B company's best customers distinctive, predictable, and worth finding more of.
+
+Your job is to correlate customer intelligence themes with account-level data to produce a tiered customer spectrum: a ranked view of what the company's best, mid-tier, and developing customers look like, with real account names placed in each tier and specific tactical guidance for each.
+
+─── DEFINITIONS ──────────────────────────────────────────────────────────────
+
+A "best customer" is not the largest or longest-tenured. It is the customer that:
+- Renews consistently at or above full contract value
+- Expands over time without being pushed
+- Requires proportionate or below-average effort to serve
+- Has a named internal champion with operational ownership
+- Aligns tightly with the company's core capability and value proposition
+
+─── YOUR TASK ────────────────────────────────────────────────────────────────
+
+1. Classify each account as Tier 1 (best fit, 75-100 point range), Tier 2 (solid fit, 45-74 points), or Tier 3 (developing or at-risk, below 45 points) based on the signals available.
+
+2. For each tier, produce a specific customer profile describing:
+   - Who this customer is in plain, specific language (not "mid-market companies" but "mid-market process manufacturers who compete on uptime and product quality")
+   - What messaging resonates with this customer — the specific themes, language, and value propositions that land
+   - What keeps them up at night — their real operational anxieties, not generic business concerns
+   - What drives their purchase decision — the specific trigger or situation that typically brings them to you
+   - What keeps them from leaving — the retention anchors specific to this tier
+   - Early warning signs that an account in this tier is drifting toward churn
+   - Which real accounts from the data belong to this tier (list by name)
+
+3. Produce a weighted attribute model: the firmographic, behavioral, and situational attributes that most strongly predict Tier 1 status.
+
+4. Generate a 100-point prospect scorecard: criteria a sales rep can assess in a first conversation or from research.
+
+5. Write a plain-language Best Customer Narrative (3 paragraphs): who the best customer is, why they chose this company, and what keeps them.
+
+6. Cross-reference VoC themes to identify which themes were most prominent among Tier 1 accounts and what that means for messaging.
+
+7. Flag watch list items: data gaps that limit confidence in the profile.
+
+8. Write a one-paragraph durability note: what institutional knowledge this profile captures that was previously held only in specific people's heads.
+
+─── OUTPUT FORMAT ────────────────────────────────────────────────────────────
+
+Respond ONLY in valid JSON. No preamble, no markdown, no explanation outside the JSON.
+
+{
+  "meta": {
+    "accountsAnalyzed": <number>,
+    "tier1Count": <number>,
+    "tier2Count": <number>,
+    "tier3Count": <number>,
+    "confidenceLevel": "<high|medium|low>",
+    "confidenceNote": "<one sentence>",
+    "analysisDate": "<today's date>"
+  },
+  "bcpSummary": {
+    "headline": "<specific 10-15 word description of the best customer — be precise, not generic>",
+    "oneLiner": "<25-35 words: 'Our best customers are [specific description] who choose us because [specific reason] and stay because [specific reason]'>",
+    "keyStats": [
+      { "label": "<stat>", "value": "<value>" }
+    ]
+  },
+  "customerSpectrum": [
+    {
+      "tier": 1,
+      "tierLabel": "Best Fit",
+      "scoreRange": "75-100",
+      "profileTitle": "<specific plain-language title for this tier — e.g. 'Mid-market process manufacturers competing on uptime'>",
+      "description": "<2-3 sentence description of who this customer is, written in plain specific language>",
+      "messagingThemes": ["<specific message that resonates>", "<specific message>", "<specific message>"],
+      "keepsThemUpAtNight": "<2-3 sentences on their real operational anxieties — specific to this customer type>",
+      "purchaseTrigger": "<what specific situation or event typically brings this customer to you>",
+      "retentionAnchors": ["<what keeps them from leaving>", "<retention anchor>", "<retention anchor>"],
+      "earlyWarningSigns": ["<churn signal specific to this tier>", "<warning sign>"],
+      "accounts": ["<account name from data>", "<account name>"]
+    },
+    {
+      "tier": 2,
+      "tierLabel": "Solid Fit",
+      "scoreRange": "45-74",
+      "profileTitle": "<specific title>",
+      "description": "<description>",
+      "messagingThemes": ["<message>", "<message>", "<message>"],
+      "keepsThemUpAtNight": "<their anxieties>",
+      "purchaseTrigger": "<what brings them>",
+      "retentionAnchors": ["<anchor>", "<anchor>"],
+      "earlyWarningSign": ["<warning>", "<warning>"],
+      "accounts": ["<account name>"]
+    },
+    {
+      "tier": 3,
+      "tierLabel": "Developing",
+      "scoreRange": "Below 45",
+      "profileTitle": "<specific title>",
+      "description": "<description>",
+      "messagingThemes": ["<message>", "<message>"],
+      "keepsThemUpAtNight": "<their anxieties>",
+      "purchaseTrigger": "<what brings them>",
+      "retentionAnchors": ["<anchor>"],
+      "earlyWarningSign": ["<warning>", "<warning>"],
+      "accounts": ["<account name>"]
+    }
+  ],
+  "weightedAttributes": [
+    {
+      "attribute": "<attribute name>",
+      "type": "<firmographic|behavioral|situational>",
+      "weightPct": <percentage — all must sum to 100>,
+      "description": "<why this predicts best-customer status>"
+    }
+  ],
+  "bestCustomerNarrative": {
+    "title": "<narrative title>",
+    "paragraphs": ["<paragraph 1>", "<paragraph 2>", "<paragraph 3>"]
+  },
+  "vocThemeLinks": [
+    {
+      "themeName": "<theme from VoC>",
+      "frequency": "<e.g. '18 of 23 sources (78%)'>",
+      "relevanceToBCP": "<how this connects to Tier 1 behavior>"
+    }
+  ],
+  "prospectScorecard": {
+    "title": "Best Customer Fit Score",
+    "maxScore": 100,
+    "criteria": [
+      {
+        "criterion": "<what to assess>",
+        "points": <max points — all must sum to 100>,
+        "guidance": "<how to score it>"
+      }
+    ],
+    "scoringNote": "<what score ranges mean: strong fit / moderate / weak>"
+  },
+  "watchList": ["<data gap or assumption>"],
+  "durabilityNote": "<paragraph on institutional knowledge captured>"
+}`;
+
+async function runBCP() {
+  const vocRaw = document.getElementById('voc-input').value.trim();
+  const accountRaw = document.getElementById('account-input').value.trim();
+  const errEl = document.getElementById('error-msg');
+  errEl.style.display = 'none';
+
+  if (!accountRaw) {
+    errEl.textContent = 'Please paste your account data before running.';
+    errEl.style.display = 'block';
+    return;
+  }
+
+  let vocContext = '';
+  if (vocRaw) {
+    try {
+      const p = JSON.parse(vocRaw);
+      vocContext = `\n\nVoC SYNTHESIS OUTPUT (JSON):\n${JSON.stringify(p, null, 2)}`;
+    } catch(e) {
+      vocContext = `\n\nVoC RESEARCH NOTES:\n${vocRaw}`;
+    }
+  }
+
+  showState('loading');
+  setLoadingMsg('Reading account data...');
+
+  try {
+    setLoadingMsg('Classifying accounts by fit tier...');
+
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-6',
+        max_tokens: 8000,
+        system: BCP_PROMPT,
+        messages: [{
+          role: 'user',
+          content: `Build a Best Customer Profile and customer spectrum from the following inputs.\n\nACCOUNT DATA:\n${accountRaw}${vocContext}`
+        }]
+      })
+    });
+
+    if (!response.ok) {
+      const err = await response.json().catch(() => ({}));
+      throw new Error(err.error?.message || `API error ${response.status}`);
+    }
+
+    setLoadingMsg('Building customer spectrum...');
+
+    const data = await response.json();
+    const raw = data.content?.find(b => b.type === 'text')?.text || '';
+    const cleaned = raw.replace(/```json\n?/g,'').replace(/```\n?/g,'').trim();
+
+    let result;
+    try {
+      result = JSON.parse(cleaned);
+    } catch(e) {
+      if (data.stop_reason === 'max_tokens') throw new Error('Analysis too long. Try fewer accounts.');
+      throw new Error('Unexpected format returned. Please try again.');
+    }
+
+    sessionStorage.setItem('signal_bcp_output', JSON.stringify(result));
+    renderResults(result);
+    showState('results');
+
+  } catch(e) {
+    showState('input');
+    const errEl = document.getElementById('error-msg');
+    errEl.textContent = e.message || 'Something went wrong. Please try again.';
+    errEl.style.display = 'block';
+  }
+}
+
+function renderResults(r) {
+  const meta = r.meta || {};
+  const summary = r.bcpSummary || {};
+  const spectrum = r.customerSpectrum || [];
+  const attrs = r.weightedAttributes || [];
+  const narrative = r.bestCustomerNarrative || {};
+  const themes = r.vocThemeLinks || [];
+  const scorecard = r.prospectScorecard || {};
+  const watchList = r.watchList || [];
+
+  // META BAR
+  document.getElementById('meta-bar').innerHTML = `
+    <div class="meta-item"><strong>${meta.accountsAnalyzed || '—'}</strong> accounts analyzed</div>
+    <div class="meta-item"><strong style="color:var(--t1)">${meta.tier1Count || '—'}</strong> Tier 1 &nbsp;<strong style="color:var(--t2)">${meta.tier2Count || '—'}</strong> Tier 2 &nbsp;<strong style="color:var(--t3)">${meta.tier3Count || '—'}</strong> Tier 3</div>
+    <div class="meta-item">Confidence: <strong>${meta.confidenceLevel || '—'}</strong></div>
+    <div class="meta-item">${meta.analysisDate || 'Today'}</div>
+    ${meta.confidenceNote ? `<div class="meta-item" style="flex:1;font-style:italic">${meta.confidenceNote}</div>` : ''}
+  `;
+
+  // HERO
+  const confClass = meta.confidenceLevel || 'medium';
+  const stats = (summary.keyStats || []).map(s => `
+    <div class="hero-stat">
+      <div class="hero-stat-val">${s.value}</div>
+      <div class="hero-stat-lbl">${s.label}</div>
+    </div>
+  `).join('');
+  document.getElementById('hero-card').innerHTML = `
+    <div>
+      <div class="hero-headline">${summary.headline || 'Best Customer Profile'}</div>
+      <div class="hero-oneliner">${summary.oneLiner || ''}</div>
+      <span class="conf-badge ${confClass}">${confClass} confidence</span>
+    </div>
+    <div class="hero-stats">${stats}</div>
+  `;
+
+  // SPECTRUM
+  const tierColors = { 1:'band-t1', 2:'band-t2', 3:'band-t3' };
+  document.getElementById('spectrum-bands').innerHTML = spectrum.map((tier, idx) => {
+    const tc = tierColors[tier.tier] || 'band-t3';
+    const accounts = (tier.accounts || []).map(a => `<span class="account-pill">${a}</span>`).join('');
+    const msgTags = (tier.messagingThemes || []).map(m => `<span class="band-tag">${m}</span>`).join('');
+    const retAnchors = (tier.retentionAnchors || []).map(r => `<span class="band-tag">${r}</span>`).join('');
+    const warnings = (tier.earlyWarningSign || tier.earlyWarningsSigns || []).map(w => `<span class="band-tag" style="border-color:rgba(224,82,82,.3);color:var(--red);background:rgba(224,82,82,.06)">${w}</span>`).join('');
+
+    return `
+      <div class="band ${tc}">
+        <div class="band-header" onclick="toggleBand(${idx})">
+          <span class="band-tier-badge">Tier ${tier.tier} — ${tier.tierLabel}</span>
+          <span class="band-title">${tier.profileTitle || ''}</span>
+          <span class="band-score">${tier.scoreRange} pts</span>
+        </div>
+        <div class="band-body" id="band-body-${idx}">
+          <div class="band-desc">${tier.description || ''}</div>
+          <div class="band-grid">
+            <div>
+              <div class="band-section-title">Messaging that resonates</div>
+              <div class="band-tags">${msgTags}</div>
+            </div>
+            <div>
+              <div class="band-section-title">Retention anchors</div>
+              <div class="band-tags">${retAnchors}</div>
+            </div>
+          </div>
+          <div style="margin-bottom:1.25rem">
+            <div class="band-section-title">What keeps them up at night</div>
+            <div class="keeps-up">${tier.keepsThemUpAtNight || ''}</div>
+          </div>
+          <div style="margin-bottom:1.25rem">
+            <div class="band-section-title">Purchase trigger</div>
+            <div class="keeps-up">${tier.purchaseTrigger || ''}</div>
+          </div>
+          <div style="margin-bottom:1.25rem">
+            <div class="band-section-title">Early warning signs</div>
+            <div class="band-tags">${warnings}</div>
+          </div>
+          <div>
+            <div class="band-section-title">Accounts in this tier</div>
+            <div class="band-accounts">${accounts}</div>
+          </div>
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  // Open Tier 1 by default
+  const firstBody = document.getElementById('band-body-0');
+  if (firstBody) firstBody.classList.add('open');
+
+  // ATTRIBUTES
+  document.getElementById('attr-tbody').innerHTML = attrs.map(a => `
+    <tr>
+      <td style="font-weight:500;color:var(--white)">${a.attribute}</td>
+      <td><span class="attr-tag ${a.type}">${a.type}</span></td>
+      <td>
+        <div class="weight-bar-wrap">
+          <div class="weight-bar-bg"><div class="weight-bar-fill" style="width:${a.weightPct}%"></div></div>
+          <span class="weight-pct">${a.weightPct}%</span>
+        </div>
+      </td>
+      <td style="color:var(--muted);font-size:.8rem">${a.description}</td>
+    </tr>
+  `).join('');
+
+  // SCORECARD
+  const criteria = (scorecard.criteria || []).map(c => `
+    <div class="score-row">
+      <div>
+        <div class="score-row-label">${c.criterion}</div>
+        <div class="score-row-guidance">${c.guidance}</div>
+      </div>
+      <div class="score-row-pts">${c.points} pts</div>
+    </div>
+  `).join('');
+  document.getElementById('scorecard-content').innerHTML = `
+    <div class="score-criteria">${criteria}</div>
+    ${scorecard.scoringNote ? `<div class="scoring-note">${scorecard.scoringNote}</div>` : ''}
+  `;
+
+  // THEMES
+  document.getElementById('theme-cards').innerHTML = themes.length
+    ? themes.map(t => `
+        <div class="theme-card">
+          <div class="theme-name">${t.themeName}</div>
+          <div class="theme-freq">${t.frequency}</div>
+          <div class="theme-rel">${t.relevanceToBCP}</div>
+        </div>
+      `).join('')
+    : '<div style="color:var(--muted);font-size:.85rem;grid-column:1/-1">No VoC output provided. Run the Customer Insight Synthesizer first to link customer intelligence themes to your best customer profile.</div>';
+
+  // NARRATIVE
+  const paras = (narrative.paragraphs || []).map(p => `<p>${p}</p>`).join('');
+  document.getElementById('narrative-body').innerHTML = paras;
+
+  // WATCH LIST
+  document.getElementById('watchlist-content').innerHTML = watchList.length
+    ? watchList.map(w => `<div class="watch-item">${w}</div>`).join('')
+    : '<div style="color:var(--muted);font-size:.85rem">No significant data gaps identified.</div>';
+
+  // DURABILITY
+  document.getElementById('durability-card').innerHTML = `
+    <div class="durability-label">On institutional knowledge</div>
+    <div class="durability-body">${r.durabilityNote || 'The instinct for who your best customers are usually lives in the head of one or two senior people. This profile makes that judgment explicit, data-backed, and durable — so it belongs to the organization, not to whoever happens to be holding it today.'}</div>
+  `;
+}
+
+function showPanel(id) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tile').forEach(t => t.classList.remove('active'));
+  document.getElementById('panel-' + id).classList.add('active');
+  event.currentTarget.classList.add('active');
+}
+
+function toggleBand(idx) {
+  const body = document.getElementById('band-body-' + idx);
+  if (body) body.classList.toggle('open');
+}
+
+function showState(state) {
+  document.getElementById('stage-input').style.display = state === 'input' ? 'block' : 'none';
+  document.getElementById('stage-loading').style.display = state === 'loading' ? 'block' : 'none';
+  document.getElementById('stage-results').style.display = state === 'results' ? 'block' : 'none';
+}
+
+function setLoadingMsg(msg) {
+  document.getElementById('loading-msg').textContent = msg;
+}
+
+function resetTool() {
+  document.getElementById('account-input').value = '';
+  document.getElementById('error-msg').style.display = 'none';
+  showState('input');
+}
+
+function copyJSON() {
+  const stored = sessionStorage.getItem('signal_bcp_output');
+  if (stored) {
+    navigator.clipboard.writeText(stored).then(() => {
+      const btn = document.querySelector('.btn-primary');
+      const orig = btn.textContent;
+      btn.textContent = 'Copied to clipboard';
+      setTimeout(() => btn.textContent = orig, 2500);
+    });
+  }
+}
+</script>
+</body>
+</html>
