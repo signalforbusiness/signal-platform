@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Signal — Customer Intelligence Platform</title>
+<title>Signal: Customer Intelligence Platform</title>
 <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400;1,600&family=Onest:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
 <style>
 :root{--navy:#0A1628;--mag:#A02B93;--mag-l:#C94AAD;--cream:#F0EBE1;--cream-d:#E4DDD2;--border:#D4CCC0;--muted:#6a6258;--ink:#0A1628;--white:#FFFFFF;--surface:#1a2235;--surface2:#212d45;--nb:#2a3a55;--td:#8a9ab5}
@@ -24,7 +24,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(10,22,40,.96
 
 /* HERO */
 .hero{min-height:100vh;background:var(--navy);display:flex;flex-direction:column;justify-content:center;padding:8rem 4rem 5rem}
-.hero-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr;align-items:center}
+.hero-inner{width:100%;max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr;align-items:center}
 .hero-content{max-width:640px}
 .hero-eyebrow{font-size:.65rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--mag);margin-bottom:1.5rem;display:flex;align-items:center;gap:.75rem}
 .hero-eyebrow::before{content:'';width:32px;height:1px;background:var(--mag)}
@@ -44,6 +44,10 @@ section{padding:6rem 4rem}
 .section-title{font-family:'Lora',serif;font-size:clamp(1.9rem,3.2vw,2.8rem);font-weight:400;line-height:1.1;letter-spacing:-.01em;color:var(--ink);margin-bottom:1.25rem}
 .section-title em{font-style:italic;color:var(--mag)}
 .section-sub{font-size:.95rem;color:var(--muted);max-width:54ch;line-height:1.8;margin-bottom:3rem}
+.section-cta{display:inline-flex;align-items:center;gap:.5rem;font-family:'Onest',sans-serif;font-size:.82rem;font-weight:600;color:var(--mag-l);text-decoration:none;margin-top:2.5rem}
+.section-cta:hover{color:var(--white)}
+.section-cta.on-light{color:var(--mag)}
+.section-cta.on-light:hover{color:var(--ink)}
 
 /* QUESTIONS */
 .questions-section{background:var(--navy)}
@@ -55,47 +59,95 @@ section{padding:6rem 4rem}
 
 /* HOW SIGNAL WORKS */
 .works-section{background:var(--navy)}
-.works-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.06);border-radius:8px;overflow:hidden;margin-top:3rem}
-.works-item{padding:2.25rem 1.75rem;background:var(--navy)}
+.works-flow{display:flex;align-items:flex-start;margin-top:4rem;gap:0}
+.works-item{flex:1;position:relative;padding-right:2.5rem}
+.works-item:last-child{padding-right:0}
 .works-num{font-size:.6rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--mag);margin-bottom:1rem}
-.works-title{font-family:'Lora',serif;font-size:1.1rem;font-weight:400;color:var(--white);line-height:1.3;margin-bottom:.85rem}
-.works-body{font-size:.82rem;color:rgba(255,255,255,.45);line-height:1.7}
+.works-title{font-family:'Lora',serif;font-size:1.2rem;font-weight:400;color:var(--white);line-height:1.3;margin-bottom:.85rem}
+.works-body{font-size:.82rem;color:rgba(255,255,255,.45);line-height:1.7;max-width:26ch}
+.works-arrow{position:absolute;top:.15rem;right:-.2rem;width:2.4rem;height:1.2rem;color:var(--mag);opacity:.6}
+.works-loop{display:flex;align-items:center;justify-content:center;gap:.85rem;margin-top:3rem;padding-top:2rem;border-top:1px solid var(--nb)}
+.works-loop-text{font-size:.78rem;color:rgba(255,255,255,.4);font-style:italic}
+.works-loop svg{color:var(--mag);opacity:.7}
 
-/* MODULES */
+/* MODULE CAROUSEL */
 .modules-section{background:var(--cream)}
-.modules-intro{margin-bottom:3rem}
-.modules-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:8px;overflow:hidden}
-.module-item{background:var(--cream);padding:2rem 1.75rem;transition:background .2s;position:relative}
-.module-item:hover{background:#fff}
-.module-tag{font-size:.58rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--mag);margin-bottom:.85rem}
-.module-name{font-family:'Lora',serif;font-size:1.05rem;font-weight:400;color:var(--ink);margin-bottom:.65rem;line-height:1.25}
-.module-desc{font-size:.8rem;color:var(--muted);line-height:1.7;margin-bottom:1rem}
+.module-carousel{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;background:#fff;border:1px solid var(--border);border-radius:10px;padding:3rem;min-height:420px}
+.carousel-tag{font-size:.62rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--mag);margin-bottom:.9rem;transition:opacity .2s}
+.carousel-name{font-family:'Lora',serif;font-size:1.5rem;font-weight:400;color:var(--ink);margin-bottom:1.1rem;line-height:1.25;transition:opacity .2s}
+.carousel-desc{font-size:.87rem;color:var(--muted);line-height:1.75;margin-bottom:1.25rem;transition:opacity .2s}
+.carousel-value{font-size:.82rem;color:var(--ink);font-weight:500;padding-top:1.1rem;border-top:1px solid var(--border);line-height:1.65;margin-bottom:2rem;transition:opacity .2s}
+.carousel-nav{display:flex;align-items:center;gap:1.25rem}
+.carousel-arrow{width:38px;height:38px;border-radius:50%;border:1px solid var(--border);background:var(--cream);color:var(--ink);font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;flex-shrink:0}
+.carousel-arrow:hover{background:var(--mag);border-color:var(--mag);color:#fff}
+.carousel-dots{display:flex;gap:.5rem}
+.carousel-dot{width:6px;height:6px;border-radius:50%;background:var(--border);cursor:pointer;transition:all .15s;border:none;padding:0}
+.carousel-dot.active{background:var(--mag);width:18px;border-radius:3px}
+.carousel-visual{width:100%;aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;background:var(--cream);border-radius:8px;transition:opacity .2s}
+.carousel-visual svg{width:82%;height:82%}
+.fade-out{opacity:0}
+
+/* MODULES SECTION (legacy card styles retained for reference elsewhere) */
 .module-value{font-size:.78rem;color:var(--ink);font-weight:500;padding-top:1rem;border-top:1px solid var(--border);line-height:1.6}
 
-/* DECISION LAYER */
-.decision-section{background:var(--navy)}
-.decision-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.06);border-radius:8px;overflow:hidden;margin-top:3rem}
+/* DECISION LAYER (merged into Why Signal) */
+.decision-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.06);border-radius:8px;overflow:hidden;margin-top:3rem;margin-bottom:1rem}
 .decision-item{padding:2.5rem 2.25rem;background:var(--navy)}
 .decision-label{font-family:'Lora',serif;font-size:1.15rem;font-weight:400;color:var(--white);line-height:1.3;margin-bottom:.85rem}
 .decision-body{font-size:.85rem;color:rgba(255,255,255,.5);line-height:1.75}
 
 /* HOW IT WORKS sidebar */
-/* EXECUTIVE BRIEF MOCKUP */
+/* EXECUTIVE BRIEF MOCKUP (interactive) */
 .exec-brief{margin-top:3.5rem;padding-top:3rem;border-top:1px solid var(--border)}
 .exec-brief-label{font-family:'Lora',serif;font-size:1.1rem;font-weight:400;color:var(--ink);margin-bottom:.65rem}
 .exec-brief-body{font-size:.87rem;color:var(--muted);line-height:1.8;max-width:60ch;margin-bottom:2rem}
-.exec-brief-img{width:100%;border-radius:8px;border:1px solid var(--border);display:block}
+.brief-card{background:#fff;border:1px solid var(--border);border-radius:10px;padding:2rem 2.25rem;box-shadow:0 20px 50px rgba(10,22,40,.08)}
+.brief-nav{display:flex;align-items:center;gap:1.75rem;padding-bottom:1.25rem;border-bottom:1px solid var(--border);margin-bottom:1.5rem;flex-wrap:wrap}
+.brief-logo{display:flex;align-items:center;gap:.5rem;font-family:'Lora',serif;font-weight:600;font-size:.95rem;color:var(--ink)}
+.brief-logo-mark{width:16px;height:16px;background:var(--mag);border-radius:4px;display:inline-block}
+.brief-tabs{display:flex;gap:1.25rem;flex:1;flex-wrap:wrap}
+.brief-tab{font-size:.72rem;color:#b0a99c;cursor:default}
+.brief-tab.active{color:var(--mag);font-weight:600}
+.brief-date{font-size:.72rem;color:var(--muted);margin-left:auto}
+.brief-eyebrow{font-size:.62rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--mag);margin-bottom:.6rem}
+.brief-headline{font-family:'Lora',serif;font-size:1.25rem;color:var(--ink);line-height:1.4;margin-bottom:1.75rem;max-width:56ch}
+.brief-stats{display:flex;gap:3rem;padding-bottom:1.5rem;border-bottom:1px solid var(--border);margin-bottom:1.5rem;flex-wrap:wrap}
+.brief-stat-label{font-size:.6rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#9a9184;margin-bottom:.4rem}
+.brief-stat-value{font-family:'Lora',serif;font-size:1.4rem;color:var(--ink)}
+.brief-stat-value.green{color:#1e7a3d}
+.brief-cols3{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;padding-bottom:1.5rem;border-bottom:1px solid var(--border);margin-bottom:1.5rem}
+.brief-cols2{display:grid;grid-template-columns:repeat(2,1fr);gap:2rem}
+.brief-col-title{font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--mag);margin-bottom:.9rem}
+.brief-row{font-size:.8rem;color:var(--ink);padding:.4rem .5rem;margin:0 -.5rem;border-radius:5px;display:flex;justify-content:space-between;gap:.5rem;transition:background .15s}
+.brief-row:hover{background:var(--cream)}
+.brief-row .tag{font-size:.65rem;font-weight:700;flex-shrink:0}
+.brief-row .tag.high{color:#1e7a3d}
+.brief-row .tag.med{color:#b8860b}
+.brief-row .count{color:var(--muted);font-variant-numeric:tabular-nums}
+.brief-row.watch-up{color:#1e7a3d}
+.brief-row.watch-down{color:#b02020}
+.brief-check{display:flex;gap:.6rem;align-items:flex-start;font-size:.8rem;color:var(--ink);padding:.4rem .5rem;margin:0 -.5rem;border-radius:5px;cursor:pointer;transition:background .15s;line-height:1.5}
+.brief-check:hover{background:var(--cream)}
+.brief-checkbox{width:14px;height:14px;border:1.5px solid var(--mag);border-radius:3px;flex-shrink:0;margin-top:.15rem;display:flex;align-items:center;justify-content:center;transition:background .15s}
+.brief-checkbox.checked{background:var(--mag)}
+.brief-checkbox.checked::after{content:'✓';color:#fff;font-size:.6rem}
+.brief-mini-stats{display:flex;gap:2rem;flex-wrap:wrap}
+.mini-label{font-size:.6rem;color:#9a9184;margin-bottom:.35rem}
+.mini-value{font-family:'Lora',serif;font-size:1.05rem;font-weight:600;color:var(--ink)}
+.mini-value.green{color:#1e7a3d}
+.mini-value.red{color:#b02020}
+.brief-footer{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;background:var(--cream);border-radius:6px;padding:.85rem 1.1rem;margin-top:1.75rem;font-size:.75rem}
+.brief-footer span:first-child{font-style:italic;color:var(--muted)}
+.brief-footer-date{font-weight:600;color:var(--ink)}
+@media(max-width:760px){.brief-cols3,.brief-cols2{grid-template-columns:1fr}.brief-date{margin-left:0}}
 
 /* WHY SIGNAL */
 .why-section{background:var(--navy)}
 .why-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem;margin-top:2.5rem}
 .why-card{background:var(--surface);border:1px solid var(--nb);border-radius:8px;padding:2rem 1.75rem}
-.why-card.featured{background:var(--mag);border-color:var(--mag)}
 .why-num{font-size:.62rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--mag);margin-bottom:.85rem}
-.why-card.featured .why-num{color:rgba(255,255,255,.5)}
 .why-title{font-family:'Lora',serif;font-size:1.05rem;font-weight:400;color:var(--white);margin-bottom:.65rem;line-height:1.3}
 .why-body{font-size:.82rem;color:var(--td);line-height:1.7}
-.why-card.featured .why-body{color:rgba(255,255,255,.65)}
 
 /* PRICING */
 .pricing-section{background:var(--cream)}
@@ -148,7 +200,7 @@ footer{background:var(--navy);padding:3rem 4rem;border-top:1px solid var(--nb)}
 .footer-link:hover{color:rgba(255,255,255,.7)}
 .footer-copy{font-size:.72rem;color:rgba(255,255,255,.2)}
 
-@media(max-width:960px){.nav-inner{padding:1.25rem 2rem}.hero{padding:7rem 2rem 4rem}section{padding:4rem 2rem}.q-grid,.modules-grid,.why-grid,.pricing-grid,.decision-grid,.works-grid{grid-template-columns:1fr}.advisory{grid-template-columns:1fr}.book-section{padding:5rem 2rem}.footer-inner{flex-direction:column;gap:1.5rem;text-align:center}footer{padding:3rem 2rem}}
+@media(max-width:960px){.nav-inner{padding:1.25rem 2rem}.hero{padding:7rem 2rem 4rem}section{padding:4rem 2rem}.q-grid,.why-grid,.pricing-grid,.decision-grid{grid-template-columns:1fr}.works-flow{flex-direction:column;gap:2.5rem}.works-item{padding-right:0}.works-arrow{display:none}.module-carousel{grid-template-columns:1fr;gap:2rem;padding:2rem}.advisory{grid-template-columns:1fr}.book-section{padding:5rem 2rem}.footer-inner{flex-direction:column;gap:1.5rem;text-align:center}footer{padding:3rem 2rem}}
 </style>
 </head>
 <body>
@@ -183,13 +235,13 @@ footer{background:var(--navy);padding:3rem 4rem;border-top:1px solid var(--nb)}
 <!-- THREE QUESTIONS -->
 <section class="questions-section" id="questions">
   <div class="section-inner">
-    <h2 class="section-title" style="color:var(--white);max-width:24ch">Every commercial strategy depends on three questions.</h2>
-    <p class="section-sub" style="color:rgba(255,255,255,.45)">Most can't. Signal is built to answer them — systematically, from your actual customer data, every quarter.</p>
+    <h2 class="section-title" style="color:var(--white);max-width:26ch">We help you answer three critical customer strategy questions.</h2>
+    <p class="section-sub" style="color:rgba(255,255,255,.45)">Most companies can't answer them. Signal answers all three systematically, using your actual customer data, every quarter.</p>
     <div class="q-grid">
       <div class="q-item">
         <div class="q-num">Question 01</div>
         <div class="q-title">Who are your best customers, and why did they choose you?</div>
-        <div class="q-body">Not your biggest customers — your best ones. The ones who stay, expand, and refer others. Signal identifies who they are and what predicted them so you can find more of them.</div>
+        <div class="q-body">Not your biggest customers. Your best ones. The ones who stay, expand, and refer others. Signal identifies who they are and what predicted them so you can find more of them.</div>
       </div>
       <div class="q-item">
         <div class="q-num">Question 02</div>
@@ -202,6 +254,7 @@ footer{background:var(--navy);padding:3rem 4rem;border-top:1px solid var(--nb)}
         <div class="q-body">By the time a customer tells you they are leaving, the decision was made months earlier. Signal identifies the signals that predict churn before they are obvious so you can act while it still matters.</div>
       </div>
     </div>
+    <a href="#book" class="section-cta">Book a call to talk through your three answers →</a>
   </div>
 </section>
 
@@ -210,22 +263,25 @@ footer{background:var(--navy);padding:3rem 4rem;border-top:1px solid var(--nb)}
   <div class="section-inner">
     <div class="ey">How Signal works</div>
     <h2 class="section-title" style="color:var(--white);max-width:22ch">Customer data in. Commercial decisions out.</h2>
-    <p class="section-sub" style="color:rgba(255,255,255,.45)">Signal connects to the systems and conversations you already have. It works with what's already in place, not instead of it.</p>
-    <div class="works-grid">
+    <p class="section-sub" style="color:rgba(255,255,255,.45)">Signal plugs into the CRM, documents, and conversations you already have. Nothing new for your team to learn or manage.</p>
+    <div class="works-flow">
       <div class="works-item">
         <div class="works-num">Step 01</div>
         <div class="works-title">Listen</div>
         <div class="works-body">Signal gathers customer intelligence from across your systems, documents, and conversations, including CRM activity, support conversations, surveys, interviews, and account history.</div>
+        <svg class="works-arrow" viewBox="0 0 40 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 10H34M34 10L26 3M34 10L26 17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </div>
       <div class="works-item">
         <div class="works-num">Step 02</div>
         <div class="works-title">Understand</div>
         <div class="works-body">Signal finds the patterns that predict retention, expansion, fit, and risk.</div>
+        <svg class="works-arrow" viewBox="0 0 40 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 10H34M34 10L26 3M34 10L26 17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </div>
       <div class="works-item">
         <div class="works-num">Step 03</div>
         <div class="works-title">Decide</div>
         <div class="works-body">Leadership gets clear direction on where to invest, who to prioritize, and what needs attention.</div>
+        <svg class="works-arrow" viewBox="0 0 40 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 10H34M34 10L26 3M34 10L26 17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </div>
       <div class="works-item">
         <div class="works-num">Step 04</div>
@@ -233,6 +289,11 @@ footer{background:var(--navy);padding:3rem 4rem;border-top:1px solid var(--nb)}
         <div class="works-body">Every new customer conversation makes the intelligence sharper.</div>
       </div>
     </div>
+    <div class="works-loop">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 12a8 8 0 0 1 13.66-5.66M20 12a8 8 0 0 1-13.66 5.66M17.5 3v4h-4M6.5 21v-4h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span class="works-loop-text">The cycle runs continuously. Every decision feeds the next round of intelligence.</span>
+    </div>
+    <a href="#platform" class="section-cta">See the platform this powers →</a>
   </div>
 </section>
 
@@ -240,57 +301,93 @@ footer{background:var(--navy);padding:3rem 4rem;border-top:1px solid var(--nb)}
 <section class="modules-section" id="platform">
   <div class="section-inner">
     <div class="ey">The platform</div>
-    <h2 class="section-title">Six modules. One shared intelligence layer.</h2>
-    <p class="section-sub">Each module runs on its own or alongside the others. Customer insight feeds customer profiling. Customer profiling feeds strategy validation. Every output becomes the next input, so the intelligence compounds rather than sitting in separate tools.</p>
-    <div class="modules-grid">
-      <div class="module-item">
-        <div class="module-tag">Module 01 — Entry module</div>
-        <div class="module-name">Customer Insight Synthesizer</div>
-        <div class="module-desc">Upload interviews, surveys, reviews, and support data. Signal extracts the themes your customers keep coming back to, scores them by frequency and emotional intensity, and maps each one to the three questions.</div>
-        <div class="module-value">Rapidly synthesize customer insight to uncover revenue opportunities, product gaps, and service misses — so your team spends less time guessing and more time acting on what customers are actually telling you.</div>
+    <h2 class="section-title">Six modules that turn customer data into commercial decisions.</h2>
+    <p class="section-sub">Each module runs on its own or alongside the others. Customer insight feeds customer profiling. Customer profiling feeds strategy validation. Every output becomes the next input, so the intelligence compounds instead of sitting in separate tools.</p>
+    <div class="module-carousel">
+      <div class="carousel-left">
+        <div class="carousel-tag" id="mc-tag">Module 01: Entry module</div>
+        <div class="carousel-name" id="mc-name">Customer Insight Synthesizer</div>
+        <div class="carousel-desc" id="mc-desc">Upload interviews, surveys, reviews, and support data. Signal extracts the themes your customers keep coming back to, scores them by frequency and emotional intensity, and maps each one to the three questions.</div>
+        <div class="carousel-value" id="mc-value">Rapidly synthesize customer insight to uncover revenue opportunities, product gaps, and service misses. Your team spends less time guessing and more time acting on what customers are actually telling you.</div>
+        <div class="carousel-nav">
+          <button class="carousel-arrow" id="mc-prev" aria-label="Previous module">&#8249;</button>
+          <div class="carousel-dots" id="mc-dots"></div>
+          <button class="carousel-arrow" id="mc-next" aria-label="Next module">&#8250;</button>
+        </div>
       </div>
-      <div class="module-item">
-        <div class="module-tag">Module 02 — Builds on 01</div>
-        <div class="module-name">Best Customer Profile</div>
-        <div class="module-desc">Combines your customer insight themes with your account data to find the customers who generate disproportionate value. Signal identifies the attributes and signals that predicted them before they became your best customers.</div>
-        <div class="module-value">Shift sales and marketing toward accounts most likely to become long-term, high-value relationships. Most companies discover a segment they were underinvesting in entirely. The best acquisition strategy starts with knowing who your best customers already are.</div>
-      </div>
-      <div class="module-item">
-        <div class="module-tag">Module 03 — Builds on 02</div>
-        <div class="module-name">Ideal Customer Profile (ICP) Stress-Tester</div>
-        <div class="module-desc">Compares who your company says it is targeting against who your data shows actually generates the most value. Surfaces the gaps between your stated strategy and commercial reality, ranked by revenue impact.</div>
-        <div class="module-value">Most companies are targeting the wrong customers and don't know it. Every wasted sales cycle, every poor-fit acquisition, every high-cost renewal fight traces back to an ICP that hasn't been tested against real data.</div>
-      </div>
-      <div class="module-item">
-        <div class="module-tag">Module 04 — Builds on 01 + 02</div>
-        <div class="module-name">Synthetic Customer Personas</div>
-        <div class="module-desc">Builds a queryable model of your best customer type from real insight themes and account patterns. Ask it how your best customer would respond to a pricing change, a new product feature, or a shift in messaging before you commit to anything.</div>
-        <div class="module-value">Test pricing, messaging, and product decisions against a real customer model rather than internal assumptions. Research that used to take months and significant budget now takes hours.</div>
-      </div>
-      <div class="module-item">
-        <div class="module-tag">Module 05 — Builds on 01</div>
-        <div class="module-name">Churn Signal Detector</div>
-        <div class="module-desc">Monitors your account base against the retention patterns identified in your customer research. Flags at-risk accounts early, tells you whether the risk is worth acting on based on customer fit, and recommends the right intervention for the type of churn showing up.</div>
-        <div class="module-value">Know which accounts need attention months before renewal. Know which churns are worth preventing and which are not. And know that when the account manager handling this relationship leaves, the intelligence stays.</div>
-      </div>
-      <div class="module-item">
-        <div class="module-tag">Module 06 — Aggregation layer</div>
-        <div class="module-name">Intelligence Brief</div>
-        <div class="module-desc">Pulls everything Signal knows about an account or segment into a single on-demand brief. Generated fresh each time, it surfaces the risk signals, the relevant customer insight, the relationship health, and the single most important thing to address right now.</div>
-        <div class="module-value">Walk into every client conversation better prepared than the person across the table. Your team stops relying on gut feel and starts making account decisions from intelligence that survives turnover, compounds over time, and reflects what is actually happening.</div>
-      </div>
+      <div class="carousel-visual" id="mc-visual"></div>
     </div>
     <div class="exec-brief">
       <div class="exec-brief-label">The Executive Commercial Brief</div>
       <p class="exec-brief-body">Every review starts with the same document. Leadership sees what changed since the last brief, which accounts need attention, and where to focus next, all backed by the evidence behind it.</p>
-      <img src="exec-brief-mockup.jpg" alt="Signal Executive Commercial Brief dashboard mockup" class="exec-brief-img">
+      <div class="brief-card">
+        <div class="brief-nav">
+          <div class="brief-logo"><span class="brief-logo-mark"></span>Signal</div>
+          <div class="brief-tabs">
+            <span class="brief-tab active">Executive Brief</span>
+            <span class="brief-tab">Insight Synthesizer</span>
+            <span class="brief-tab">Best Customer Profile</span>
+            <span class="brief-tab">ICP Stress Tester</span>
+          </div>
+          <div class="brief-date">Week of July 14, 2026</div>
+        </div>
+        <div class="brief-eyebrow">Executive Recommendation</div>
+        <div class="brief-headline">Expand application engineering support across Tier 2 industrial customers.</div>
+        <div class="brief-stats">
+          <div><div class="brief-stat-label">Estimated annual opportunity</div><div class="brief-stat-value green">+$2.4M</div></div>
+          <div><div class="brief-stat-label">Confidence</div><div class="brief-stat-value green">87%</div></div>
+          <div><div class="brief-stat-label">Generated from</div><div class="brief-stat-value">1,284 customer interactions</div></div>
+        </div>
+        <div class="brief-cols3">
+          <div class="brief-col">
+            <div class="brief-col-title">Commercial Priorities</div>
+            <div class="brief-row"><span>Grow in Tier 2 industrial segment</span><span class="tag high">High</span></div>
+            <div class="brief-row"><span>Improve onboarding experience</span><span class="tag med">Medium</span></div>
+            <div class="brief-row"><span>Reduce churn in Year 2</span><span class="tag high">High</span></div>
+          </div>
+          <div class="brief-col">
+            <div class="brief-col-title">Supporting Evidence</div>
+            <div class="brief-row"><span>Customer interviews</span><span class="count">642</span></div>
+            <div class="brief-row"><span>Support conversations</span><span class="count">328</span></div>
+            <div class="brief-row"><span>CRM activity</span><span class="count">214</span></div>
+          </div>
+          <div class="brief-col">
+            <div class="brief-col-title">Account Watch List</div>
+            <div class="brief-row watch-up"><span>Acme Manufacturing</span></div>
+            <div class="brief-row watch-up"><span>Precision Components</span></div>
+            <div class="brief-row watch-down"><span>Industrial Supplies Co.</span></div>
+          </div>
+        </div>
+        <div class="brief-cols2">
+          <div class="brief-col">
+            <div class="brief-col-title">Recommended Actions</div>
+            <div class="brief-check" onclick="this.querySelector('.brief-checkbox').classList.toggle('checked')"><span class="brief-checkbox checked"></span><span>Pilot dedicated app engineering support for 10 to 15 Tier 2 accounts</span></div>
+            <div class="brief-check" onclick="this.querySelector('.brief-checkbox').classList.toggle('checked')"><span class="brief-checkbox checked"></span><span>Refine packaging and pricing for broader rollout</span></div>
+            <div class="brief-check" onclick="this.querySelector('.brief-checkbox').classList.toggle('checked')"><span class="brief-checkbox"></span><span>Align sales and CS on account selection and success plan</span></div>
+          </div>
+          <div class="brief-col">
+            <div class="brief-col-title">Benchmarks &amp; Trends</div>
+            <div class="brief-mini-stats">
+              <div><div class="mini-label">Net Revenue Retention</div><div class="mini-value green">112%</div></div>
+              <div><div class="mini-label">Churn Risk Accounts</div><div class="mini-value red">8%</div></div>
+              <div><div class="mini-label">Expansion Pipeline</div><div class="mini-value green">$18.7M</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="brief-footer">
+          <span>Signal analyzes what customers are telling you so you can make better commercial decisions.</span>
+          <span class="brief-footer-date">Next update: July 21, 2026</span>
+        </div>
+      </div>
     </div>
+    <a href="#book" class="section-cta on-light">Book a call to see these modules on your own data →</a>
   </div>
 </section>
 
-<!-- SIGNAL TELLS YOU -->
-<section class="decision-section" id="decisions">
+<!-- WHY SIGNAL (merged with decision layer) -->
+<section class="why-section" id="why">
   <div class="section-inner">
+    <div class="ey" style="color:var(--mag)">Why Signal</div>
     <h2 class="section-title" style="color:var(--white);max-width:26ch">Signal tells you who to target, where to invest, who to protect, and what to change.</h2>
     <div class="decision-grid">
       <div class="decision-item">
@@ -310,22 +407,15 @@ footer{background:var(--navy);padding:3rem 4rem;border-top:1px solid var(--nb)}
         <div class="decision-body">Messaging and positioning get corrected against what customers actually say, not internal guesses about what should land. Signal surfaces the language customers use themselves, so those decisions start from evidence.</div>
       </div>
     </div>
-  </div>
-</section>
-
-<!-- WHY SIGNAL -->
-<section class="why-section" id="why">
-  <div class="section-inner">
-    <div class="ey" style="color:var(--mag)">Why Signal</div>
-    <h2 class="section-title" style="color:var(--white)">Why companies<br><em>choose Signal.</em></h2>
-    <p class="section-sub" style="color:rgba(255,255,255,.45)">Every customer intelligence tool leads with features. Signal leads with a framework and delivers technology that executes it.</p>
+    <div class="ey" style="color:var(--mag);margin-top:3.5rem">Why companies choose Signal</div>
+    <p class="section-sub" style="color:rgba(255,255,255,.45);margin-bottom:2rem">Every customer intelligence tool leads with features. Signal leads with a framework and delivers technology that executes it.</p>
     <div class="why-grid">
       <div class="why-card">
         <div class="why-num">Reason 01</div>
         <div class="why-title">A framework, not just a feature set</div>
         <div class="why-body">The three questions framework is built into the platform architecture. The sequence from customer insight to customer profiling to strategy validation to persona testing to churn detection is the right order for a reason. Each module's output informs the next. No other platform is designed this way.</div>
       </div>
-      <div class="why-card featured">
+      <div class="why-card">
         <div class="why-num">Reason 02</div>
         <div class="why-title">Built for organizations doing $10M to $100M in revenue</div>
         <div class="why-body">Enterprise platforms take months to implement and require dedicated teams to operate. Signal is built for organizations that have outgrown spreadsheets but don't have the infrastructure for enterprise tools. Serious enough to drive real decisions. Simple enough to start this week.</div>
@@ -341,6 +431,7 @@ footer{background:var(--navy);padding:3rem 4rem;border-top:1px solid var(--nb)}
         <div class="why-body">When a salesperson or account manager leaves, the relationship history and the judgment calls that took years to develop usually leave with them. A few notes might survive in your CRM, but the understanding behind those notes rarely does. Signal turns that knowledge into a structured, lasting asset that belongs to the organization, not any one person holding it today.</div>
       </div>
     </div>
+    <a href="#pricing" class="section-cta">See pricing →</a>
   </div>
 </section>
 
@@ -351,19 +442,6 @@ footer{background:var(--navy);padding:3rem 4rem;border-top:1px solid var(--nb)}
     <h2 class="section-title">Start where the problem<br>is most urgent.</h2>
     <p class="section-sub">Every module delivers value on its own. The Customer Insight Synthesizer is included in every plan because everything else builds on it.</p>
     <div class="pricing-grid">
-      <div class="pricing-card">
-        <div class="pricing-name">Starter</div>
-        <div><div class="pricing-amount">$599<span class="pricing-per">/mo</span></div></div>
-        <div class="pricing-desc">One module of your choice plus the Customer Insight Synthesizer — the foundation every other module builds on.</div>
-        <ul class="pricing-features">
-          <li>Customer Insight Synthesizer included</li>
-          <li>One additional module</li>
-          <li>Secure data storage</li>
-          <li>Async support</li>
-          <li>Quarterly refresh</li>
-        </ul>
-        <a href="#book" class="pricing-cta pricing-cta-light">Get started</a>
-      </div>
       <div class="pricing-card featured">
         <div class="pricing-name">Full Suite</div>
         <div><div class="pricing-amount">$2,499<span class="pricing-per">/mo</span></div></div>
@@ -378,11 +456,24 @@ footer{background:var(--navy);padding:3rem 4rem;border-top:1px solid var(--nb)}
         <a href="#book" class="pricing-cta pricing-cta-featured">Book a call</a>
       </div>
       <div class="pricing-card">
+        <div class="pricing-name">Starter</div>
+        <div><div class="pricing-amount">$599<span class="pricing-per">/mo</span></div></div>
+        <div class="pricing-desc">One module of your choice plus the Customer Insight Synthesizer, the foundation every other module builds on.</div>
+        <ul class="pricing-features">
+          <li>Customer Insight Synthesizer included</li>
+          <li>One additional module</li>
+          <li>Secure data storage</li>
+          <li>Async support</li>
+          <li>Quarterly refresh</li>
+        </ul>
+        <a href="#book" class="pricing-cta pricing-cta-light">Get started</a>
+      </div>
+      <div class="pricing-card">
         <div class="pricing-name">Build your own</div>
         <div><div class="pricing-amount">$399<span class="pricing-per">ea/mo</span></div></div>
         <div class="pricing-desc">Add modules as you identify the next question your data is ready to answer. Each one builds on the intelligence already in the platform.</div>
         <ul class="pricing-features">
-          <li>Customer Insight Synthesizer — base</li>
+          <li>Customer Insight Synthesizer (base)</li>
           <li>Best Customer Profile</li>
           <li>ICP Stress-Tester</li>
           <li>Synthetic Customer Personas</li>
@@ -429,6 +520,146 @@ footer{background:var(--navy);padding:3rem 4rem;border-top:1px solid var(--nb)}
     <div class="footer-copy">&copy; 2026 Signal. Customer Intelligence Platform.</div>
   </div>
 </footer>
+
+<script>
+const MODULES = [
+  {
+    tag: "Module 01: Entry module",
+    name: "Customer Insight Synthesizer",
+    desc: "Upload interviews, surveys, reviews, and support data. Signal extracts the themes your customers keep coming back to, scores them by frequency and emotional intensity, and maps each one to the three questions.",
+    value: "Rapidly synthesize customer insight to uncover revenue opportunities, product gaps, and service misses. Your team spends less time guessing and more time acting on what customers are actually telling you.",
+    svg: `<svg viewBox="0 0 440 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="70" cy="90" r="7" fill="#C94AAD" opacity=".6"/>
+      <circle cx="105" cy="60" r="5" fill="#D4CCC0"/>
+      <circle cx="55" cy="140" r="9" fill="#A02B93" opacity=".7"/>
+      <circle cx="120" cy="150" r="6" fill="#D4CCC0"/>
+      <circle cx="80" cy="195" r="5" fill="#C94AAD" opacity=".6"/>
+      <circle cx="135" cy="100" r="4" fill="#D4CCC0"/>
+      <circle cx="60" cy="230" r="6" fill="#A02B93" opacity=".5"/>
+      <path d="M100 120 C180 120 220 90 280 90" stroke="#A02B93" stroke-width="1" stroke-dasharray="2 4" opacity=".4"/>
+      <path d="M100 150 C180 150 220 160 280 160" stroke="#A02B93" stroke-width="1" stroke-dasharray="2 4" opacity=".4"/>
+      <path d="M100 180 C180 180 220 220 280 220" stroke="#A02B93" stroke-width="1" stroke-dasharray="2 4" opacity=".4"/>
+      <rect x="280" y="76" width="90" height="28" rx="4" fill="#A02B93"/>
+      <rect x="280" y="146" width="130" height="28" rx="4" fill="#0A1628"/>
+      <rect x="280" y="206" width="65" height="28" rx="4" fill="#C94AAD"/>
+    </svg>`
+  },
+  {
+    tag: "Module 02: Builds on 01",
+    name: "Best Customer Profile",
+    desc: "Combines your customer insight themes with your account data to find the customers who generate disproportionate value. Signal identifies the attributes and signals that predicted them before they became your best customers.",
+    value: "Shift sales and marketing toward accounts most likely to become long-term, high-value relationships. Most companies discover a segment they were underinvesting in entirely. The best acquisition strategy starts with knowing who your best customers already are.",
+    svg: `<svg viewBox="0 0 440 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="220" cy="160" r="115" stroke="#D4CCC0" stroke-width="1.5"/>
+      <circle cx="220" cy="160" r="78" stroke="#D4CCC0" stroke-width="1.5"/>
+      <circle cx="220" cy="160" r="42" stroke="#C94AAD" stroke-width="1.5"/>
+      <path d="M220 45 A115 115 0 0 1 322 105" stroke="#A02B93" stroke-width="4" stroke-linecap="round"/>
+      <circle cx="220" cy="160" r="9" fill="#A02B93"/>
+    </svg>`
+  },
+  {
+    tag: "Module 03: Builds on 02",
+    name: "Ideal Customer Profile (ICP) Stress-Tester",
+    desc: "Compares who your company says it is targeting against who your data shows actually generates the most value. Surfaces the gaps between your stated strategy and commercial reality, ranked by revenue impact.",
+    value: "Most companies are targeting the wrong customers and don't know it. Every wasted sales cycle, every poor-fit acquisition, every high-cost renewal fight traces back to an ICP that hasn't been tested against real data.",
+    svg: `<svg viewBox="0 0 440 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="180" cy="160" r="85" fill="#0A1628" opacity=".07" stroke="#0A1628" stroke-width="1.5"/>
+      <circle cx="270" cy="160" r="85" fill="#A02B93" opacity=".1" stroke="#A02B93" stroke-width="1.5"/>
+      <text x="135" y="165" font-family="Onest,sans-serif" font-size="11" fill="#6a6258">Stated</text>
+      <text x="290" y="165" font-family="Onest,sans-serif" font-size="11" fill="#A02B93">Actual</text>
+    </svg>`
+  },
+  {
+    tag: "Module 04: Builds on 01 and 02",
+    name: "Synthetic Customer Personas",
+    desc: "Builds a queryable model of your best customer type from real insight themes and account patterns. Ask it how your best customer would respond to a pricing change, a new product feature, or a shift in messaging before you commit to anything.",
+    value: "Test pricing, messaging, and product decisions against a real customer model rather than internal assumptions. Research that used to take months and significant budget now takes hours.",
+    svg: `<svg viewBox="0 0 440 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <line x1="220" y1="160" x2="120" y2="90" stroke="#D4CCC0" stroke-width="1.5"/>
+      <line x1="220" y1="160" x2="330" y2="80" stroke="#D4CCC0" stroke-width="1.5"/>
+      <line x1="220" y1="160" x2="110" y2="210" stroke="#D4CCC0" stroke-width="1.5"/>
+      <line x1="220" y1="160" x2="320" y2="230" stroke="#D4CCC0" stroke-width="1.5"/>
+      <line x1="220" y1="160" x2="230" y2="250" stroke="#D4CCC0" stroke-width="1.5"/>
+      <circle cx="120" cy="90" r="9" fill="#C94AAD"/>
+      <circle cx="330" cy="80" r="9" fill="#0A1628"/>
+      <circle cx="110" cy="210" r="9" fill="#0A1628"/>
+      <circle cx="320" cy="230" r="9" fill="#C94AAD"/>
+      <circle cx="230" cy="250" r="9" fill="#0A1628"/>
+      <circle cx="220" cy="160" r="18" fill="#A02B93"/>
+    </svg>`
+  },
+  {
+    tag: "Module 05: Builds on 01",
+    name: "Churn Signal Detector",
+    desc: "Monitors your account base against the retention patterns identified in your customer research. Flags at-risk accounts early, tells you whether the risk is worth acting on based on customer fit, and recommends the right intervention for the type of churn showing up.",
+    value: "Know which accounts need attention months before renewal. Know which churns are worth preventing and which are not. And know that when the account manager handling this relationship leaves, the intelligence stays.",
+    svg: `<svg viewBox="0 0 440 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <line x1="60" y1="40" x2="60" y2="260" stroke="#D4CCC0" stroke-width="1.5"/>
+      <line x1="60" y1="260" x2="390" y2="260" stroke="#D4CCC0" stroke-width="1.5"/>
+      <polyline points="80,95 145,120 200,110 255,165 300,175 355,225" stroke="#0A1628" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="255" cy="165" r="6" fill="#A02B93"/>
+      <circle cx="255" cy="165" r="13" stroke="#A02B93" stroke-width="1.5" opacity=".4"/>
+    </svg>`
+  },
+  {
+    tag: "Module 06: Aggregation layer",
+    name: "Intelligence Brief",
+    desc: "Pulls everything Signal knows about an account or segment into a single on-demand brief. Generated fresh each time, it surfaces the risk signals, the relevant customer insight, the relationship health, and the single most important thing to address right now.",
+    value: "Walk into every client conversation better prepared than the person across the table. Your team stops relying on gut feel and starts making account decisions from intelligence that survives turnover, compounds over time, and reflects what is actually happening.",
+    svg: `<svg viewBox="0 0 440 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="150" y="90" width="150" height="180" rx="6" fill="#F0EBE1" stroke="#D4CCC0" stroke-width="1.5" transform="rotate(-6 225 180)"/>
+      <rect x="150" y="80" width="150" height="180" rx="6" fill="#fff" stroke="#D4CCC0" stroke-width="1.5" transform="rotate(3 225 170)"/>
+      <rect x="150" y="70" width="150" height="180" rx="6" fill="#fff" stroke="#D4CCC0" stroke-width="1.5"/>
+      <rect x="170" y="90" width="30" height="8" rx="2" fill="#A02B93"/>
+      <rect x="170" y="112" width="110" height="6" rx="2" fill="#D4CCC0"/>
+      <rect x="170" y="128" width="90" height="6" rx="2" fill="#D4CCC0"/>
+      <rect x="170" y="150" width="110" height="6" rx="2" fill="#D4CCC0"/>
+      <rect x="170" y="166" width="70" height="6" rx="2" fill="#D4CCC0"/>
+    </svg>`
+  }
+];
+
+let mcIndex = 0;
+const mcTag = document.getElementById('mc-tag');
+const mcName = document.getElementById('mc-name');
+const mcDesc = document.getElementById('mc-desc');
+const mcValue = document.getElementById('mc-value');
+const mcVisual = document.getElementById('mc-visual');
+const mcDots = document.getElementById('mc-dots');
+
+function renderDots(){
+  mcDots.innerHTML = MODULES.map((m,i) => `<button class="carousel-dot${i===mcIndex?' active':''}" aria-label="Go to module ${i+1}" data-i="${i}"></button>`).join('');
+  mcDots.querySelectorAll('.carousel-dot').forEach(dot => {
+    dot.addEventListener('click', () => { mcIndex = parseInt(dot.dataset.i); renderModule(); });
+  });
+}
+
+function renderModule(){
+  const els = [mcTag, mcName, mcDesc, mcValue, mcVisual];
+  els.forEach(el => el.classList.add('fade-out'));
+  setTimeout(() => {
+    const m = MODULES[mcIndex];
+    mcTag.textContent = m.tag;
+    mcName.textContent = m.name;
+    mcDesc.textContent = m.desc;
+    mcValue.textContent = m.value;
+    mcVisual.innerHTML = m.svg;
+    els.forEach(el => el.classList.remove('fade-out'));
+    renderDots();
+  }, 150);
+}
+
+document.getElementById('mc-prev').addEventListener('click', () => {
+  mcIndex = (mcIndex - 1 + MODULES.length) % MODULES.length;
+  renderModule();
+});
+document.getElementById('mc-next').addEventListener('click', () => {
+  mcIndex = (mcIndex + 1) % MODULES.length;
+  renderModule();
+});
+
+renderModule();
+</script>
 
 </body>
 </html>
