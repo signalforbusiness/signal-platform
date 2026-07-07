@@ -58,17 +58,17 @@ section{padding:6rem 4rem}
 .q-body{font-size:.82rem;color:rgba(255,255,255,.45);line-height:1.7}
 
 /* HOW SIGNAL WORKS */
-.works-section{background:var(--navy)}
+.works-section{background:var(--cream)}
 .works-flow{display:flex;align-items:stretch;margin-top:4rem;gap:0}
 .works-item{flex:1 1 0;min-width:0}
 .works-item-top{display:flex;align-items:center;min-height:2.6rem;margin-bottom:.85rem}
 .works-num{font-size:.6rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--mag)}
-.works-title{font-family:'Lora',serif;font-size:1.2rem;font-weight:400;color:var(--white);line-height:1.3}
-.works-body{font-size:.82rem;color:rgba(255,255,255,.45);line-height:1.7;max-width:26ch}
+.works-title{font-family:'Lora',serif;font-size:1.2rem;font-weight:400;color:var(--ink);line-height:1.3}
+.works-body{font-size:.82rem;color:var(--muted);line-height:1.7;max-width:26ch}
 .works-arrow-wrap{flex:0 0 3.5rem;display:flex;align-items:center;justify-content:center;padding-top:.05rem}
 .works-arrow-wrap svg{width:1.9rem;height:1rem;color:var(--mag);opacity:.5}
-.works-loop{display:flex;align-items:center;justify-content:center;gap:.75rem;margin-top:3.5rem;padding:1.1rem 1.75rem;background:var(--surface);border:1px solid var(--nb);border-radius:8px}
-.works-loop-text{font-size:.8rem;color:rgba(255,255,255,.5)}
+.works-loop{display:flex;align-items:center;justify-content:center;gap:.75rem;margin-top:3.5rem;padding:1.1rem 1.75rem;background:#fff;border:1px solid var(--border);border-radius:8px}
+.works-loop-text{font-size:.8rem;color:var(--muted)}
 .works-loop svg{color:var(--mag);flex-shrink:0}
 
 /* MODULE CAROUSEL */
@@ -152,7 +152,16 @@ section{padding:6rem 4rem}
 
 /* PRICING */
 .pricing-section{background:var(--cream)}
-.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-top:2.5rem;margin-bottom:1.5rem}
+.pricing-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-top:2.5rem;margin-bottom:1.5rem}
+.pricing-card.advisory-card{background:var(--mag)}
+.pricing-card.advisory-card .pricing-name{color:#fff}
+.pricing-card.advisory-card .pricing-amount{color:#fff}
+.pricing-card.advisory-card .pricing-per{color:rgba(255,255,255,.7)}
+.pricing-card.advisory-card .pricing-desc{color:rgba(255,255,255,.85)}
+.pricing-card.advisory-card .pricing-features li{color:rgba(255,255,255,.85)}
+.pricing-card.advisory-card .pricing-features li::before{color:#fff}
+.pricing-card.advisory-card .pricing-cta{background:#fff;color:var(--mag)}
+.pricing-card.advisory-card .pricing-cta:hover{background:var(--cream)}
 .pricing-card{background:var(--cream);padding:2.5rem 2rem;display:flex;flex-direction:column;gap:1rem}
 .pricing-card.featured{background:var(--navy)}
 .pricing-name{font-family:'Lora',serif;font-size:1.1rem;font-weight:400;color:var(--ink)}
@@ -171,13 +180,6 @@ section{padding:6rem 4rem}
 .pricing-cta-light:hover{background:var(--navy);color:var(--white);border-color:var(--navy)}
 .pricing-cta-featured{background:var(--mag);color:var(--white)}
 .pricing-cta-featured:hover{background:var(--mag-l)}
-
-/* ADVISORY */
-.advisory{background:var(--navy);border-radius:8px;padding:2.5rem 3rem;display:grid;grid-template-columns:1fr auto;gap:3rem;align-items:center;margin-top:1.5rem}
-.advisory-label{font-size:.62rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--mag);margin-bottom:.5rem}
-.advisory-title{font-family:'Lora',serif;font-size:1.3rem;font-weight:400;color:var(--white);margin-bottom:.65rem;line-height:1.25}
-.advisory-title em{font-style:italic;color:var(--mag-l)}
-.advisory-body{font-size:.87rem;color:var(--td);line-height:1.75;max-width:56ch}
 
 /* BOOK */
 .book-section{background:var(--navy);text-align:center;padding:7rem 4rem}
@@ -201,7 +203,7 @@ footer{background:var(--navy);padding:3rem 4rem;border-top:1px solid var(--nb)}
 .footer-link:hover{color:rgba(255,255,255,.7)}
 .footer-copy{font-size:.72rem;color:rgba(255,255,255,.2)}
 
-@media(max-width:960px){.nav-inner{padding:1.25rem 2rem}.hero{padding:7rem 2rem 4rem}section{padding:4rem 2rem}.q-grid,.why-grid,.pricing-grid,.decision-grid{grid-template-columns:1fr}.works-flow{flex-direction:column;gap:2rem}.works-arrow-wrap{display:none}.module-carousel{grid-template-columns:1fr;gap:2rem;padding:2rem}.advisory{grid-template-columns:1fr}.book-section{padding:5rem 2rem}.footer-inner{flex-direction:column;gap:1.5rem;text-align:center}footer{padding:3rem 2rem}}
+@media(max-width:960px){.nav-inner{padding:1.25rem 2rem}.hero{padding:7rem 2rem 4rem}section{padding:4rem 2rem}.q-grid,.why-grid,.pricing-grid,.decision-grid{grid-template-columns:1fr}.works-flow{flex-direction:column;gap:2rem}.works-arrow-wrap{display:none}.module-carousel{grid-template-columns:1fr;gap:2rem;padding:2rem}.book-section{padding:5rem 2rem}.footer-inner{flex-direction:column;gap:1.5rem;text-align:center}footer{padding:3rem 2rem}}
 </style>
 </head>
 <body>
@@ -263,8 +265,8 @@ footer{background:var(--navy);padding:3rem 4rem;border-top:1px solid var(--nb)}
 <section class="works-section" id="how-it-works">
   <div class="section-inner">
     <div class="ey">How Signal works</div>
-    <h2 class="section-title" style="color:var(--white);max-width:22ch">Customer data in. Commercial decisions out.</h2>
-    <p class="section-sub" style="color:rgba(255,255,255,.45)">Signal plugs into the CRM, documents, and conversations you already have. Nothing new for your team to learn or manage.</p>
+    <h2 class="section-title" style="max-width:22ch">Customer data in. Commercial decisions out.</h2>
+    <p class="section-sub">Signal plugs into the CRM, documents, and conversations you already have. Nothing new for your team to learn or manage.</p>
     <div class="works-flow">
       <div class="works-item">
         <div class="works-item-top"><span class="works-num">Step 01</span></div>
@@ -294,7 +296,58 @@ footer{background:var(--navy);padding:3rem 4rem;border-top:1px solid var(--nb)}
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 12a8 8 0 0 1 13.66-5.66M20 12a8 8 0 0 1-13.66 5.66M17.5 3v4h-4M6.5 21v-4h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
       <span class="works-loop-text">The cycle runs continuously. Every decision feeds the next round of intelligence.</span>
     </div>
-    <a href="#platform" class="section-cta">See the platform this powers →</a>
+    <a href="#why" class="section-cta on-light">See what this means for your decisions →</a>
+  </div>
+</section>
+
+<!-- WHY SIGNAL (merged with decision layer) -->
+<section class="why-section" id="why">
+  <div class="section-inner">
+    <div class="ey" style="color:var(--mag)">Why Signal</div>
+    <h2 class="section-title" style="color:var(--white);max-width:26ch">Signal tells you who to target, where to invest, who to protect, and what to change.</h2>
+    <div class="decision-grid">
+      <div class="decision-item">
+        <div class="decision-label">Who to target</div>
+        <div class="decision-body">Sales and marketing stop chasing accounts that just look promising and start going after the ones that actually expand and stick around. Signal shows which customer profiles drive real long term value, so pipeline and campaign spend follow evidence instead of gut feel.</div>
+      </div>
+      <div class="decision-item">
+        <div class="decision-label">Where to invest</div>
+        <div class="decision-body">Roadmaps often follow whatever request landed most recently, not what customers actually value. Signal shows which priorities really move retention and expansion, so investment goes where it counts.</div>
+      </div>
+      <div class="decision-item">
+        <div class="decision-label">Who to protect</div>
+        <div class="decision-body">Some accounts matter more than others, and most teams find out too late. Signal flags the relationships that would hurt most to lose, so retention effort goes where it actually matters.</div>
+      </div>
+      <div class="decision-item">
+        <div class="decision-label">What to change</div>
+        <div class="decision-body">Messaging often reflects internal assumptions more than customer reality. Signal surfaces the language customers use themselves, so positioning starts from evidence, not guesswork.</div>
+      </div>
+    </div>
+    <div class="ey" style="color:var(--mag);margin-top:3.5rem">Why companies choose Signal</div>
+    <p class="section-sub" style="color:rgba(255,255,255,.45);margin-bottom:2rem">Every customer intelligence tool leads with features. Signal leads with a framework and delivers technology that executes it.</p>
+    <div class="why-grid">
+      <div class="why-card">
+        <div class="why-num">Reason 01</div>
+        <div class="why-title">A framework, not just a feature set</div>
+        <div class="why-body">The three questions framework is built into the platform architecture. The sequence from customer insight to customer profiling to strategy validation to persona testing to churn detection is the right order for a reason. Each module's output informs the next. No other platform is designed this way.</div>
+      </div>
+      <div class="why-card">
+        <div class="why-num">Reason 02</div>
+        <div class="why-title">Built to start this week, not next quarter</div>
+        <div class="why-body">Enterprise platforms take months to implement and require dedicated teams to operate. Signal is built for organizations that have outgrown spreadsheets but don't have the infrastructure for enterprise tools. Serious enough to drive real decisions. Simple enough to start this week.</div>
+      </div>
+      <div class="why-card">
+        <div class="why-num">Reason 03</div>
+        <div class="why-title">Connected intelligence, not disconnected data</div>
+        <div class="why-body">Most tools give you data in isolation. Signal connects customer insight, customer profiling, strategy validation, persona testing, and churn detection into a single view of the same customer base. The intelligence compounds over time rather than sitting unused across separate platforms.</div>
+      </div>
+      <div class="why-card">
+        <div class="why-num">Reason 04</div>
+        <div class="why-title">Customer knowledge that survives turnover</div>
+        <div class="why-body">When a salesperson or account manager leaves, the relationship history and the judgment calls that took years to develop usually leave with them. A few notes might survive in your CRM, but the understanding behind those notes rarely does. Signal turns that knowledge into a structured, lasting asset that belongs to the organization, not any one person holding it today.</div>
+      </div>
+    </div>
+    <a href="#platform" class="section-cta">See the platform →</a>
   </div>
 </section>
 
@@ -381,58 +434,7 @@ footer{background:var(--navy);padding:3rem 4rem;border-top:1px solid var(--nb)}
         </div>
       </div>
     </div>
-    <a href="#book" class="section-cta on-light">Book a call to see these modules on your own data →</a>
-  </div>
-</section>
-
-<!-- WHY SIGNAL (merged with decision layer) -->
-<section class="why-section" id="why">
-  <div class="section-inner">
-    <div class="ey" style="color:var(--mag)">Why Signal</div>
-    <h2 class="section-title" style="color:var(--white);max-width:26ch">Signal tells you who to target, where to invest, who to protect, and what to change.</h2>
-    <div class="decision-grid">
-      <div class="decision-item">
-        <div class="decision-label">Who to target</div>
-        <div class="decision-body">Sales and marketing stop chasing accounts that just look promising and start going after the ones that actually expand and stick around. Signal shows which customer profiles drive real long term value, so pipeline and campaign spend follow evidence instead of gut feel.</div>
-      </div>
-      <div class="decision-item">
-        <div class="decision-label">Where to invest</div>
-        <div class="decision-body">Roadmaps often follow whatever request landed most recently, not what customers actually value. Signal shows which priorities really move retention and expansion, so investment goes where it counts.</div>
-      </div>
-      <div class="decision-item">
-        <div class="decision-label">Who to protect</div>
-        <div class="decision-body">Some accounts matter more than others, and most teams find out too late. Signal flags the relationships that would hurt most to lose, so retention effort goes where it actually matters.</div>
-      </div>
-      <div class="decision-item">
-        <div class="decision-label">What to change</div>
-        <div class="decision-body">Messaging often reflects internal assumptions more than customer reality. Signal surfaces the language customers use themselves, so positioning starts from evidence, not guesswork.</div>
-      </div>
-    </div>
-    <div class="ey" style="color:var(--mag);margin-top:3.5rem">Why companies choose Signal</div>
-    <p class="section-sub" style="color:rgba(255,255,255,.45);margin-bottom:2rem">Every customer intelligence tool leads with features. Signal leads with a framework and delivers technology that executes it.</p>
-    <div class="why-grid">
-      <div class="why-card">
-        <div class="why-num">Reason 01</div>
-        <div class="why-title">A framework, not just a feature set</div>
-        <div class="why-body">The three questions framework is built into the platform architecture. The sequence from customer insight to customer profiling to strategy validation to persona testing to churn detection is the right order for a reason. Each module's output informs the next. No other platform is designed this way.</div>
-      </div>
-      <div class="why-card">
-        <div class="why-num">Reason 02</div>
-        <div class="why-title">Built to start this week, not next quarter</div>
-        <div class="why-body">Enterprise platforms take months to implement and require dedicated teams to operate. Signal is built for organizations that have outgrown spreadsheets but don't have the infrastructure for enterprise tools. Serious enough to drive real decisions. Simple enough to start this week.</div>
-      </div>
-      <div class="why-card">
-        <div class="why-num">Reason 03</div>
-        <div class="why-title">Connected intelligence, not disconnected data</div>
-        <div class="why-body">Most tools give you data in isolation. Signal connects customer insight, customer profiling, strategy validation, persona testing, and churn detection into a single view of the same customer base. The intelligence compounds over time rather than sitting unused across separate platforms.</div>
-      </div>
-      <div class="why-card">
-        <div class="why-num">Reason 04</div>
-        <div class="why-title">Customer knowledge that survives turnover</div>
-        <div class="why-body">When a salesperson or account manager leaves, the relationship history and the judgment calls that took years to develop usually leave with them. A few notes might survive in your CRM, but the understanding behind those notes rarely does. Signal turns that knowledge into a structured, lasting asset that belongs to the organization, not any one person holding it today.</div>
-      </div>
-    </div>
-    <a href="#pricing" class="section-cta">See pricing →</a>
+    <a href="#pricing" class="section-cta on-light">See pricing →</a>
   </div>
 </section>
 
@@ -483,14 +485,18 @@ footer{background:var(--navy);padding:3rem 4rem;border-top:1px solid var(--nb)}
         </ul>
         <a href="#book" class="pricing-cta pricing-cta-light">Talk to us</a>
       </div>
-    </div>
-    <div class="advisory" id="advisory">
-      <div>
-        <div class="advisory-label">Advisory</div>
-        <div class="advisory-title">Used when organizations need help<br><em>turning decisions into operational change.</em></div>
-        <div class="advisory-body">Some teams want the platform on its own. Others want experienced operators to help interpret findings, prioritize actions, and speed up execution. Signal Advisory is optional and designed to fit alongside the platform, not replace it: platform first, experts when you need them, available at $5,000 to $10,000 per month.</div>
+      <div class="pricing-card advisory-card" id="advisory">
+        <div class="pricing-name">Advisory</div>
+        <div><div class="pricing-amount" style="font-size:1.6rem">Scoped to need</div></div>
+        <div class="pricing-desc">Used when organizations need help turning decisions into operational change.</div>
+        <ul class="pricing-features">
+          <li>Optional, fits alongside any plan</li>
+          <li>Interpret findings, prioritize action</li>
+          <li>Executive alignment and facilitation</li>
+          <li>Accelerate execution</li>
+        </ul>
+        <a href="#book" class="pricing-cta">Talk to the team</a>
       </div>
-      <a href="#book" class="btn-primary">Talk to the team</a>
     </div>
   </div>
 </section>
