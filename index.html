@@ -152,16 +152,7 @@ section{padding:6rem 4rem}
 
 /* PRICING */
 .pricing-section{background:var(--cream)}
-.pricing-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-top:2.5rem;margin-bottom:1.5rem}
-.pricing-card.advisory-card{background:var(--mag)}
-.pricing-card.advisory-card .pricing-name{color:#fff}
-.pricing-card.advisory-card .pricing-amount{color:#fff}
-.pricing-card.advisory-card .pricing-per{color:rgba(255,255,255,.7)}
-.pricing-card.advisory-card .pricing-desc{color:rgba(255,255,255,.85)}
-.pricing-card.advisory-card .pricing-features li{color:rgba(255,255,255,.85)}
-.pricing-card.advisory-card .pricing-features li::before{color:#fff}
-.pricing-card.advisory-card .pricing-cta{background:#fff;color:var(--mag)}
-.pricing-card.advisory-card .pricing-cta:hover{background:var(--cream)}
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-top:2.5rem;margin-bottom:1.5rem}
 .pricing-card{background:var(--cream);padding:2.5rem 2rem;display:flex;flex-direction:column;gap:1rem}
 .pricing-card.featured{background:var(--navy)}
 .pricing-name{font-family:'Lora',serif;font-size:1.1rem;font-weight:400;color:var(--ink)}
@@ -180,6 +171,15 @@ section{padding:6rem 4rem}
 .pricing-cta-light:hover{background:var(--navy);color:var(--white);border-color:var(--navy)}
 .pricing-cta-featured{background:var(--mag);color:var(--white)}
 .pricing-cta-featured:hover{background:var(--mag-l)}
+
+/* ADVISORY (full-width panel, matches Philosophy's pink treatment) */
+.advisory{background:var(--mag);border-radius:8px;padding:2.5rem 3rem;display:grid;grid-template-columns:1fr auto;gap:3rem;align-items:center;margin-top:1.5rem}
+.advisory-label{font-size:.62rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.75);margin-bottom:.5rem}
+.advisory-title{font-family:'Lora',serif;font-size:1.3rem;font-weight:400;color:#fff;margin-bottom:.65rem;line-height:1.25}
+.advisory-title em{font-style:italic;color:#fff}
+.advisory-body{font-size:.87rem;color:rgba(255,255,255,.85);line-height:1.75;max-width:56ch}
+.advisory .btn-primary{background:#fff;color:var(--mag)}
+.advisory .btn-primary:hover{background:var(--cream)}
 
 /* BOOK */
 .book-section{background:var(--navy);text-align:center;padding:7rem 4rem}
@@ -203,7 +203,7 @@ footer{background:var(--navy);padding:3rem 4rem;border-top:1px solid var(--nb)}
 .footer-link:hover{color:rgba(255,255,255,.7)}
 .footer-copy{font-size:.72rem;color:rgba(255,255,255,.2)}
 
-@media(max-width:960px){.nav-inner{padding:1.25rem 2rem}.hero{padding:7rem 2rem 4rem}section{padding:4rem 2rem}.q-grid,.why-grid,.pricing-grid,.decision-grid{grid-template-columns:1fr}.works-flow{flex-direction:column;gap:2rem}.works-arrow-wrap{display:none}.module-carousel{grid-template-columns:1fr;gap:2rem;padding:2rem}.book-section{padding:5rem 2rem}.footer-inner{flex-direction:column;gap:1.5rem;text-align:center}footer{padding:3rem 2rem}}
+@media(max-width:960px){.nav-inner{padding:1.25rem 2rem}.hero{padding:7rem 2rem 4rem}section{padding:4rem 2rem}.q-grid,.why-grid,.pricing-grid,.decision-grid{grid-template-columns:1fr}.works-flow{flex-direction:column;gap:2rem}.works-arrow-wrap{display:none}.module-carousel{grid-template-columns:1fr;gap:2rem;padding:2rem}.advisory{grid-template-columns:1fr}.book-section{padding:5rem 2rem}.footer-inner{flex-direction:column;gap:1.5rem;text-align:center}footer{padding:3rem 2rem}}
 </style>
 </head>
 <body>
@@ -469,7 +469,7 @@ footer{background:var(--navy);padding:3rem 4rem;border-top:1px solid var(--nb)}
           <li>Async support</li>
           <li>Quarterly refresh</li>
         </ul>
-        <a href="#book" class="pricing-cta pricing-cta-light">Get started</a>
+        <a href="#book" class="pricing-cta pricing-cta-light">Book a call</a>
       </div>
       <div class="pricing-card">
         <div class="pricing-name">Build your own</div>
@@ -483,20 +483,16 @@ footer{background:var(--navy);padding:3rem 4rem;border-top:1px solid var(--nb)}
           <li>Churn Signal Detector</li>
           <li>Intelligence Brief</li>
         </ul>
-        <a href="#book" class="pricing-cta pricing-cta-light">Talk to us</a>
+        <a href="#book" class="pricing-cta pricing-cta-light">Book a call</a>
       </div>
-      <div class="pricing-card advisory-card" id="advisory">
-        <div class="pricing-name">Advisory</div>
-        <div><div class="pricing-amount" style="font-size:1.6rem">Scoped to need</div></div>
-        <div class="pricing-desc">Used when organizations need help turning decisions into operational change.</div>
-        <ul class="pricing-features">
-          <li>Optional, fits alongside any plan</li>
-          <li>Interpret findings, prioritize action</li>
-          <li>Executive alignment and facilitation</li>
-          <li>Accelerate execution</li>
-        </ul>
-        <a href="#book" class="pricing-cta">Talk to the team</a>
+    </div>
+    <div class="advisory" id="advisory">
+      <div>
+        <div class="advisory-label">Advisory</div>
+        <div class="advisory-title">Used when organizations need help<br><em>turning decisions into operational change.</em></div>
+        <div class="advisory-body">Optional, and fits alongside any plan. Experienced operators help interpret findings, prioritize action, align leadership, and accelerate execution. Scoped to need.</div>
       </div>
+      <a href="#book" class="btn-primary">Book a call</a>
     </div>
   </div>
 </section>
