@@ -97,7 +97,10 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(244,240,232,
 .split{display:grid;grid-template-columns:1fr 1fr;gap:0;margin-top:3rem;border:1px solid var(--border);border-radius:10px;overflow:hidden}
 .split-col{padding:2.75rem 2.5rem}
 .split-col:first-child{border-right:1px solid var(--border);background:#fff}
-.split-col:last-child{background:var(--cream)}
+.split-col:last-child{background:var(--mag)}
+.split-col:last-child .split-label{color:rgba(255,255,255,.75)}
+.split-col:last-child .split-title{color:#fff}
+.split-col:last-child .split-body{color:rgba(255,255,255,.85)}
 .split-label{font-size:.62rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--mag);margin-bottom:.85rem}
 .split-title{font-family:'Lora',serif;font-size:1.15rem;color:var(--navy);margin-bottom:.85rem;line-height:1.3}
 .split-body{font-size:.85rem;color:var(--muted);line-height:1.8}
@@ -180,7 +183,7 @@ footer{background:var(--ink);padding:3rem 4rem}
 <div class="section">
   <div class="section-inner">
     <div class="sec-label">The problem we solve</div>
-    <h2 class="sec-title">Your customers already tell you what they need.</h2>
+    <h2 class="sec-title">The intelligence exists. The decisions don't follow.</h2>
     <div class="sec-body">
       <p>Every interview, support call, and renewal conversation carries a signal about what customers value, what frustrates them, and why they stay. Most organizations collect all of it and connect almost none of it to a commercial decision.</p>
       <p>This is the problem we solve. We help leaders decide who to target, what to build, why customers are leaving, and where to invest next, using evidence instead of instinct.</p>
