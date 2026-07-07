@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Perspective — Signal</title>
+<title>Perspective: Signal</title>
 <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400;1,600&family=Onest:wght@300;400;500;600;700;900" rel="stylesheet">
 <style>
 
@@ -32,7 +32,7 @@ footer{background:var(--navy);padding:3rem 4rem;border-top:1px solid var(--nb)}
 .footer-copy{font-size:.72rem;color:rgba(255,255,255,.2)}
 @media(max-width:900px){.nav-inner{padding:1.25rem 2rem}footer{padding:3rem 2rem}.footer-inner{flex-direction:column;gap:1.5rem;text-align:center}}
 
-:root{--bg:var(--cream);--card:var(--cream);--border:var(--border);--muted:var(--muted);--ink:var(--navy);--teal:var(--navy);--teal-mid:#246660;--teal-bright:#5ecece;--amber:var(--mag);--amber-l:var(--mag);--amber-b:var(--mag-l)}
+:root{--bg:var(--cream);--card:var(--cream);--border:var(--border);--muted:var(--muted);--ink:var(--navy)}
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{background:var(--cream);color:var(--ink);font-family:'Onest',sans-serif;font-weight:300;line-height:1.7;overflow-x:hidden}
@@ -47,14 +47,14 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(244,240,232,
 .nav-link{font-size:.82rem;font-weight:400;color:var(--muted);text-decoration:none;letter-spacing:.04em;transition:color .2s}
 .nav-link:hover,.nav-link.active{color:var(--navy)}
 .nav-link.active{font-weight:500}
-.nav-cta{font-size:.78rem;font-weight:600;background:var(--navy);color:var(--cream);padding:.55rem 1.25rem;border-radius:3px;text-decoration:none;letter-spacing:.04em;transition:background .2s}
-.nav-cta:hover{background:var(--surface)}
+.nav-cta{font-size:.78rem;font-weight:600;background:var(--mag);color:var(--white);padding:.55rem 1.25rem;border-radius:3px;text-decoration:none;letter-spacing:.04em;transition:background .2s}
+.nav-cta:hover{background:var(--mag-l)}
 
 /* PAGE HERO */
 .page-hero{padding:10rem 4rem 4rem;max-width:1200px;margin:0 auto;border-bottom:1px solid var(--border)}
 .page-eyebrow{font-size:.65rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--mag);margin-bottom:1.25rem;display:flex;align-items:center;gap:.75rem}
 .page-eyebrow::before{content:'';width:32px;height:1px;background:var(--mag)}
-.page-title{font-family:'DM Serif Display',serif;font-size:clamp(2.8rem,5vw,4.5rem);font-weight:400;line-height:1.05;letter-spacing:-.02em;color:var(--navy);margin-bottom:1.5rem}
+.page-title{font-family:'Lora',serif;font-size:clamp(2.8rem,5vw,4.5rem);font-weight:400;line-height:1.05;letter-spacing:-.02em;color:var(--navy);margin-bottom:1.5rem}
 .page-title em{font-style:italic;color:var(--mag)}
 .page-sub{font-size:1.05rem;color:var(--muted);max-width:52ch;line-height:1.8}
 
@@ -68,7 +68,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(244,240,232,
 .featured-wrap{max-width:1200px;margin:0 auto;padding:3rem 4rem 0}
 .featured-article{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;padding-bottom:3rem;border-bottom:1px solid var(--border)}
 .featured-label{font-size:.6rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--mag);margin-bottom:1rem}
-.featured-title{font-family:'DM Serif Display',serif;font-size:clamp(1.8rem,3vw,2.6rem);font-weight:400;line-height:1.15;letter-spacing:-.01em;color:var(--navy);margin-bottom:1rem}
+.featured-title{font-family:'Lora',serif;font-size:clamp(1.8rem,3vw,2.6rem);font-weight:400;line-height:1.15;letter-spacing:-.01em;color:var(--navy);margin-bottom:1rem}
 .featured-excerpt{font-size:.95rem;color:var(--muted);line-height:1.8;margin-bottom:1.5rem}
 .featured-meta{font-size:.72rem;color:var(--muted);letter-spacing:.06em;display:flex;align-items:center;gap:.75rem;margin-bottom:1.5rem}
 .featured-meta span{opacity:.5}
@@ -86,7 +86,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(244,240,232,
 .article-card{border-top:2px solid var(--border);padding-top:1.5rem;display:flex;flex-direction:column;gap:.75rem;transition:border-color .2s}
 .article-card:hover{border-color:var(--navy)}
 .article-tag{font-size:.6rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--mag)}
-.article-title{font-family:'DM Serif Display',serif;font-size:1.1rem;font-weight:400;color:var(--navy);line-height:1.3;text-decoration:none}
+.article-title{font-family:'Lora',serif;font-size:1.1rem;font-weight:400;color:var(--navy);line-height:1.3;text-decoration:none}
 .article-title:hover{color:var(--surface)}
 .article-excerpt{font-size:.8rem;color:var(--muted);line-height:1.7;flex:1}
 .article-meta{font-size:.68rem;color:var(--muted);letter-spacing:.06em;opacity:.65;display:flex;align-items:center;gap:.5rem;margin-top:.25rem}
@@ -97,7 +97,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(244,240,232,
 .newsletter{background:var(--navy);padding:5rem 4rem;text-align:center}
 .newsletter-inner{max-width:500px;margin:0 auto}
 .newsletter-eyebrow{font-size:.62rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--mag);margin-bottom:1rem}
-.newsletter-title{font-family:'DM Serif Display',serif;font-size:clamp(1.8rem,3vw,2.4rem);font-weight:400;line-height:1.15;color:var(--cream);margin-bottom:1rem}
+.newsletter-title{font-family:'Lora',serif;font-size:clamp(1.8rem,3vw,2.4rem);font-weight:400;line-height:1.15;color:var(--cream);margin-bottom:1rem}
 .newsletter-sub{font-size:.88rem;color:rgba(250,247,242,.5);line-height:1.75;margin-bottom:2rem}
 .newsletter-form{display:flex;gap:.75rem;max-width:420px;margin:0 auto}
 .newsletter-input{flex:1;font-family:'Onest',sans-serif;font-size:.85rem;font-weight:300;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);border-radius:3px;padding:.75rem 1rem;color:var(--cream);outline:none;transition:border-color .2s}
@@ -133,36 +133,27 @@ footer{background:var(--ink);padding:3rem 4rem}
 </nav>
 
 <!-- PAGE HERO -->
-<div class="page-hero">
-  <div class="page-eyebrow">Perspective</div>
-  <h1 class="page-title">Thinking on customer intelligence,<br>commercial strategy, <em>and growth.</em></h1>
-  <p class="page-sub">Practical ideas from the front lines of B2B commercial work. No frameworks for their own sake. No content that exists to exist. Only things worth reading.</p>
+<div style="background:var(--navy)">
+  <div class="page-hero" style="border-bottom:1px solid var(--nb)">
+    <div class="page-eyebrow">Perspective</div>
+    <h1 class="page-title" style="color:#fff">Perspectives shaped by years of work with leadership teams on growth, retention, customer strategy, and commercial execution.</h1>
+    <p class="page-sub" style="color:rgba(255,255,255,.5)">We write about the problems companies face when instinct stops being enough.</p>
+  </div>
+
+  <!-- WHY WE WRITE ABOUT THIS -->
+  <div style="max-width:1200px;margin:0 auto;padding:2.5rem 4rem 3.5rem">
+    <div style="font-family:'Lora',serif;font-size:1.1rem;color:#fff;margin-bottom:.85rem">This isn't a blog.</div>
+    <p style="font-size:.92rem;color:rgba(255,255,255,.5);line-height:1.85;max-width:64ch">Every piece here comes out of real client work: a pattern that kept showing up, a question we got asked more than once, a belief that turned out to be wrong. Nothing is published to fill a calendar.</p>
+  </div>
 </div>
 
 <!-- FILTER -->
 <div class="filter-bar">
   <button class="filter-btn active">All</button>
   <button class="filter-btn">Customer Intelligence</button>
+  <button class="filter-btn">Growth Strategy</button>
   <button class="filter-btn">Retention</button>
-  <button class="filter-btn">GTM Strategy</button>
-  <button class="filter-btn">AI and Growth</button>
-  <button class="filter-btn">Commercial Execution</button>
-</div>
-
-<!-- PAGE HERO -->
-<div class="page-hero">
-  <div class="page-eyebrow">Perspective</div>
-  <h1 class="page-title">Our thinking on customer intelligence, commercial strategy, <em>and growth.</em></h1>
-  <p class="page-sub">We write about the commercial decisions that determine whether organizations grow or stall — how to understand your best customers, how to find more of them, and how to keep the ones worth keeping. Everything published here is drawn from real work with real companies, ungated and free to read.</p>
-</div>
-
-<!-- FILTER -->
-<div class="filter-bar">
-  <button class="filter-btn active">All</button>
-  <button class="filter-btn">Customer Intelligence</button>
-  <button class="filter-btn">Retention</button>
-  <button class="filter-btn">GTM Strategy</button>
-  <button class="filter-btn">AI and Growth</button>
+  <button class="filter-btn">Go-to-Market</button>
   <button class="filter-btn">Commercial Execution</button>
 </div>
 
@@ -170,37 +161,35 @@ footer{background:var(--ink);padding:3rem 4rem}
 <div class="featured-wrap">
   <div class="featured-article">
     <div>
-      <div class="featured-label">Featured</div>
+      <div class="featured-label">Featured Perspective</div>
       <div class="featured-meta">
         <span class="featured-tag">Customer Intelligence</span>
-        <span>|</span>
-        Josh Buchholtz
         <span>|</span>
         June 2026
         <span>|</span>
         8 min read
       </div>
-      <h2 class="featured-title">Customer intelligence only becomes a moat under three specific conditions.</h2>
-      <p class="featured-excerpt">Most companies collect customer data. Far fewer turn it into something that compounds over time. The difference between a data collection exercise and a genuine competitive moat comes down to three things: whether the product can be meaningfully personalized from what is learned, whether switching means losing accumulated intelligence, and whether the intelligence compounds rather than just grows.</p>
+      <h2 class="featured-title">Customer intelligence only creates an advantage when companies turn it into decisions.</h2>
+      <p class="featured-excerpt">Most companies collect customer information. Far fewer build the systems required to turn that knowledge into better decisions. The difference between having customer data and having customer intelligence comes down to whether the organization can consistently act on what customers are telling them.</p>
       <a href="article-customer-intelligence-moat.html" class="btn-read">Read the article &rarr;</a>
     </div>
     <div class="featured-img">
       <div class="featured-img-inner">
         <svg viewBox="0 0 200 140" fill="none" style="width:100%">
           <defs>
-            <radialGradient id="fg1" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#5ecece" stop-opacity=".15"/><stop offset="100%" stop-color="var(--navy)" stop-opacity="0"/></radialGradient>
+            <radialGradient id="fg1" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#C94AAD" stop-opacity=".18"/><stop offset="100%" stop-color="var(--navy)" stop-opacity="0"/></radialGradient>
           </defs>
           <circle cx="100" cy="70" r="60" fill="url(#fg1)"/>
-          <circle cx="100" cy="70" r="3" fill="var(--mag-l)"/>
-          <line x1="100" y1="70" x2="100" y2="20" stroke="#5ecece" stroke-width="1.5" opacity=".6"/>
-          <line x1="100" y1="70" x2="57" y2="95" stroke="#5ecece" stroke-width="1.5" opacity=".6"/>
-          <line x1="100" y1="70" x2="143" y2="95" stroke="#5ecece" stroke-width="1.5" opacity=".6"/>
-          <circle cx="100" cy="20" r="5" fill="#5ecece" opacity=".8"/>
-          <circle cx="57" cy="95" r="5" fill="#5ecece" opacity=".8"/>
-          <circle cx="143" cy="95" r="5" fill="#5ecece" opacity=".8"/>
-          <circle cx="100" cy="20" r="12" fill="none" stroke="#5ecece" stroke-width="1" opacity=".2"/>
-          <circle cx="57" cy="95" r="12" fill="none" stroke="#5ecece" stroke-width="1" opacity=".2"/>
-          <circle cx="143" cy="95" r="12" fill="none" stroke="#5ecece" stroke-width="1" opacity=".2"/>
+          <circle cx="100" cy="70" r="3" fill="#C94AAD"/>
+          <line x1="100" y1="70" x2="100" y2="20" stroke="#C94AAD" stroke-width="1.5" opacity=".6"/>
+          <line x1="100" y1="70" x2="57" y2="95" stroke="#C94AAD" stroke-width="1.5" opacity=".6"/>
+          <line x1="100" y1="70" x2="143" y2="95" stroke="#C94AAD" stroke-width="1.5" opacity=".6"/>
+          <circle cx="100" cy="20" r="5" fill="#C94AAD" opacity=".8"/>
+          <circle cx="57" cy="95" r="5" fill="#C94AAD" opacity=".8"/>
+          <circle cx="143" cy="95" r="5" fill="#C94AAD" opacity=".8"/>
+          <circle cx="100" cy="20" r="12" fill="none" stroke="#C94AAD" stroke-width="1" opacity=".2"/>
+          <circle cx="57" cy="95" r="12" fill="none" stroke="#C94AAD" stroke-width="1" opacity=".2"/>
+          <circle cx="143" cy="95" r="12" fill="none" stroke="#C94AAD" stroke-width="1" opacity=".2"/>
         </svg>
       </div>
     </div>
@@ -210,47 +199,47 @@ footer{background:var(--ink);padding:3rem 4rem}
   <div style="background:var(--cream);border:1px solid var(--border);border-radius:8px;padding:2rem 2.5rem;display:grid;grid-template-columns:1fr auto;gap:2rem;align-items:center;margin-top:2.5rem">
     <div>
       <div style="font-size:.6rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--mag);margin-bottom:.4rem">Work with Signal</div>
-      <div style="font-family:'DM Serif Display',serif;font-size:1.1rem;color:var(--navy);margin-bottom:.3rem">Seeing something relevant to your business?</div>
-      <div style="font-size:.82rem;color:var(--muted);line-height:1.65">Book a 30-minute call and we will show you how Signal applies to your specific situation.</div>
+      <div style="font-family:'Lora',serif;font-size:1.1rem;color:var(--navy);margin-bottom:.3rem">Have a commercial challenge you are working through?</div>
+      <div style="font-size:.82rem;color:var(--muted);line-height:1.65">Our perspectives come from the same problems we help leadership teams solve. If something here reflects a challenge your company is facing, we would welcome the conversation.</div>
     </div>
-    <a href="index.html#book" style="font-family:'Onest',sans-serif;font-size:.8rem;font-weight:600;background:var(--navy);color:var(--cream);padding:.75rem 1.5rem;border-radius:3px;text-decoration:none;letter-spacing:.04em;white-space:nowrap;transition:background .2s">Book a call</a>
+    <a href="index.html#book" style="font-family:'Onest',sans-serif;font-size:.8rem;font-weight:600;background:var(--navy);color:var(--cream);padding:.75rem 1.5rem;border-radius:3px;text-decoration:none;letter-spacing:.04em;white-space:nowrap;transition:background .2s">Book a conversation</a>
   </div>
 </div>
 
 <!-- ARTICLES GRID -->
 <div class="articles-wrap">
-  <div class="articles-label">Recent articles</div>
+  <div class="articles-label">Latest perspectives</div>
   <div class="articles-grid">
 
     <div class="article-card">
       <div class="article-tag">Retention</div>
       <a href="article-churn-worth-preventing.html" class="article-title">Not all churn is worth preventing. Here is how to tell the difference.</a>
       <p class="article-excerpt">The standard advice is to reduce churn at all costs. The more rigorous argument is that poor-fit customers consume disproportionate resources and pull your business away from the customers it should be serving. This is how to identify which is which.</p>
-      <div class="article-meta">Josh Buchholtz <span>|</span> May 2026 <span>|</span> 6 min read</div>
+      <div class="article-meta">May 2026 <span>|</span> 6 min read</div>
       <a href="article-churn-worth-preventing.html" class="article-read">Read &rarr;</a>
     </div>
 
     <div class="article-card">
-      <div class="article-tag">GTM Strategy</div>
+      <div class="article-tag">Go-to-Market</div>
       <a href="article-icp-never-tested.html" class="article-title">Most companies' ICP was written by the founding team and never tested. Here is what that costs.</a>
       <p class="article-excerpt">The Ideal Customer Profile driving your sales activity in most organizations was built on instinct and last updated years ago. The gap between who you are targeting and who actually generates long-term value is one of the most expensive and consistently underexamined problems in commercial strategy.</p>
-      <div class="article-meta">Josh Buchholtz <span>|</span> May 2026 <span>|</span> 7 min read</div>
+      <div class="article-meta">May 2026 <span>|</span> 7 min read</div>
       <a href="article-icp-never-tested.html" class="article-read">Read &rarr;</a>
     </div>
 
     <div class="article-card">
-      <div class="article-tag">AI and Growth</div>
-      <a href="article-ai-vs-customer-intelligence.html" class="article-title">Anyone can ask AI a question. That is not the same as customer intelligence.</a>
-      <p class="article-excerpt">The question that comes up most often is how Signal differs from just prompting ChatGPT. A client could prompt their way to a similar output — but they cannot prompt their way to knowing which questions to ask, in what sequence, with what validation logic, and how to act on the answer.</p>
-      <div class="article-meta">Josh Buchholtz <span>|</span> April 2026 <span>|</span> 5 min read</div>
+      <div class="article-tag">Customer Intelligence</div>
+      <a href="article-ai-vs-customer-intelligence.html" class="article-title">AI does not replace customer understanding. It exposes whether you have it.</a>
+      <p class="article-excerpt">The question that comes up most often is how Signal differs from just prompting ChatGPT. A client could prompt their way to a similar output, but they cannot prompt their way to knowing which questions to ask, in what sequence, with what validation logic, and how to act on the answer.</p>
+      <div class="article-meta">April 2026 <span>|</span> 5 min read</div>
       <a href="article-ai-vs-customer-intelligence.html" class="article-read">Read &rarr;</a>
     </div>
 
     <div class="article-card">
-      <div class="article-tag">Customer Intelligence</div>
-      <a href="article-best-product-doesnt-always-win.html" class="article-title">The companies that win commercially are not always the ones with the best product.</a>
-      <p class="article-excerpt">After twenty years of working with companies across industries and stages, the pattern that repeats most consistently is this: the businesses that compound value over time are the ones that understand their customers better than their competitors do. Product quality matters. Customer intelligence matters more.</p>
-      <div class="article-meta">Josh Buchholtz <span>|</span> April 2026 <span>|</span> 6 min read</div>
+      <div class="article-tag">Growth Strategy</div>
+      <a href="article-best-product-doesnt-always-win.html" class="article-title">Growth compounds through customer understanding, not product quality alone.</a>
+      <p class="article-excerpt">Two companies can ship equally good products and grow at completely different rates. The gap is usually about how well each one understands the customers already inside its funnel, and whether that understanding gets reinvested into where they sell, what they build, and who they protect.</p>
+      <div class="article-meta">April 2026 <span>|</span> 6 min read</div>
       <a href="article-best-product-doesnt-always-win.html" class="article-read">Read &rarr;</a>
     </div>
 
@@ -258,7 +247,7 @@ footer{background:var(--ink);padding:3rem 4rem}
       <div class="article-tag">Commercial Execution</div>
       <a href="article-execution-not-strategy.html" class="article-title">Organizations at this stage do not need more strategy. They need execution.</a>
       <p class="article-excerpt">A leadership team running a $50M business does not need another framework. They need someone to help them act on what the data is telling them, align the organization around it, and keep the work moving through the operational realities that slow most intelligence-to-action cycles to a crawl.</p>
-      <div class="article-meta">Josh Buchholtz <span>|</span> March 2026 <span>|</span> 5 min read</div>
+      <div class="article-meta">March 2026 <span>|</span> 5 min read</div>
       <a href="article-execution-not-strategy.html" class="article-read">Read &rarr;</a>
     </div>
 
@@ -266,7 +255,7 @@ footer{background:var(--ink);padding:3rem 4rem}
       <div class="article-tag">Retention</div>
       <a href="article-early-vs-late-churn.html" class="article-title">Early churn and late churn are completely different problems. Most companies treat them the same.</a>
       <p class="article-excerpt">A customer who churns in the first 90 days has almost nothing in common commercially with a customer who churns after three years. The causes are different, the interventions are different, and the cost is different. Treating them identically is one of the most common and expensive mistakes in retention strategy.</p>
-      <div class="article-meta">Josh Buchholtz <span>|</span> March 2026 <span>|</span> 7 min read</div>
+      <div class="article-meta">March 2026 <span>|</span> 7 min read</div>
       <a href="article-early-vs-late-churn.html" class="article-read">Read &rarr;</a>
     </div>
 
@@ -277,8 +266,8 @@ footer{background:var(--ink);padding:3rem 4rem}
 <div class="newsletter">
   <div class="newsletter-inner">
     <div class="newsletter-eyebrow">Stay current</div>
-    <h2 class="newsletter-title">New thinking, direct to your inbox.</h2>
-    <p class="newsletter-sub">One piece of practical thinking on customer intelligence and commercial strategy, every two weeks. No filler.</p>
+    <h2 class="newsletter-title">Practical thinking for leaders responsible for growth.</h2>
+    <p class="newsletter-sub">A monthly perspective on customer intelligence, commercial strategy, and the decisions that shape growth.</p>
     <div class="newsletter-form">
       <input class="newsletter-input" type="email" placeholder="Your email address">
       <button class="newsletter-btn">Subscribe</button>
