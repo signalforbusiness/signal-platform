@@ -45,18 +45,17 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(244,240,232,
 .sec-body p{margin-bottom:1.15rem}
 .sec-body p:last-child{margin-bottom:0}
 
-/* GAP DIAGRAM (Section 1) */
-.gap-diagram{display:flex;align-items:center;gap:2rem;margin-top:3.5rem;background:#fff;border:1px solid var(--border);border-radius:10px;padding:3rem 2.5rem}
-.gap-col{flex:1}
-.gap-col-label{font-size:.62rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:1.25rem}
-.gap-pill{display:inline-block;font-size:.8rem;color:var(--ink);background:var(--cream);border:1px solid var(--border);border-radius:20px;padding:.5rem 1.1rem;margin:0 .4rem .5rem 0}
-.gap-item{font-size:.85rem;color:var(--ink);padding:.5rem 0;border-bottom:1px solid var(--border)}
-.gap-item:last-child{border-bottom:none}
-.gap-col.guessing .gap-col-label{color:var(--mag)}
-.gap-arrow-col{flex:0 0 140px;display:flex;flex-direction:column;align-items:center;gap:.6rem}
-.gap-arrow-col svg{width:100%;height:auto;color:var(--border)}
-.gap-arrow-col .arrow-v{display:none}
-.gap-arrow-label{font-size:.68rem;color:var(--muted);font-style:italic;text-align:center}
+/* THE THREE PROBLEMS (Section 1) — deck-derived card grid */
+.problem-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3rem}
+.problem-card{background:#fff;border:1px solid var(--border);border-radius:10px;overflow:hidden;display:flex;flex-direction:column}
+.problem-card-body{padding:2.25rem 1.85rem;flex:1}
+.problem-num{font-family:'Lora',serif;font-style:italic;font-weight:600;font-size:1.6rem;color:var(--mag);margin-bottom:1rem;line-height:1}
+.problem-title{font-size:.95rem;color:var(--ink);line-height:1.45;margin-bottom:1.5rem}
+.problem-desc{font-size:.82rem;color:var(--muted);line-height:1.75}
+.problem-callout{background:var(--mag);color:#fff;font-size:.82rem;font-style:italic;line-height:1.7;padding:1.5rem 1.85rem}
+.section.dark .problem-card{background:var(--surface);border-color:var(--nb)}
+.section.dark .problem-title{color:#fff}
+.section.dark .problem-desc{color:rgba(255,255,255,.5)}
 
 /* WHAT WE BELIEVE (Section 2) */
 .beliefs{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3rem}
@@ -138,10 +137,7 @@ footer{background:var(--ink);padding:3rem 4rem}
   .nav-inner{padding:1.25rem 2rem}
   .page-hero{padding:8rem 2rem 4rem}
   .section{padding:4rem 2rem}
-  .gap-diagram{flex-direction:column;align-items:stretch;padding:2rem;gap:1.5rem}
-  .gap-arrow-col{flex:0 0 auto;width:60px;margin:0 auto}
-  .gap-arrow-col .arrow-h{display:none}
-  .gap-arrow-col .arrow-v{display:block}
+  .problem-grid{grid-template-columns:1fr}
   .belief-item{padding:1.5rem}
   .beliefs{grid-template-columns:1fr}
   .loop-wrap{flex-direction:column;gap:2rem}
@@ -175,50 +171,42 @@ footer{background:var(--ink);padding:3rem 4rem}
   <div class="page-hero-inner">
     <div class="page-eyebrow">Philosophy</div>
     <h1 class="page-title">Why we exist.</h1>
-    <p class="page-sub">The companies that win are rarely the ones with the best product. They're the ones that understand their customers more deeply, learn faster, and make commercial decisions with more confidence. Most organizations already have the information they need to compete this way. <strong>Very few have built the system to act on it. Signal exists to close that gap.</strong></p>
+    <p class="page-sub">The companies that win are rarely the ones with the best product. They're the ones that understand their customers more deeply, learn faster, and make commercial decisions with more confidence. Most organizations already have the information they need to compete this way. <strong>Very few have built the system to act on it. We kept seeing that gap, company after company, and built Signal to close it.</strong></p>
   </div>
 </div>
 
-<!-- SECTION 1: THE OBSERVATION -->
-<div class="section">
+<!-- SECTION 1: THE THREE PROBLEMS -->
+<div class="section dark">
   <div class="section-inner">
     <div class="sec-label">The problem we solve</div>
-    <h2 class="sec-title">The intelligence exists. The decisions don't follow.</h2>
+    <h2 class="sec-title">The same three problems, company after company.</h2>
     <div class="sec-body">
-      <p>Every interview, support call, and renewal conversation carries a signal about what customers value, what frustrates them, and why they stay. Most organizations collect all of it and connect almost none of it to a commercial decision.</p>
-      <p>This is the problem we solve. We help leaders decide who to target, what to build, why customers are leaving, and where to invest next, using evidence instead of instinct.</p>
+      <p>Across two decades of commercial work with more than fifty B2B companies, the same three problems keep showing up. Each ties directly to revenue growth, cost to serve, customer retention, or competitive defensibility.</p>
     </div>
-    <div class="gap-diagram">
-      <div class="gap-col">
-        <div class="gap-col-label">What you already have</div>
-        <div class="gap-pill">Customer Interviews</div>
-        <div class="gap-pill">CRM</div>
-        <div class="gap-pill">NPS</div>
-        <div class="gap-pill">Support Tickets</div>
-        <div class="gap-pill">Sales Calls</div>
-        <div class="gap-pill">Renewals</div>
+    <div class="problem-grid">
+      <div class="problem-card">
+        <div class="problem-card-body">
+          <div class="problem-num">01</div>
+          <div class="problem-title">B2B customer strategy is built on assumptions.</div>
+          <div class="problem-desc">Most organizations set customer strategy based on last year's performance, internal instinct, and guesses about what customers want next. Interviews sit in folders. Win-loss notes live in one person's head. Churn is discovered at renewal, months after the decision was already made. The data exists. It just never becomes a decision.</div>
+        </div>
+        <div class="problem-callout">Teams waste time, budget, and sales effort executing against a strategy built on guesses rather than evidence.</div>
       </div>
-      <div class="gap-arrow-col">
-        <svg class="arrow-h" viewBox="0 0 140 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M4 20H55" stroke="currentColor" stroke-width="1.5" stroke-dasharray="4 4"/>
-          <circle cx="70" cy="20" r="9" stroke="currentColor" stroke-width="1.5"/>
-          <path d="M70 15.5V24.5M65.5 20H74.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-          <path d="M85 20H130M130 20L122 13M130 20L122 27" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-        <svg class="arrow-v" viewBox="0 0 40 140" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M20 4V55" stroke="currentColor" stroke-width="1.5" stroke-dasharray="4 4"/>
-          <circle cx="20" cy="70" r="9" stroke="currentColor" stroke-width="1.5"/>
-          <path d="M15.5 70H24.5M20 65.5V74.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-          <path d="M20 85V130M20 130L13 122M20 130L27 122" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-        <div class="gap-arrow-label">No system in between</div>
+      <div class="problem-card">
+        <div class="problem-card-body">
+          <div class="problem-num">02</div>
+          <div class="problem-title">Customer intelligence is constantly created, but almost never synthesized into a decision.</div>
+          <div class="problem-desc">Every customer conversation, service interaction, and renewal discussion produces signal. Across sales, marketing, product, and customer success, the organization is constantly learning what customers want, what frustrates them, and what would make them leave. Almost none of it reaches the people making strategic decisions in a form they can act on.</div>
+        </div>
+        <div class="problem-callout">The gap between what customers are telling the organization and what leadership is deciding is where commercial performance is lost.</div>
       </div>
-      <div class="gap-col guessing">
-        <div class="gap-col-label">What leadership still guesses</div>
-        <div class="gap-item">Who your best customers are</div>
-        <div class="gap-item">Why customers actually leave</div>
-        <div class="gap-item">What to build next</div>
-        <div class="gap-item">Where to invest</div>
+      <div class="problem-card">
+        <div class="problem-card-body">
+          <div class="problem-num">03</div>
+          <div class="problem-title">Most companies don't actually know who their best customers are.</div>
+          <div class="problem-desc">Not all customers create equal value. Some are high-revenue but expensive to serve. Some are smaller but loyal, profitable, and likely to expand. Without a systematic way to connect customer intelligence to commercial performance, organizations end up investing in the wrong relationships or failing to protect the right ones.</div>
+        </div>
+        <div class="problem-callout">Without clarity on which customers actually drive value, organizations protect the wrong relationships and neglect the right ones.</div>
       </div>
     </div>
   </div>
@@ -233,27 +221,27 @@ footer{background:var(--ink);padding:3rem 4rem}
       <div class="belief-item">
         <div class="belief-label-num">Principle 01</div>
         <div class="belief-title">Intelligence only matters if it changes a decision.</div>
-        <div class="belief-body">A report that sits in a presentation isn't intelligence. Every output Signal produces is designed to end in a commercial decision, not an interesting observation.</div>
+        <div class="belief-body">A report that sits in a deck isn't intelligence, no matter how thorough it is. We design every output to end in a decision, not an observation.</div>
       </div>
       <div class="belief-item">
         <div class="belief-label-num">Principle 02</div>
         <div class="belief-title">Customer understanding should compound.</div>
-        <div class="belief-body">Most organizations rebuild their understanding of customers from scratch every time they look. Signal is built so every conversation adds to what the organization already knows.</div>
+        <div class="belief-body">Most companies start over every time they run a new study. Signal is built so each conversation adds to what the organization already knows, instead of replacing it.</div>
       </div>
       <div class="belief-item">
         <div class="belief-label-num">Principle 03</div>
         <div class="belief-title">Your best customers teach you how to find the next ones.</div>
-        <div class="belief-body">Most organizations define their ideal customer from intuition. Signal builds it from the patterns your best customers already leave behind.</div>
+        <div class="belief-body">Intuition usually builds the ideal customer profile. Evidence should build it instead, from the patterns your best customers already leave behind.</div>
       </div>
       <div class="belief-item">
         <div class="belief-label-num">Principle 04</div>
-        <div class="belief-title">Retention starts long before renewal.</div>
-        <div class="belief-body">The signals appear months earlier: support requests change, engagement declines, champion relationships weaken. Catching them early keeps your options open.</div>
+        <div class="belief-title">Not all churn is worth preventing.</div>
+        <div class="belief-body">Retention programs that treat every loss as equally bad end up protecting the wrong accounts. Some customers cost more to keep than they're worth. The real skill is knowing which relationships deserve the fight, and moving early enough for it to matter.</div>
       </div>
       <div class="belief-item">
         <div class="belief-label-num">Principle 05</div>
-        <div class="belief-title">Customer knowledge should belong to the organization.</div>
-        <div class="belief-body">An account manager's understanding of a customer usually leaves when they do. Signal turns that knowledge into an asset that belongs to the business instead.</div>
+        <div class="belief-title">Customer knowledge should belong to the organization, not one employee.</div>
+        <div class="belief-body">An account manager's judgment usually leaves the building with them. Signal treats that judgment as an asset the business owns, not a habit that resets with every hire.</div>
       </div>
     </div>
   </div>
@@ -265,7 +253,7 @@ footer{background:var(--ink);padding:3rem 4rem}
     <div class="sec-label">Customer intelligence is infrastructure</div>
     <h2 class="sec-title">Understanding should compound, not restart.</h2>
     <div class="sec-body">
-      <p>Signal runs on a loop, not a project timeline. Every customer conversation becomes structured intelligence. Every piece of intelligence informs a commercial decision. Every decision produces an outcome that sharpens the next round of understanding. That loop is what lets advantage compound instead of resetting every quarter.</p>
+      <p>Signal runs in a loop. Most approaches run in a straight line and stop. Every customer conversation becomes structured intelligence. Every piece of intelligence informs a commercial decision. Every decision produces an outcome that sharpens the next round of understanding. That loop is what lets advantage compound instead of resetting every quarter.</p>
     </div>
     <div class="loop-wrap">
       <div class="loop-diagram">
@@ -383,7 +371,7 @@ footer{background:var(--ink);padding:3rem 4rem}
     <div class="sec-label">The role of advisory</div>
     <h2 class="sec-title" style="max-width:20ch">Signal is designed to stand on its own.</h2>
     <div class="sec-body">
-      <p>The platform gives leadership a structured understanding of what customers are saying and where to focus next. Some organizations move quickly from there. Others want experienced operators to help interpret findings and accelerate execution. That's optional, not required.</p>
+      <p>The platform gives leadership a structured understanding of what customers are saying and where to focus next. Some organizations move quickly from there. Others want experienced operators to help interpret findings and accelerate execution. That's available, not assumed.</p>
     </div>
     <div class="split">
       <div class="split-col">
@@ -427,7 +415,7 @@ footer{background:var(--ink);padding:3rem 4rem}
 <!-- FINAL SECTION -->
 <div class="final-section">
   <div class="final-inner">
-    <p class="final-text">Stop guessing. <em>Start making commercial decisions from evidence.</em></p>
+    <p class="final-text">If this is how you think about customer intelligence too, <em>we should talk.</em></p>
     <div class="final-actions">
       <a href="index.html#book" class="btn-final-primary">Book a call</a>
       <a href="index.html#platform" class="btn-final-secondary">Explore the platform</a>
