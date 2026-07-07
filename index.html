@@ -44,10 +44,10 @@ section{padding:6rem 4rem}
 .section-title{font-family:'Lora',serif;font-size:clamp(1.9rem,3.2vw,2.8rem);font-weight:400;line-height:1.1;letter-spacing:-.01em;color:var(--ink);margin-bottom:1.25rem}
 .section-title em{font-style:italic;color:var(--mag)}
 .section-sub{font-size:.95rem;color:var(--muted);max-width:54ch;line-height:1.8;margin-bottom:3rem}
-.section-cta{display:inline-flex;align-items:center;gap:.5rem;font-family:'Onest',sans-serif;font-size:.82rem;font-weight:600;color:var(--mag-l);text-decoration:none;margin-top:2.5rem}
-.section-cta:hover{color:var(--white)}
-.section-cta.on-light{color:var(--mag)}
-.section-cta.on-light:hover{color:var(--ink)}
+.section-cta{display:inline-flex;align-items:center;gap:.5rem;font-family:'Onest',sans-serif;font-size:.8rem;font-weight:600;color:rgba(255,255,255,.8);text-decoration:none;margin-top:2.5rem;padding:.65rem 1.4rem;border:1px solid rgba(255,255,255,.25);border-radius:3px;transition:all .2s}
+.section-cta:hover{border-color:var(--mag-l);color:var(--white);background:rgba(160,43,147,.12)}
+.section-cta.on-light{color:var(--ink);border-color:var(--border)}
+.section-cta.on-light:hover{border-color:var(--mag);color:var(--mag);background:rgba(160,43,147,.06)}
 
 /* QUESTIONS */
 .questions-section{background:var(--navy)}
@@ -59,16 +59,17 @@ section{padding:6rem 4rem}
 
 /* HOW SIGNAL WORKS */
 .works-section{background:var(--navy)}
-.works-flow{display:flex;align-items:flex-start;margin-top:4rem;gap:0}
-.works-item{flex:1;position:relative;padding-right:2.5rem}
-.works-item:last-child{padding-right:0}
-.works-num{font-size:.6rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--mag);margin-bottom:1rem}
-.works-title{font-family:'Lora',serif;font-size:1.2rem;font-weight:400;color:var(--white);line-height:1.3;margin-bottom:.85rem}
+.works-flow{display:flex;align-items:stretch;margin-top:4rem;gap:0}
+.works-item{flex:1 1 0;min-width:0}
+.works-item-top{display:flex;align-items:center;min-height:2.6rem;margin-bottom:.85rem}
+.works-num{font-size:.6rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--mag)}
+.works-title{font-family:'Lora',serif;font-size:1.2rem;font-weight:400;color:var(--white);line-height:1.3}
 .works-body{font-size:.82rem;color:rgba(255,255,255,.45);line-height:1.7;max-width:26ch}
-.works-arrow{position:absolute;top:.15rem;right:-.2rem;width:2.4rem;height:1.2rem;color:var(--mag);opacity:.6}
-.works-loop{display:flex;align-items:center;justify-content:center;gap:.85rem;margin-top:3rem;padding-top:2rem;border-top:1px solid var(--nb)}
-.works-loop-text{font-size:.78rem;color:rgba(255,255,255,.4);font-style:italic}
-.works-loop svg{color:var(--mag);opacity:.7}
+.works-arrow-wrap{flex:0 0 3.5rem;display:flex;align-items:center;justify-content:center;padding-top:.05rem}
+.works-arrow-wrap svg{width:1.9rem;height:1rem;color:var(--mag);opacity:.5}
+.works-loop{display:flex;align-items:center;justify-content:center;gap:.75rem;margin-top:3.5rem;padding:1.1rem 1.75rem;background:var(--surface);border:1px solid var(--nb);border-radius:8px}
+.works-loop-text{font-size:.8rem;color:rgba(255,255,255,.5)}
+.works-loop svg{color:var(--mag);flex-shrink:0}
 
 /* MODULE CAROUSEL */
 .modules-section{background:var(--cream)}
@@ -200,7 +201,7 @@ footer{background:var(--navy);padding:3rem 4rem;border-top:1px solid var(--nb)}
 .footer-link:hover{color:rgba(255,255,255,.7)}
 .footer-copy{font-size:.72rem;color:rgba(255,255,255,.2)}
 
-@media(max-width:960px){.nav-inner{padding:1.25rem 2rem}.hero{padding:7rem 2rem 4rem}section{padding:4rem 2rem}.q-grid,.why-grid,.pricing-grid,.decision-grid{grid-template-columns:1fr}.works-flow{flex-direction:column;gap:2.5rem}.works-item{padding-right:0}.works-arrow{display:none}.module-carousel{grid-template-columns:1fr;gap:2rem;padding:2rem}.advisory{grid-template-columns:1fr}.book-section{padding:5rem 2rem}.footer-inner{flex-direction:column;gap:1.5rem;text-align:center}footer{padding:3rem 2rem}}
+@media(max-width:960px){.nav-inner{padding:1.25rem 2rem}.hero{padding:7rem 2rem 4rem}section{padding:4rem 2rem}.q-grid,.why-grid,.pricing-grid,.decision-grid{grid-template-columns:1fr}.works-flow{flex-direction:column;gap:2rem}.works-arrow-wrap{display:none}.module-carousel{grid-template-columns:1fr;gap:2rem;padding:2rem}.advisory{grid-template-columns:1fr}.book-section{padding:5rem 2rem}.footer-inner{flex-direction:column;gap:1.5rem;text-align:center}footer{padding:3rem 2rem}}
 </style>
 </head>
 <body>
@@ -223,7 +224,7 @@ footer{background:var(--navy);padding:3rem 4rem;border-top:1px solid var(--nb)}
     <div class="hero-content">
       <div class="hero-eyebrow">Customer Intelligence Platform</div>
       <h1 class="hero-title">Turn customer intelligence into <em>competitive advantage.</em></h1>
-      <p class="hero-sub">Every company has customer data. Very few turn it into better commercial decisions. Signal turns your customer intelligence, including interviews, CRM activity, support conversations, and account history, into evidence leaders use to decide who to target, where to invest, who to protect, and what to change.</p>
+      <p class="hero-sub">Every company has customer data. Very few turn it into better commercial decisions. Signal turns interviews, CRM activity, support conversations, and account history into evidence leadership can act on. That evidence tells you who to target, where to invest, who to protect, and what to change.</p>
       <div class="hero-actions">
         <a href="#book" class="btn-primary">Book a call</a>
         <a href="#platform" class="btn-secondary">See the platform</a>
@@ -236,7 +237,7 @@ footer{background:var(--navy);padding:3rem 4rem;border-top:1px solid var(--nb)}
 <section class="questions-section" id="questions">
   <div class="section-inner">
     <h2 class="section-title" style="color:var(--white);max-width:26ch">We help you answer three critical customer strategy questions.</h2>
-    <p class="section-sub" style="color:rgba(255,255,255,.45)">Most companies can't answer them. Signal answers all three systematically, using your actual customer data, every quarter.</p>
+    <p class="section-sub" style="color:rgba(255,255,255,.45)">Most companies can't, not because the answers don't exist, but because nothing forces the data to become a decision. Signal does that systematically, using your actual customer data, every quarter.</p>
     <div class="q-grid">
       <div class="q-item">
         <div class="q-num">Question 01</div>
@@ -266,31 +267,31 @@ footer{background:var(--navy);padding:3rem 4rem;border-top:1px solid var(--nb)}
     <p class="section-sub" style="color:rgba(255,255,255,.45)">Signal plugs into the CRM, documents, and conversations you already have. Nothing new for your team to learn or manage.</p>
     <div class="works-flow">
       <div class="works-item">
-        <div class="works-num">Step 01</div>
+        <div class="works-item-top"><span class="works-num">Step 01</span></div>
         <div class="works-title">Listen</div>
         <div class="works-body">Signal gathers customer intelligence from across your systems, documents, and conversations, including CRM activity, support conversations, surveys, interviews, and account history.</div>
-        <svg class="works-arrow" viewBox="0 0 40 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 10H34M34 10L26 3M34 10L26 17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </div>
+      <div class="works-arrow-wrap"><svg viewBox="0 0 40 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 10H34M34 10L26 3M34 10L26 17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
       <div class="works-item">
-        <div class="works-num">Step 02</div>
+        <div class="works-item-top"><span class="works-num">Step 02</span></div>
         <div class="works-title">Understand</div>
         <div class="works-body">Signal finds the patterns that predict retention, expansion, fit, and risk.</div>
-        <svg class="works-arrow" viewBox="0 0 40 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 10H34M34 10L26 3M34 10L26 17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </div>
+      <div class="works-arrow-wrap"><svg viewBox="0 0 40 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 10H34M34 10L26 3M34 10L26 17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
       <div class="works-item">
-        <div class="works-num">Step 03</div>
+        <div class="works-item-top"><span class="works-num">Step 03</span></div>
         <div class="works-title">Decide</div>
         <div class="works-body">Leadership gets clear direction on where to invest, who to prioritize, and what needs attention.</div>
-        <svg class="works-arrow" viewBox="0 0 40 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 10H34M34 10L26 3M34 10L26 17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </div>
+      <div class="works-arrow-wrap"><svg viewBox="0 0 40 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 10H34M34 10L26 3M34 10L26 17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
       <div class="works-item">
-        <div class="works-num">Step 04</div>
+        <div class="works-item-top"><span class="works-num">Step 04</span></div>
         <div class="works-title">Repeat</div>
         <div class="works-body">Every new customer conversation makes the intelligence sharper.</div>
       </div>
     </div>
     <div class="works-loop">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 12a8 8 0 0 1 13.66-5.66M20 12a8 8 0 0 1-13.66 5.66M17.5 3v4h-4M6.5 21v-4h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 12a8 8 0 0 1 13.66-5.66M20 12a8 8 0 0 1-13.66 5.66M17.5 3v4h-4M6.5 21v-4h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
       <span class="works-loop-text">The cycle runs continuously. Every decision feeds the next round of intelligence.</span>
     </div>
     <a href="#platform" class="section-cta">See the platform this powers →</a>
@@ -396,15 +397,15 @@ footer{background:var(--navy);padding:3rem 4rem;border-top:1px solid var(--nb)}
       </div>
       <div class="decision-item">
         <div class="decision-label">Where to invest</div>
-        <div class="decision-body">Product and budget decisions follow what customers actually value, not whatever request landed on the roadmap last. Signal shows which priorities really move retention and expansion, so investment goes where it counts.</div>
+        <div class="decision-body">Roadmaps often follow whatever request landed most recently, not what customers actually value. Signal shows which priorities really move retention and expansion, so investment goes where it counts.</div>
       </div>
       <div class="decision-item">
         <div class="decision-label">Who to protect</div>
-        <div class="decision-body">Account management knows which relationships carry the business before they show up as churn. Signal flags the accounts that would hurt most to lose, so retention effort goes where it matters.</div>
+        <div class="decision-body">Some accounts matter more than others, and most teams find out too late. Signal flags the relationships that would hurt most to lose, so retention effort goes where it actually matters.</div>
       </div>
       <div class="decision-item">
         <div class="decision-label">What to change</div>
-        <div class="decision-body">Messaging and positioning get corrected against what customers actually say, not internal guesses about what should land. Signal surfaces the language customers use themselves, so those decisions start from evidence.</div>
+        <div class="decision-body">Messaging often reflects internal assumptions more than customer reality. Signal surfaces the language customers use themselves, so positioning starts from evidence, not guesswork.</div>
       </div>
     </div>
     <div class="ey" style="color:var(--mag);margin-top:3.5rem">Why companies choose Signal</div>
@@ -417,7 +418,7 @@ footer{background:var(--navy);padding:3rem 4rem;border-top:1px solid var(--nb)}
       </div>
       <div class="why-card">
         <div class="why-num">Reason 02</div>
-        <div class="why-title">Built for organizations doing $10M to $100M in revenue</div>
+        <div class="why-title">Built to start this week, not next quarter</div>
         <div class="why-body">Enterprise platforms take months to implement and require dedicated teams to operate. Signal is built for organizations that have outgrown spreadsheets but don't have the infrastructure for enterprise tools. Serious enough to drive real decisions. Simple enough to start this week.</div>
       </div>
       <div class="why-card">
@@ -487,7 +488,7 @@ footer{background:var(--navy);padding:3rem 4rem;border-top:1px solid var(--nb)}
       <div>
         <div class="advisory-label">Advisory</div>
         <div class="advisory-title">Used when organizations need help<br><em>turning decisions into operational change.</em></div>
-        <div class="advisory-body">Some teams want the platform on its own. Others want experienced operators to help interpret findings, prioritize actions, and speed up execution. Signal Advisory is optional and designed to fit alongside the platform, not replace it. Platform first. Experts when you need them. Available at $5,000 to $10,000 per month alongside the platform.</div>
+        <div class="advisory-body">Some teams want the platform on its own. Others want experienced operators to help interpret findings, prioritize actions, and speed up execution. Signal Advisory is optional and designed to fit alongside the platform, not replace it: platform first, experts when you need them, available at $5,000 to $10,000 per month.</div>
       </div>
       <a href="#book" class="btn-primary">Talk to the team</a>
     </div>
