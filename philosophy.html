@@ -24,7 +24,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(244,240,232,
 .nav-cta:hover{background:var(--mag-l)}
 
 /* PAGE HERO — minimal, per design direction */
-.page-hero{padding:11rem 4rem 7rem;max-width:800px;margin:0 auto;text-align:left}
+.page-hero{padding:11rem 4rem 7rem;max-width:1200px;margin:0 auto;text-align:left}
+.page-hero-inner{max-width:700px}
 .page-eyebrow{font-size:.65rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--mag);margin-bottom:1.5rem;display:flex;align-items:center;gap:.75rem}
 .page-eyebrow::before{content:'';width:32px;height:1px;background:var(--mag)}
 .page-title{font-family:'Lora',serif;font-size:clamp(2.8rem,5.5vw,4.8rem);font-weight:400;line-height:1.08;letter-spacing:-.02em;color:var(--navy);margin-bottom:2.5rem}
@@ -58,14 +59,11 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(244,240,232,
 .gap-arrow-label{font-size:.68rem;color:var(--muted);font-style:italic;text-align:center}
 
 /* WHAT WE BELIEVE (Section 2) */
-.beliefs{display:flex;flex-direction:column;gap:0;margin-top:3rem}
-.belief-item{display:grid;grid-template-columns:70px 1fr;gap:2rem;padding:2.5rem 0;border-bottom:1px solid rgba(255,255,255,.1);align-items:start}
-.belief-item:last-child{border-bottom:none}
-.belief-num{font-family:'Lora',serif;font-size:2.2rem;font-weight:400;color:rgba(255,255,255,.15);line-height:1}
-.belief-title{font-family:'Lora',serif;font-size:1.25rem;font-weight:400;color:var(--white);margin-bottom:.75rem;line-height:1.3}
-.belief-body{font-size:.9rem;color:rgba(255,255,255,.5);line-height:1.85;max-width:68ch}
-.belief-body p{margin-bottom:.85rem}
-.belief-body p:last-child{margin-bottom:0}
+.beliefs{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3rem}
+.belief-item{background:var(--surface);border:1px solid var(--nb);border-radius:8px;padding:2rem 1.75rem}
+.belief-label-num{font-size:.62rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--mag);margin-bottom:.9rem}
+.belief-title{font-family:'Lora',serif;font-size:1.05rem;font-weight:400;color:var(--white);margin-bottom:.75rem;line-height:1.3}
+.belief-body{font-size:.85rem;color:rgba(255,255,255,.5);line-height:1.75}
 
 /* INFRASTRUCTURE LOOP (Section 3) */
 .loop-wrap{display:flex;align-items:center;gap:4rem;margin-top:3.5rem;flex-wrap:wrap}
@@ -141,7 +139,8 @@ footer{background:var(--ink);padding:3rem 4rem}
   .gap-arrow-col{flex:0 0 auto;width:60px;margin:0 auto}
   .gap-arrow-col .arrow-h{display:none}
   .gap-arrow-col .arrow-v{display:block}
-  .belief-item{grid-template-columns:1fr;gap:.75rem}
+  .belief-item{padding:1.5rem}
+  .beliefs{grid-template-columns:1fr}
   .loop-wrap{flex-direction:column;gap:2rem}
   .loop-diagram{flex:0 0 auto;width:100%}
   .chain-flow{flex-direction:column;gap:1.5rem}
@@ -170,19 +169,21 @@ footer{background:var(--ink);padding:3rem 4rem}
 
 <!-- HERO -->
 <div class="page-hero">
-  <div class="page-eyebrow">Philosophy</div>
-  <h1 class="page-title">Why we exist.</h1>
-  <p class="page-sub">The companies that win are rarely the ones with the best product. They're the ones that understand their customers more deeply, learn faster, and make commercial decisions with more confidence. Most organizations already have the information they need to compete this way. <strong>Very few have built the system to act on it. Signal exists to close that gap.</strong></p>
+  <div class="page-hero-inner">
+    <div class="page-eyebrow">Philosophy</div>
+    <h1 class="page-title">Why we exist.</h1>
+    <p class="page-sub">The companies that win are rarely the ones with the best product. They're the ones that understand their customers more deeply, learn faster, and make commercial decisions with more confidence. Most organizations already have the information they need to compete this way. <strong>Very few have built the system to act on it. Signal exists to close that gap.</strong></p>
+  </div>
 </div>
 
 <!-- SECTION 1: THE OBSERVATION -->
 <div class="section">
   <div class="section-inner">
     <div class="sec-label">The problem we solve</div>
-    <h2 class="sec-title">Data everywhere. Decisions on instinct.</h2>
+    <h2 class="sec-title">Your customers already tell you what they need.</h2>
     <div class="sec-body">
-      <p>Organizations invest heavily in collecting customer information through leadership interviews, customer surveys, support conversations, sales calls, renewal discussions, CRM notes, and research studies, but almost never connect that intelligence to commercial decisions.</p>
-      <p>This is the problem we solve. We help leaders make decisions with evidence: who to target, what to build, why customers are leaving, where to invest next.</p>
+      <p>Every interview, support call, and renewal conversation carries a signal about what customers value, what frustrates them, and why they stay. Most organizations collect all of it and connect almost none of it to a commercial decision.</p>
+      <p>This is the problem we solve. We help leaders decide who to target, what to build, why customers are leaving, and where to invest next, using evidence instead of instinct.</p>
     </div>
     <div class="gap-diagram">
       <div class="gap-col">
@@ -227,54 +228,29 @@ footer{background:var(--ink);padding:3rem 4rem}
     <h2 class="sec-title" style="max-width:16ch">Five principles behind everything we build.</h2>
     <div class="beliefs">
       <div class="belief-item">
-        <div class="belief-num">01</div>
-        <div>
-          <div class="belief-title">Intelligence only matters if it changes a decision.</div>
-          <div class="belief-body">
-            <p>Research that sits inside a presentation is not intelligence. Dashboards do not create value. Reports do not change businesses.</p>
-            <p>Customer intelligence only becomes valuable when it changes who you target, what you build, how you retain customers, or where you invest next. Every output Signal produces is designed to end with a commercial decision, not an interesting observation.</p>
-          </div>
-        </div>
+        <div class="belief-label-num">Principle 01</div>
+        <div class="belief-title">Intelligence only matters if it changes a decision.</div>
+        <div class="belief-body">A report that sits in a presentation isn't intelligence. Every output Signal produces is designed to end in a commercial decision, not an interesting observation.</div>
       </div>
       <div class="belief-item">
-        <div class="belief-num">02</div>
-        <div>
-          <div class="belief-title">Customer understanding should compound.</div>
-          <div class="belief-body">
-            <p>Most customer research has a short lifespan. Someone runs interviews, a report is written, the presentation is shared, and then everyone moves on. Customer understanding should not disappear every quarter.</p>
-            <p>Every conversation with a customer should strengthen the organization's understanding of who creates value, what predicts success, and where commercial risk is emerging. Knowledge should accumulate, not restart.</p>
-          </div>
-        </div>
+        <div class="belief-label-num">Principle 02</div>
+        <div class="belief-title">Customer understanding should compound.</div>
+        <div class="belief-body">Most organizations rebuild their understanding of customers from scratch every time they look. Signal is built so every conversation adds to what the organization already knows.</div>
       </div>
       <div class="belief-item">
-        <div class="belief-num">03</div>
-        <div>
-          <div class="belief-title">The best customers teach you how to find the next best customers.</div>
-          <div class="belief-body">
-            <p>Most organizations define their Ideal Customer Profile from intuition. Signal builds it from evidence.</p>
-            <p>The customers who stay longest, expand fastest, and create the greatest long-term value leave behind measurable patterns. Those patterns become the blueprint for finding more customers like them.</p>
-          </div>
-        </div>
+        <div class="belief-label-num">Principle 03</div>
+        <div class="belief-title">Your best customers teach you how to find the next ones.</div>
+        <div class="belief-body">Most organizations define their ideal customer from intuition. Signal builds it from the patterns your best customers already leave behind.</div>
       </div>
       <div class="belief-item">
-        <div class="belief-num">04</div>
-        <div>
-          <div class="belief-title">Retention starts long before renewal.</div>
-          <div class="belief-body">
-            <p>Customers rarely wake up one morning and decide to leave. The signals appear months earlier: support requests change, engagement declines, champion relationships weaken, competitive mentions increase.</p>
-            <p>Organizations that detect those signals early gain options. Organizations that notice them late negotiate from a position of weakness.</p>
-          </div>
-        </div>
+        <div class="belief-label-num">Principle 04</div>
+        <div class="belief-title">Retention starts long before renewal.</div>
+        <div class="belief-body">The signals appear months earlier: support requests change, engagement declines, champion relationships weaken. Catching them early keeps your options open.</div>
       </div>
       <div class="belief-item">
-        <div class="belief-num">05</div>
-        <div>
-          <div class="belief-title">Customer knowledge should belong to the organization.</div>
-          <div class="belief-body">
-            <p>Every experienced account manager carries years of customer understanding that rarely exists anywhere else. When they leave, much of that knowledge leaves too.</p>
-            <p>Organizations should not rebuild customer intelligence every time someone changes roles. It should become part of the business itself.</p>
-          </div>
-        </div>
+        <div class="belief-label-num">Principle 05</div>
+        <div class="belief-title">Customer knowledge should belong to the organization.</div>
+        <div class="belief-body">An account manager's understanding of a customer usually leaves when they do. Signal turns that knowledge into an asset that belongs to the business instead.</div>
       </div>
     </div>
   </div>
@@ -284,9 +260,9 @@ footer{background:var(--ink);padding:3rem 4rem}
 <div class="section">
   <div class="section-inner">
     <div class="sec-label">Customer intelligence is infrastructure</div>
-    <h2 class="sec-title">Most customer research runs in a straight line. We built a loop instead.</h2>
+    <h2 class="sec-title">Understanding should compound, not restart.</h2>
     <div class="sec-body">
-      <p>Most companies treat customer intelligence as a project: research happens, a presentation gets shared, it gets archived, and eventually someone repeats the exercise from scratch. Signal was designed around a different model, one where every decision creates new intelligence and every cycle makes the next one smarter. That is how competitive advantage compounds.</p>
+      <p>Signal runs on a loop, not a project timeline. Every customer conversation becomes structured intelligence. Every piece of intelligence informs a commercial decision. Every decision produces an outcome that sharpens the next round of understanding. That loop is what lets advantage compound instead of resetting every quarter.</p>
     </div>
     <div class="loop-wrap">
       <div class="loop-diagram">
@@ -334,7 +310,7 @@ footer{background:var(--ink);padding:3rem 4rem}
     <div class="sec-label">Why Signal looks the way it does</div>
     <h2 class="sec-title" style="max-width:18ch">The architecture reflects the philosophy.</h2>
     <div class="sec-body">
-      <p>Signal was not designed as six unrelated tools. It was designed as a connected commercial intelligence system. Customer understanding comes before customer profiling. Customer profiling comes before strategy validation. Strategy validation improves persona modeling. Persona modeling improves churn prediction. Together, they create a living intelligence layer that becomes more valuable every time it is refreshed. Every module exists because the one before it makes the next one smarter.</p>
+      <p>Signal wasn't designed as six unrelated tools. It was designed as a connected commercial intelligence system, where customer understanding shapes customer profiling, customer profiling sharpens strategy validation, and strategy validation strengthens persona modeling and churn prediction. Together, they form a living intelligence layer that grows more valuable every time it's refreshed, because each module exists to make the next one smarter.</p>
     </div>
     <div class="chain-flow">
       <div class="chain-item">
@@ -374,9 +350,9 @@ footer{background:var(--ink);padding:3rem 4rem}
 <div class="section">
   <div class="section-inner">
     <div class="sec-label">Who Signal is built for</div>
-    <h2 class="sec-title" style="max-width:20ch">Not a company size. A mindset.</h2>
+    <h2 class="sec-title" style="max-width:20ch">The stage matters more than the size.</h2>
     <div class="sec-body">
-      <p>Signal is not built for startups still searching for product-market fit, and it is not built for global enterprises with hundreds of analysts. It is built for organizations that have reached a point where customer decisions carry real financial consequences, roughly $10M to $100M in revenue, with established customers, growing complexity, and enough commercial momentum that better decisions create meaningful value. They do not need another strategy presentation. They need better commercial intelligence.</p>
+      <p>Signal isn't built for startups still searching for product-market fit, or for enterprises with hundreds of analysts already on staff. It's built for organizations where customer decisions have started to carry real financial consequences, roughly $10M to $100M in revenue.</p>
     </div>
     <div class="audience-grid">
       <div class="audience-card">
@@ -404,7 +380,7 @@ footer{background:var(--ink);padding:3rem 4rem}
     <div class="sec-label">The role of advisory</div>
     <h2 class="sec-title" style="max-width:20ch">Signal is designed to stand on its own.</h2>
     <div class="sec-body">
-      <p>The platform gives leadership a structured understanding of what customers are saying, where commercial risk is emerging, and what deserves attention next. Some organizations move quickly from there. Others want experienced operators to help interpret the findings, align leadership around priorities, or accelerate implementation. That is where our advisory practice fits. It is not a requirement. It is an extension of the platform for teams that want additional support turning intelligence into execution.</p>
+      <p>The platform gives leadership a structured understanding of what customers are saying and where to focus next. Some organizations move quickly from there. Others want experienced operators to help interpret findings and accelerate execution. That's optional, not required.</p>
     </div>
     <div class="split">
       <div class="split-col">
@@ -426,9 +402,6 @@ footer{background:var(--ink);padding:3rem 4rem}
   <div class="section-inner">
     <div class="sec-label">Built by practitioners</div>
     <h2 class="sec-title" style="max-width:20ch">Not created in a research lab.</h2>
-    <div class="sec-body">
-      <p>Signal was built after two decades of helping commercial organizations answer the same questions, solve the same problems, and repeat the same work manually. The platform captures that experience in software, not to replace judgment, but to give good judgment better information.</p>
-    </div>
     <div class="cred-grid">
       <div class="cred-stats">
         <div>
@@ -441,9 +414,8 @@ footer{background:var(--ink);padding:3rem 4rem}
         </div>
       </div>
       <div class="cred-bio">
-        <p>Signal was founded by a senior commercial leader with over two decades of experience helping B2B organizations close the gap between what they know about their customers and what they do about it.</p>
-        <p>That experience includes leading a 70-person global consulting practice with full P&amp;L responsibility, working across enterprise and growth-stage companies in multiple industries, and building deep expertise at the intersection of customer intelligence, GTM strategy, and commercial execution.</p>
-        <p>Signal is the product of a pattern observed consistently across those twenty years: the companies that win commercially are not always the ones with the best product. They are the ones with the clearest picture of who they are serving and why those customers chose them.</p>
+        <p>Signal was founded by a senior commercial leader with two decades of experience closing the gap between what organizations know about their customers and what they do about it. The platform captures that experience in software, not to replace judgment, but to give good judgment better information.</p>
+        <p>That experience surfaced a consistent pattern: the companies that win commercially are not always the ones with the best product. They are the ones with the clearest picture of who they're serving and why those customers chose them in the first place.</p>
       </div>
     </div>
   </div>
